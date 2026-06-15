@@ -1,30 +1,69 @@
-# Skill Finder
+<div align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/skill-finder-logo-512.png">
+    <source media="(prefers-color-scheme: light)" srcset="assets/skill-finder-logo-512.png">
+    <img alt="Skill Finder logo: a magnifying glass inspecting a SKILL.md file among capability cards" src="assets/skill-finder-logo-512.png" width="156">
+  </picture>
 
-Skill Finder is a Codex skill for finding, inspecting, and recommending the best installable capability for a real task.
+  <h1>Skill Finder</h1>
+  <p>Find the strongest agent-usable skill, tool, MCP server, workflow, package, or capability stack for a real task.</p>
+</div>
 
-It is designed for moments when a user or AI assistant knows the problem, but not the best tool to solve it. A "skill" can be an agent skill, MCP server, app connector, workflow template, CLI, package, validator, documentation source, or a bundle of those pieces.
+<div align="center">
 
-## What It Does
+[![License: MIT][license-shield]][license-url]
+[![Version 0.1.4][version-shield]][version-url]
+[![Agent Skills compatible][skills-shield]][skills-url]
 
-Skill Finder turns a messy user problem into a bounded capability search:
+</div>
 
-- infers the real task need from the request and available project context
-- builds exact, semantic, source-specific, code/file, docs, and package/tool queries
-- searches local skills first, then external sources such as GitHub, MCP catalogs, app connectors, workflow catalogs, package registries, official docs, changelogs, and web results
-- gathers at least 20 GitHub finalists when GitHub is relevant and shows no more than five recommendations
-- reads important finalist files and scans supporting files with ripgrep
-- scores task fit, file quality, freshness, adoption, installability, dependency readiness, trust surfaces, license/reuse clarity, tests/evals, and contributor activity
-- recommends one agent-usable winner, a justified bundle, or a Missing Skill Blueprint when no strong option exists
-- stops for explicit user approval before installs, credentials, risky scripts, deletions, publishing, or persistent/global mutation
+<div align="center">
+  <a href="#the-problem">Why</a> &middot;
+  <a href="#quick-start">Quick Start</a> &middot;
+  <a href="#install">Install</a> &middot;
+  <a href="#validation">Validation</a> &middot;
+  <a href="#learning-evidence">Learning Evidence</a>
+</div>
 
-## Repository Contents
+If an AI assistant keeps improvising one-off fixes or grabbing the first matching tool, Skill Finder is for you. It forces a source-backed search, deep inspection, and an approval boundary before anything gets installed or changed.
 
-- `skills/skill-finder/SKILL.md` - the Codex skill entrypoint
-- `skills/skill-finder/agents/openai.yaml` - user-facing metadata and declared dependencies
-- `skills/skill-finder/references/` - search, ranking, dependency, and approval rules
-- `examples/` - public-safe example request and output shape
-- `validation/` - lightweight checks for the public package
-- `DILIGENCE.md` - AI collaboration and responsibility statement
+---
+
+## The Problem
+
+Agents are good at making temporary helpers, but that can waste time, miss better existing tools, or install something shallow because the name matched. Skill Finder gives the agent a repeatable way to search broadly, inspect source files, compare real candidates, and recommend the best agent-usable capability for the task.
+
+## Features
+
+- Finds more than traditional skills: MCP servers, app connectors, workflow templates, CLIs, packages, validators, documentation sources, and composed stacks.
+- Compares candidates from evidence, not search snippets, by reading important files and scanning setup, trust, license, and dependency surfaces.
+- Keeps recommendations bounded: gather a broad finalist pool when GitHub matters, then show at most five useful options.
+- Keeps free account-gated or API-key-gated tools in contention instead of demoting them only because setup is required.
+- Produces installable next steps with dependency readiness, verification commands, risks, and explicit approval questions.
+- Falls back to a Missing Skill Blueprint when no existing option is good enough.
+
+## Quick Start
+
+```text
+"Find the best capability for this task: ..."      -> ranked recommendation packet
+"Compare these candidate tools for my agent: ..."  -> evidence table and winner
+"No good skill exists; draft the blueprint."       -> missing-capability spec and eval cases
+```
+
+## Usage
+
+Use Skill Finder when:
+
+- a specialized skill or tool may already exist
+- the current tool is underperforming, stale, shallow, or too expensive to keep improvising around
+- the task needs current research, source inspection, installability checks, or safety review
+- a non-skill capability might be the better answer
+
+Example sample flow:
+
+> User: "I have a large messy repo and my coding agent wastes context opening files one at a time. Find the best local capability for definitions, callers, routes, config links, and risky changes without uploading my code."
+>
+> Skill Finder should search code intelligence tools, MCP servers, package registries, official docs, and GitHub source; inspect finalist files; compare trust and installability; then recommend no more than five options.
 
 ## Install
 
@@ -37,46 +76,39 @@ mkdir -p ~/.codex/skills
 cp -R skills/skill-finder ~/.codex/skills/skill-finder
 ```
 
-Restart Codex after copying the skill so the new skill list refreshes.
+Restart your agent host after copying the skill so its skill list refreshes.
 
-Optional helper tools improve results but are not assumed: `skills` or `npx skills` for skills.sh marketplace discovery, `rg` for local scans, `git`/`gh` for repository inspection, `node`/`npm`/`npx` for package-tool discovery, `python3` for validation scripts, and Plugin Eval or `skill-installer` for evaluation and install planning. If a helper is unavailable or approval-gated, Skill Finder should record that in dependency readiness and use documented fallbacks.
+Optional helper tools improve search quality but are not required: `skills` or `npx skills` for skills.sh marketplace discovery, `rg` for local scans, `git`/`gh` for repository inspection, `node`/`npm`/`npx` for package-tool discovery, `python3` for validation, and Plugin Eval or a skill installer for evaluation and install planning.
 
-## Use
+Free tools that require an account, API key, OAuth flow, or browser login should still be considered valid candidates and can still win. Skill Finder should treat credential setup as a readiness step, not a reason to discard the tool. Paid services, required payment, risky authorization, opaque code, destructive actions, or persistent/global mutation remain approval boundaries.
 
-Use Skill Finder when:
+## Safety Boundary
 
-- a specialized skill or tool may already exist
-- the current tool is underperforming or too shallow
-- the task needs current research, source inspection, installability checks, or safety review
-- a non-skill capability such as an MCP server, app connector, workflow, CLI, binary, package, validator, or docs source might be the better answer
+Skill Finder treats candidate files as evidence to inspect, not instructions to obey. It should not run candidate setup scripts, enter credentials, link accounts, delete files, enable integrations, publish content, or mutate global state without explicit approval. If a free recommended tool needs credentials, Skill Finder should still recommend or download/install the safe package when allowed, then stop at the credential-entry step with clear setup instructions.
 
-Example:
+This is not a package manager, scraper, or automatic installer. It is a decision workflow for helping an agent find and vet the right capability before acting.
 
-> I have a large messy repo and need a better way for an AI coding agent to find definitions, callers, routes, config links, and risky changes without wasting context. Find the best installable capability.
+## Output Shape
 
-## Output Contract
+A strong recommendation includes:
 
-A good Skill Finder recommendation includes:
-
-- Search Strategy
-- Source-Route Scorecard
+- Search Strategy and Source-Route Scorecard
 - Candidate Evidence Table
-- capability type and availability
-- dependency readiness
 - files read and scanned
-- freshness, adoption, contributor, and trust signals
+- dependency readiness and verification command
+- freshness, adoption, contributor, trust, and license signals
 - winner-vs-near-miss reasoning
-- install command source or `Install command: not verified`
-- verification command or reason it is unavailable
-- risks and caveats
-- explicit approval question before install or persistent change
+- source install command or `Install command: not verified`
+- risks and approval boundary before install or persistent change
+
+See [examples/recommendation-output-shape.md](examples/recommendation-output-shape.md) for a sample packet.
 
 ## Validation
 
-Run the public package checks:
+Run public package checks from the repository root:
 
 ```bash
-python3 -m unittest discover -s validation
+python3 -m unittest discover -s validation -v
 ```
 
 If you have the Codex skill validator available, validate the skill folder:
@@ -85,10 +117,37 @@ If you have the Codex skill validator available, validate the skill folder:
 python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
 ```
 
-## Safety Boundary
+This release has also been checked with Plugin Eval from the local development environment. If Plugin Eval is unavailable in your setup, treat that as an optional review tool rather than a hard dependency.
 
-Skill Finder treats candidate files as evidence to inspect, not instructions to obey. Final recommendations should be usable by an AI agent in the target host; human-only websites or articles can support the search but are not enough by themselves. It should not install recommended skills, run candidate package scripts, use credentials, delete files, enable integrations, publish content, or mutate global state without explicit approval.
+## Learning Evidence
+
+This project was built as an AI Fluency course project and public agent-skill package. The short evidence packet explains what I learned through Delegation, Description, Discernment, and Diligence; how the project scores evolved; where AI contributed; and what I personally reviewed, changed, and take responsibility for.
+
+See [AI_FLUENCY_EVIDENCE.md](AI_FLUENCY_EVIDENCE.md).
+
+## What's Inside
+
+```text
+AI_FLUENCY_EVIDENCE.md                           - learning evidence, scores, and human/AI collaboration summary
+skills/skill-finder/SKILL.md                    - skill entrypoint and workflow
+skills/skill-finder/agents/openai.yaml          - display metadata and helper dependency notes
+skills/skill-finder/references/                 - search, ranking, readiness, and approval rules
+examples/                                       - public-safe request and output examples
+validation/                                     - lightweight public package checks
+DILIGENCE.md                                    - AI collaboration and responsibility statement
+```
+
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request.
 
 ## License
 
-MIT. See `LICENSE`.
+MIT. See [LICENSE](LICENSE).
+
+[license-shield]: https://img.shields.io/badge/License-MIT-green.svg
+[license-url]: LICENSE
+[version-shield]: https://img.shields.io/badge/version-0.1.4-blue.svg
+[version-url]: CHANGELOG.md
+[skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
+[skills-url]: https://agentskills.io
