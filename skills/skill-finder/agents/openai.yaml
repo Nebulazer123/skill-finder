@@ -1,0 +1,16 @@
+interface:
+  display_name: "Skill Finder"
+  short_description: "Find, vet, and prepare skills or task capabilities"
+  default_prompt: "Use $skill-finder to find, compare, vet, or improve the best installable skill or capability for my current problem, including dependency readiness."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "github"
+      description: "GitHub MCP for repo/code search."
+    - type: "mcp"
+      value: "context7"
+      description: "Context7 MCP for current documentation."
+    - type: "binary"
+      value: "rg"
+      description: "ripgrep for local file inspection."

@@ -1,0 +1,8 @@
+.DS_Store
+__pycache__/
+*.pyc
+.plugin-eval/
+.pytest_cache/
+.mypy_cache/
+dist/
+build/
