@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 0.1.4][version-shield]][version-url]
+[![Version 0.1.5][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -68,6 +68,20 @@ Example sample flow:
 ## Install
 
 Review the files before installing. This repository does not auto-install anything.
+
+Recommended install with the Agent Skills CLI:
+
+```bash
+npx skills add Nebulazer123/skill-finder --skill skill-finder
+```
+
+If you already have the CLI installed:
+
+```bash
+skills add Nebulazer123/skill-finder --skill skill-finder
+```
+
+The public package was verified as discoverable with `skills add Nebulazer123/skill-finder --list` and usable without installing via `skills use Nebulazer123/skill-finder@skill-finder`.
 
 Manual local install for Codex-style skill folders:
 
@@ -147,7 +161,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-0.1.4-blue.svg
+[version-shield]: https://img.shields.io/badge/version-0.1.5-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

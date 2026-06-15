@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.5 - 2026-06-15
+
+- Added the verified Agent Skills CLI install path: `npx skills add Nebulazer123/skill-finder --skill skill-finder`.
+- Documented that the package is discoverable with `skills add Nebulazer123/skill-finder --list` and usable with `skills use Nebulazer123/skill-finder@skill-finder`.
+
 ## 0.1.4 - 2026-06-15
 
 - Added the final public README logo image and removed unused placeholder logo assets.

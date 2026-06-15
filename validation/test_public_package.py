@@ -65,6 +65,8 @@ class PublicPackageTests(unittest.TestCase):
             self.assertIn(phrase, readme)
 
         self.assertIn("does not auto-install anything", readme)
+        self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
+        self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("credential setup as a readiness step", readme)
         self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
