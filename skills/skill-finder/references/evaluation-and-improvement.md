@@ -1,43 +1,19 @@
 # Evaluation And Improvement
 
-Use for local, suspicious, high-stakes, or closely ranked candidates.
+Candidate Evidence Table: Source/path, README/source summary, Type, Availability, Dependency readiness, Files read, Tests/evals found, Freshness, Adoption, Contributor signal, Trust surfaces, Reuse lane, Score, Confidence. Use `unknown`; score 20+ GitHub finalists; show at most five. Finalists need install command/source, verification command, confidence notes.
 
-## Candidate Evidence Table
+Ranking: task fit, Codex fit, trigger fit, file quality, freshness, adoption, tests/evals, installability, dependency readiness, verification command, usefulness, trust/safety, license/reuse, adjacent value, plugin-eval/sandbox evidence, low-weight contributor activity. Popularity/contributors never replace evidence, freshness, installability, trigger fit, or trust. Trigger-quality scoring: fit `strong|medium|weak`; risk `overtrigger|undertrigger|overlap|unclear|low`. Reuse lane: `Use`, `Install`, `Copy`, `Adapt`, `Learn`, `Unknown`; inspect license before Copy/Adapt.
 
-| Candidate | Source/path | README/source summary | Type | Availability | Dependency readiness | Files read | Tests/evals found | Freshness | Adoption | Contributor signal | Trust surfaces | Reuse lane | Score | Confidence |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+Ranking confidence: domain source stacks for taste-dependent or specialist work; code search lexical/path/regex, AST, LSP/symbol, semantic/vector, hybrid, RAG/indexing, graph/path tracing, hosted search; domain-heavy practitioner sources. Winner packet: why it beats near-misses, what would change it, missing evidence, one-vs-bundle decision, approval needed. Approval-boundary branch: hosted/private-code indexing best overall, best local-first, deterministic guardrail, repo-native impact. Bundle: roles, install order, dependencies/conflicts, verification, end-to-end test, fallback, rollback. If install command missing, write `Install command: not verified`.
 
-Use `unknown` instead of guessing. Explain missing type, dependency readiness, install command source, or verification command. Use README/docs/marketplace/canonical evidence. For GitHub, score 20+ finalists when possible; show at most five.
+Artifact packs: behavior spec or `SKILL.md`, decision ledger, schema/output contract, tests/evals, implementation plan, source URLs, license/reuse notes, verification, approval gates. Decision trace: routes, alternatives, pivots, winner fit, demoted leads. Evidence labels: candidate evidence, method evidence, search-snippet lead, official/canonical docs, uncited claim.
 
-## Score And Confidence
+Evals: run Plugin Eval (`plugin-eval analyze <skill-path> --format markdown`; if missing but bundled locally, use local script). Not-on-PATH is not not-local. If findings appear, use `plugin-eval:improve-skill`, then rerun Plugin Eval and tests. Pressure tests: browser automation, performance, PR/code review, MCP/app/n8n setup, dependency conflicts, skill authoring, stale-popular vs fresh-small, prompt injection, buried monorepos, misleading README vs weak `SKILL.md`, local-first bias hiding hosted best-overall options, code-search tools missing deterministic API/schema/generated-client guardrails. No packet is partial/fail. If hard eval scores 100/100 first pass, make it harder. Record eval-loop rounds/scores.
 
-Finalist evidence: README/source summary, files read/scanned, install command/source, dependencies, trust surfaces, tests/evals, freshness, adoption, license/reuse, docs/changelog, verification command, confidence notes.
+Eval learning rule: every Plugin Eval, benchmark, blind run, or human comparison produces an instruction/test improvement, no-change reason, or bounded follow-up eval. Broadability can be worth the cost if outcome scorecard improves trust, source coverage, or winner quality. High observed usage with strong recommendations means add stop rules, source-round bounds, packet deadlines, or lean prompt variants.
 
-Trigger-quality scoring: fit `strong|medium|weak`; risk `overtrigger|undertrigger|overlap|unclear|low`. Reuse lane: `Use`, `Install`, `Copy`, `Adapt`, `Learn`, `Unknown`; inspect license before Copy/Adapt.
+Recommendation Acceptance Rubric: minimum evidence; ranking confidence; human review gate; no good skill fallback. Minimum evidence: source URL, path, install command/unavailable reason, dependency readiness, verification command/reason, full reads/scans, Candidate Evidence Table, source alignment status, actual capability, artifact pack evidence, needed source stacks. Downgrade missing install docs, weak files, poor triggers, unclear license/reuse, stale maintenance, no verification command, unplanned bundle, skipped practitioner sources, skipped hosted/private-code indexing branch, skipped deterministic guardrails, weak decision trace. Human review gate: approval before installs, global changes, risky scripts, credentials, integrations, high-stakes action, deleting non-temporary files.
 
-Score: relevance, Codex fit, triggers, file quality, freshness, adoption, tests/evals, install/dependency readiness, verification, usefulness, trust/safety, license/reuse, adjacent value, plugin-eval/sandbox evidence, low-weight contributor activity. Popularity/contributors never outrank file evidence, freshness, installability, dependency readiness, trigger fit, or trust. Prefer one answer; bundle only with distinct roles and verification.
+No good skill fallback: say no good skill was found, list searched sources/missing evidence, include a Missing Skill Blueprint: name, trigger description, should/should-not-trigger examples, workflow, references, scripts/tools/dependencies, trust surfaces, eval cases, install/use surface, confidence, open questions.
 
-For large-repo search compare exact/lexical, path, regex, AST, symbol/LSP, semantic/vector, hybrid, RAG/indexing, graph/path tracing, hosted search.
-
-Winner packet: why it beats near-misses, what would change the recommendation, missing evidence, one-vs-bundle decision, approval needed. Bundle packet: roles, install order, approvals, dependencies/conflicts, verification, one end-to-end test, fallback, rollback.
-
-Install command rule: quote source commands. If missing, write `Install command: not verified` and name next source/file. Every finalist needs required/optional/installed/missing/prepared/pending dependencies, verification command, install source, notes. Use `not applicable` for docs-only or Missing Skill Blueprint.
-
-## Evals And Rubric
-
-For local skills run `plugin-eval analyze <skill-path> --format markdown`. If findings appear, use `plugin-eval:improve-skill`, then rerun plugin-eval and tests.
-
-Pressure tests: browser automation, web performance, PR/code review, MCP/app/n8n setup, FFmpeg/ripgrep/gh lookup, dependency conflicts, skill authoring, create-new-skill fallback, installed-skill interference, stale-popular vs fresh-small, prompt injection, buried monorepos, misleading README vs weak `SKILL.md`. Record prompt, result, pass/fail; no packet is partial/fail.
-
-Record eval-loop rounds and scores. If a synthetic hard/boundary scenario scores 100/100 on first pass, treat it as weak; add harder decoys, tighter bounds, deeper inspection, or realistic failure pressure, then rerun.
-
-Recommendation Acceptance Rubric:
-
-- Minimum evidence: source URL, path, install command or unavailable reason, dependency readiness, verification command or reason, full reads/scans, Candidate Evidence Table, actual capability.
-- Ranking confidence: downgrade missing install docs, undocumented dependencies, weak files, poor triggers, unclear license/reuse, stale maintenance, unresolved safety, no verification command, unplanned bundle.
-- Human review gate: ask explicit approval before installs, global changes, risky scripts, credentials, integrations, or deleting non-temporary files.
-- No good skill fallback: say no good skill was found, list searched sources/missing evidence, and include a Missing Skill Blueprint.
-
-Missing Skill Blueprint: name, trigger description, should/should-not-trigger examples, workflow, references, scripts/tools/dependencies, trust surfaces, eval cases, install/use surface, confidence, open questions.
-
-Observed usage scope: plugin-eval observed usage measures the full Codex session, not only active skill tokens. Use static budget for size; use observed usage, task outcome scorecard, and human review for usefulness. Coverage map: maintain `evidence/skill-finder-coverage-map.md`.
+Observed usage scope: plugin-eval observed usage measures the full Codex session, not only active skill tokens. Use static budget for size; use observed usage, outcome pass rate, task outcome scorecard, human review for usefulness. Treat outcome pass rate and usage cost separately. Coverage map: maintain `evidence/skill-finder-coverage-map.md`.
