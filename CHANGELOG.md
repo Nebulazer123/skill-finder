@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.7 - 2026-06-16
+
+- Added Hugging Face as a source/dependency route for models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, ML benchmark/eval discovery, and hosted Jobs/training behind cost/credential approval.
+- Added a safe temporary staging rule so strong candidates can be downloaded, cloned, fetched, or staged for direct inspection when reasonable, while execution, credentials, paid compute, and persistent mutation remain approval boundaries.
+- Added public validation coverage for Hugging Face routing and staging-vs-execution boundaries.
+
 ## 0.1.6 - 2026-06-16
 
 - Added a public Dependencies section with the full external source-route stack: Agent Skills CLI, GitHub CLI, Context7, Browserbase Browse CLI, Composio CLI/MCP, and Codex Plugin Eval.

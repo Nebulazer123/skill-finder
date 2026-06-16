@@ -46,6 +46,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Install command: not verified", text)
         self.assertIn("explicit approval", text.lower())
         self.assertIn("do not demote free account", text.lower())
+        self.assertIn("staged/downloaded artifacts", text.lower())
 
     def test_readme_has_public_front_door_sections(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
@@ -71,15 +72,110 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Agent Skills CLI / skills.sh", readme)
         self.assertIn("GitHub CLI", readme)
         self.assertIn("Context7", readme)
+        self.assertIn("Hugging Face Hub / `hf` CLI", readme)
         self.assertIn("Browserbase Browse CLI", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
         self.assertIn("codex mcp add context7", readme)
+        self.assertIn("hf auth login", readme)
+        self.assertIn("https://hf.co/cli/install.sh", readme)
+        self.assertIn("https://hf.co/cli/install.ps1", readme)
+        self.assertIn("huggingface.co/join", readme)
+        self.assertIn("settings/tokens", readme)
+        self.assertIn("MCP-enabled Spaces", readme)
+        self.assertIn("hosted Jobs/training", readme)
         self.assertIn("browse skills install", readme)
         self.assertIn("composio.dev/install", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("credential setup is a readiness step", readme.lower())
+        self.assertIn("temporary workspace", readme.lower())
+        self.assertIn("staged paths and cleanup status", readme.lower())
         self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
+
+    def test_hugging_face_route_is_documented(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        agent_meta = (
+            ROOT / "skills" / "skill-finder" / "agents" / "openai.yaml"
+        ).read_text(encoding="utf-8")
+        references = "\n".join(
+            path.read_text(encoding="utf-8", errors="ignore")
+            for path in (
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "search-and-inspection.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "dependency-and-capability-readiness.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "install-and-approval.md",
+            )
+        )
+
+        for phrase in (
+            "models",
+            "datasets",
+            "papers",
+            "Spaces",
+            "MCP-enabled Spaces",
+            "community eval",
+            "ML benchmark",
+            "Jobs/training",
+            "cost and credential approval",
+        ):
+            self.assertIn(phrase, readme + references)
+
+        self.assertIn('value: "huggingface"', agent_meta)
+        self.assertIn('value: "hf"', agent_meta)
+        self.assertIn("HF_TOKEN", references)
+        self.assertIn("billing/prepaid credits", references)
+        self.assertNotIn("huggingface-" + "cli", readme + references)
+        self.assertNotIn("huggingface_hub" + "[cli]", readme + references)
+
+    def test_safe_staging_download_policy_is_documented(self):
+        scanned = "\n".join(
+            path.read_text(encoding="utf-8", errors="ignore")
+            for path in (
+                ROOT / "README.md",
+                ROOT / "skills" / "skill-finder" / "SKILL.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "search-and-inspection.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "dependency-and-capability-readiness.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "evaluation-and-improvement.md",
+                ROOT
+                / "skills"
+                / "skill-finder"
+                / "references"
+                / "install-and-approval.md",
+            )
+        ).lower()
+
+        for phrase in (
+            "safe staging",
+            "temporary/sandbox",
+            "staging path",
+            "cleanup status",
+            "staging is not permission to run setup scripts",
+            "do not run candidate scripts",
+        ):
+            self.assertIn(phrase, scanned)
 
     def test_learning_evidence_is_scannable(self):
         evidence = (ROOT / "AI_FLUENCY_EVIDENCE.md").read_text(encoding="utf-8")
