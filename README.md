@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 0.1.5][version-shield]][version-url]
+[![Version 0.1.6][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -21,6 +21,7 @@
   <a href="#the-problem">Why</a> &middot;
   <a href="#quick-start">Quick Start</a> &middot;
   <a href="#install">Install</a> &middot;
+  <a href="#dependencies">Dependencies</a> &middot;
   <a href="#validation">Validation</a> &middot;
   <a href="#learning-evidence">Learning Evidence</a>
 </div>
@@ -92,9 +93,20 @@ cp -R skills/skill-finder ~/.codex/skills/skill-finder
 
 Restart your agent host after copying the skill so its skill list refreshes.
 
-Optional helper tools improve search quality but are not required: `skills` or `npx skills` for skills.sh marketplace discovery, `rg` for local scans, `git`/`gh` for repository inspection, `node`/`npm`/`npx` for package-tool discovery, `python3` for validation, and Plugin Eval or a skill installer for evaluation and install planning.
+## Dependencies
 
-Free tools that require an account, API key, OAuth flow, or browser login should still be considered valid candidates and can still win. Skill Finder should treat credential setup as a readiness step, not a reason to discard the tool. Paid services, required payment, risky authorization, opaque code, destructive actions, or persistent/global mutation remain approval boundaries.
+Set up these external capabilities for the full Skill Finder workflow across skill marketplaces, GitHub source, current docs, browser evidence, app connectors, and skill evaluation.
+
+| Dependency | Purpose | Get it / sign up | macOS setup | Windows setup |
+|---|---|---|---|---|
+| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Discover and install agent skills from GitHub repositories and the open skills ecosystem. | No account required. Browse public skills at [skills.sh](https://skills.sh). | `npm install -g skills` | `npm install -g skills` |
+| [GitHub CLI](https://cli.github.com/) | Search repositories, inspect source files, check releases/issues, and verify GitHub candidates from the terminal. | Use a GitHub account, then authenticate with `gh auth login`. | `brew install gh && gh auth login` | `winget install --id GitHub.cli && gh auth login` |
+| [Context7](https://github.com/upstash/context7) | Pull current library, SDK, API, and framework documentation into the agent workflow. | Get a free API key at [context7.com/dashboard](https://context7.com/dashboard) for higher limits. | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` |
+| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Use search, fetch, cloud browser sessions, and Browse.sh skills when normal search snippets are not enough. | Create a Browserbase account and API key at [browserbase.com](https://www.browserbase.com/). | `npm install -g browse && browse skills install` | `npm install -g browse && browse skills install` |
+| [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Discover, authenticate, and use app connectors across SaaS tools; useful when the best capability is an app action, not a code package. | Create or sign in to Composio; app connections may require OAuth. Codex MCP setup is documented at [composio.dev/toolkits/composio/framework/codex](https://composio.dev/toolkits/composio/framework/codex). | <code>curl -fsSL https://composio.dev/install &#124; bash && composio login</code> | Use WSL with <code>curl -fsSL https://composio.dev/install &#124; bash && composio login</code>, or follow the Codex MCP setup page. |
+| [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Score and improve skills with repeatable checks instead of relying on vibes. | Install Plugin Eval from the Codex plugin directory. Codex plugin setup is documented at [developers.openai.com/codex/plugins](https://developers.openai.com/codex/plugins). | Run `codex`, then `/plugins`, then install Plugin Eval. | Run `codex`, then `/plugins`, then install Plugin Eval. |
+
+Credential setup is a readiness step. Free tools that require an account, API key, OAuth flow, or browser login should still be considered valid candidates and can still win. Paid services, required payment, risky authorization, opaque code, destructive actions, or persistent/global mutation remain approval boundaries.
 
 ## Safety Boundary
 
@@ -161,7 +173,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-0.1.5-blue.svg
+[version-shield]: https://img.shields.io/badge/version-0.1.6-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

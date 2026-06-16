@@ -56,6 +56,7 @@ class PublicPackageTests(unittest.TestCase):
             "## Features",
             "## Quick Start",
             "## Install",
+            "## Dependencies",
             "## Safety Boundary",
             "## Validation",
             "## Learning Evidence",
@@ -67,8 +68,17 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("does not auto-install anything", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
+        self.assertIn("Agent Skills CLI / skills.sh", readme)
+        self.assertIn("GitHub CLI", readme)
+        self.assertIn("Context7", readme)
+        self.assertIn("Browserbase Browse CLI", readme)
+        self.assertIn("Composio CLI / MCP", readme)
+        self.assertIn("Codex Plugin Eval", readme)
+        self.assertIn("codex mcp add context7", readme)
+        self.assertIn("browse skills install", readme)
+        self.assertIn("composio.dev/install", readme)
         self.assertIn("explicit approval", readme.lower())
-        self.assertIn("credential setup as a readiness step", readme)
+        self.assertIn("credential setup is a readiness step", readme.lower())
         self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
 
     def test_learning_evidence_is_scannable(self):

@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.6 - 2026-06-16
+
+- Added a public Dependencies section with the full external source-route stack: Agent Skills CLI, GitHub CLI, Context7, Browserbase Browse CLI, Composio CLI/MCP, and Codex Plugin Eval.
+- Added purpose, setup/sign-up links, and macOS/Windows setup guidance for each external capability.
+- Moved free credentialed-tool guidance below the dependency table so account/API/OAuth setup is treated as readiness work, not a disqualifier.
+
 ## 0.1.5 - 2026-06-15
 
 - Added the verified Agent Skills CLI install path: `npx skills add Nebulazer123/skill-finder --skill skill-finder`.
