@@ -267,6 +267,12 @@ class PublicPackageTests(unittest.TestCase):
             "raw " + "evidence",
             "API" + "_KEY=",
             "PASS" + "WORD=",
+            "SECRET" + "_KEY=",
+            "ACCESS" + "_KEY=",
+            "PRIVATE" + "_KEY=",
+            "BEGIN RSA PRIVATE" + " KEY",
+            "BEGIN EC PRIVATE" + " KEY",
+            "Bearer " + "eyJ",
         )
         for phrase in forbidden:
             self.assertNotIn(phrase, scanned)
@@ -276,6 +282,11 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("__pycache__/", gitignore)
         self.assertIn("*.pyc", gitignore)
         self.assertIn(".pytest_cache/", gitignore)
+
+    def test_gitignore_covers_secret_and_credential_files(self):
+        gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
+        for pattern in (".env", "*.pem", "*.key", "*.p12", "*.pfx"):
+            self.assertIn(pattern, gitignore)
 
 
 if __name__ == "__main__":

@@ -6,3 +6,26 @@ __pycache__/
 .mypy_cache/
 dist/
 build/
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.cert
+*.crt
+secrets.*
+credentials.*
+
+# Dependencies
+node_modules/
+
+# Editor and OS artifacts
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+Thumbs.db
