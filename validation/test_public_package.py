@@ -1,8 +1,15 @@
 from pathlib import Path
 import unittest
 
-
-ROOT = Path(__file__).resolve().parents[1]
+from helpers import (
+    ROOT,
+    SKILL_ROOT,
+    REFERENCE_PATHS,
+    read_files,
+    read_all_references,
+    assert_phrases_present,
+    assert_phrases_absent,
+)
 
 
 class PublicPackageTests(unittest.TestCase):
@@ -25,18 +32,15 @@ class PublicPackageTests(unittest.TestCase):
         self.assertTrue((ROOT / "assets" / "skill-finder-logo-512.png").is_file())
 
     def test_skill_files_exist(self):
-        skill_root = ROOT / "skills" / "skill-finder"
-        self.assertTrue((skill_root / "SKILL.md").is_file())
-        self.assertTrue((skill_root / "agents" / "openai.yaml").is_file())
-        self.assertTrue((skill_root / "references" / "search-and-inspection.md").is_file())
-        self.assertTrue((skill_root / "references" / "evaluation-and-improvement.md").is_file())
-        self.assertTrue((skill_root / "references" / "dependency-and-capability-readiness.md").is_file())
-        self.assertTrue((skill_root / "references" / "install-and-approval.md").is_file())
+        self.assertTrue((SKILL_ROOT / "SKILL.md").is_file())
+        self.assertTrue((SKILL_ROOT / "agents" / "openai.yaml").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "search-and-inspection.md").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "evaluation-and-improvement.md").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "dependency-and-capability-readiness.md").is_file())
+        self.assertTrue((SKILL_ROOT / "references" / "install-and-approval.md").is_file())
 
     def test_skill_contract_keeps_required_boundaries(self):
-        text = (ROOT / "skills" / "skill-finder" / "SKILL.md").read_text(
-            encoding="utf-8"
-        )
+        text = (SKILL_ROOT / "SKILL.md").read_text(encoding="utf-8")
 
         self.assertIn("20+ finalists", text)
         self.assertIn("show at most five", text)
@@ -51,7 +55,7 @@ class PublicPackageTests(unittest.TestCase):
     def test_readme_has_public_front_door_sections(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
 
-        for phrase in (
+        assert_phrases_present(self, (
             "assets/skill-finder-logo-512.png",
             "## The Problem",
             "## Features",
@@ -63,62 +67,51 @@ class PublicPackageTests(unittest.TestCase):
             "## Learning Evidence",
             "## Contributing",
             "## License",
-        ):
-            self.assertIn(phrase, readme)
+        ), readme)
 
-        self.assertIn("does not auto-install anything", readme)
-        self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
-        self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
-        self.assertIn("Agent Skills CLI / skills.sh", readme)
-        self.assertIn("GitHub CLI", readme)
-        self.assertIn("Context7", readme)
-        self.assertIn("Hugging Face Hub / `hf` CLI", readme)
-        self.assertIn("Browserbase Browse CLI", readme)
-        self.assertIn("Composio CLI / MCP", readme)
-        self.assertIn("Codex Plugin Eval", readme)
-        self.assertIn("codex mcp add context7", readme)
-        self.assertIn("hf auth login", readme)
-        self.assertIn("https://hf.co/cli/install.sh", readme)
-        self.assertIn("https://hf.co/cli/install.ps1", readme)
-        self.assertIn("huggingface.co/join", readme)
-        self.assertIn("settings/tokens", readme)
-        self.assertIn("MCP-enabled Spaces", readme)
-        self.assertIn("hosted Jobs/training", readme)
-        self.assertIn("browse skills install", readme)
-        self.assertIn("composio.dev/install", readme)
-        self.assertIn("explicit approval", readme.lower())
-        self.assertIn("credential setup is a readiness step", readme.lower())
-        self.assertIn("temporary workspace", readme.lower())
-        self.assertIn("staged paths and cleanup status", readme.lower())
-        self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
+        assert_phrases_present(self, (
+            "does not auto-install anything",
+            "npx skills add Nebulazer123/skill-finder --skill skill-finder",
+            "skills use Nebulazer123/skill-finder@skill-finder",
+            "Agent Skills CLI / skills.sh",
+            "GitHub CLI",
+            "Context7",
+            "Hugging Face Hub / `hf` CLI",
+            "Browserbase Browse CLI",
+            "Composio CLI / MCP",
+            "Codex Plugin Eval",
+            "codex mcp add context7",
+            "hf auth login",
+            "https://hf.co/cli/install.sh",
+            "https://hf.co/cli/install.ps1",
+            "huggingface.co/join",
+            "settings/tokens",
+            "MCP-enabled Spaces",
+            "hosted Jobs/training",
+            "browse skills install",
+            "composio.dev/install",
+            "AI_FLUENCY_EVIDENCE.md",
+        ), readme)
+
+        assert_phrases_present(self, (
+            "explicit approval",
+            "credential setup is a readiness step",
+            "temporary workspace",
+            "staged paths and cleanup status",
+        ), readme, case_sensitive=False)
 
     def test_hugging_face_route_is_documented(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        agent_meta = (
-            ROOT / "skills" / "skill-finder" / "agents" / "openai.yaml"
-        ).read_text(encoding="utf-8")
-        references = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "search-and-inspection.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        agent_meta = (SKILL_ROOT / "agents" / "openai.yaml").read_text(
+            encoding="utf-8"
+        )
+        references = read_files(
+            REFERENCE_PATHS["search"],
+            REFERENCE_PATHS["dependency"],
+            REFERENCE_PATHS["install"],
         )
 
-        for phrase in (
+        assert_phrases_present(self, (
             "models",
             "datasets",
             "papers",
@@ -128,8 +121,7 @@ class PublicPackageTests(unittest.TestCase):
             "ML benchmark",
             "Jobs/training",
             "cost and credential approval",
-        ):
-            self.assertIn(phrase, readme + references)
+        ), readme + references)
 
         self.assertIn('value: "huggingface"', agent_meta)
         self.assertIn('value: "hf"', agent_meta)
@@ -139,48 +131,25 @@ class PublicPackageTests(unittest.TestCase):
         self.assertNotIn("huggingface_hub" + "[cli]", readme + references)
 
     def test_safe_staging_download_policy_is_documented(self):
-        scanned = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT / "README.md",
-                ROOT / "skills" / "skill-finder" / "SKILL.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "search-and-inspection.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "evaluation-and-improvement.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        scanned = read_files(
+            ROOT / "README.md",
+            SKILL_ROOT / "SKILL.md",
+            *REFERENCE_PATHS.values(),
         ).lower()
 
-        for phrase in (
+        assert_phrases_present(self, (
             "safe staging",
             "temporary/sandbox",
             "staging path",
             "cleanup status",
             "staging is not permission to run setup scripts",
             "do not run candidate scripts",
-        ):
-            self.assertIn(phrase, scanned)
+        ), scanned)
 
     def test_learning_evidence_is_scannable(self):
         evidence = (ROOT / "AI_FLUENCY_EVIDENCE.md").read_text(encoding="utf-8")
 
-        for phrase in (
+        assert_phrases_present(self, (
             "My Role Versus AI's Role",
             "The 4D Learning Evidence",
             "Score And Evolution",
@@ -190,36 +159,23 @@ class PublicPackageTests(unittest.TestCase):
             "96/100",
             "99/100",
             "98/100",
-        ):
-            self.assertIn(phrase, evidence)
+        ), evidence)
 
     def test_free_credentialed_tools_are_not_disqualified(self):
-        scanned = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT / "README.md",
-                ROOT / "skills" / "skill-finder" / "SKILL.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "evaluation-and-improvement.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        scanned = read_files(
+            ROOT / "README.md",
+            SKILL_ROOT / "SKILL.md",
+            REFERENCE_PATHS["dependency"],
+            REFERENCE_PATHS["evaluation"],
+            REFERENCE_PATHS["install"],
         ).lower()
 
-        self.assertIn("credential requirement is not a disqualifier", scanned)
-        self.assertIn("free credentialed tools stay eligible", scanned)
-        self.assertIn("free account/api-key/oauth requirements should not block", scanned)
+        assert_phrases_present(self, (
+            "credential requirement is not a disqualifier",
+            "free credentialed tools stay eligible",
+            "free account/api-key/oauth requirements should not block",
+        ), scanned)
+
         self.assertNotIn("credential-" + "free answer", scanned)
 
     def test_metadata_shape(self):
@@ -259,7 +215,7 @@ class PublicPackageTests(unittest.TestCase):
             and path.suffix != ".pyc"
         )
 
-        forbidden = (
+        assert_phrases_absent(self, (
             "/" + "Users/",
             "corbin" + "floyd",
             "Anthropic " + "Academy",
@@ -267,9 +223,7 @@ class PublicPackageTests(unittest.TestCase):
             "raw " + "evidence",
             "API" + "_KEY=",
             "PASS" + "WORD=",
-        )
-        for phrase in forbidden:
-            self.assertNotIn(phrase, scanned)
+        ), scanned)
 
     def test_gitignore_covers_generated_cache_files(self):
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
