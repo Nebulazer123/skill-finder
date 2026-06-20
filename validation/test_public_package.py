@@ -1,4 +1,7 @@
+import json
 from pathlib import Path
+import subprocess
+import sys
 import unittest
 
 
@@ -71,6 +74,104 @@ class PublicPackageTests(unittest.TestCase):
                 path.is_file(),
                 f"Required skill file missing: {path.relative_to(ROOT)}",
             )
+
+    def test_plugin_package_files_exist(self):
+        required_files = [
+            ROOT / "plugins" / "skill-finder" / ".codex-plugin" / "plugin.json",
+            ROOT / "plugins" / "skill-finder" / ".claude-plugin" / "plugin.json",
+            ROOT / "plugins" / "skill-finder" / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "plugins" / "skill-finder" / "skills" / "skill-finder"
+            / "agents" / "openai.yaml",
+            ROOT / "plugins" / "skill-finder" / "assets" / "skill-finder-logo-512.png",
+            ROOT / ".agents" / "plugins" / "marketplace.json",
+            ROOT / ".claude-plugin" / "marketplace.json",
+            ROOT / "scripts" / "sync_plugin_package.py",
+        ]
+        for path in required_files:
+            self.assertTrue(
+                path.is_file(),
+                f"Required plugin package file missing: {path.relative_to(ROOT)}",
+            )
+
+    def test_codex_plugin_manifest_shape(self):
+        manifest = json.loads(
+            _read_text_strict(
+                ROOT / "plugins" / "skill-finder" / ".codex-plugin" / "plugin.json"
+            )
+        )
+
+        self.assertEqual(manifest["name"], "skill-finder")
+        self.assertEqual(manifest["version"], "1.0.1")
+        self.assertEqual(manifest["skills"], "./skills/")
+        self.assertEqual(manifest["license"], "MIT")
+        self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
+        self.assertEqual(manifest["author"]["name"], "Nebulazer123")
+        self.assertEqual(manifest["interface"]["displayName"], "Skill Finder")
+        self.assertEqual(manifest["interface"]["category"], "Productivity")
+        self.assertEqual(manifest["interface"]["logo"], "./assets/skill-finder-logo-512.png")
+        self.assertIn("capability", manifest["keywords"])
+        self.assertLessEqual(len(manifest["interface"]["defaultPrompt"]), 3)
+        for prompt in manifest["interface"]["defaultPrompt"]:
+            self.assertLessEqual(len(prompt), 128)
+
+    def test_claude_plugin_manifest_shape(self):
+        manifest = json.loads(
+            _read_text_strict(
+                ROOT / "plugins" / "skill-finder" / ".claude-plugin" / "plugin.json"
+            )
+        )
+
+        self.assertEqual(manifest["name"], "skill-finder")
+        self.assertEqual(manifest["displayName"], "Skill Finder")
+        self.assertEqual(manifest["version"], "1.0.1")
+        self.assertEqual(manifest["skills"], "./skills/")
+        self.assertEqual(manifest["license"], "MIT")
+        self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
+        self.assertEqual(manifest["author"]["name"], "Nebulazer123")
+        self.assertIn("capability", manifest["keywords"])
+
+    def test_plugin_marketplaces_reference_skill_finder(self):
+        codex_marketplace = json.loads(
+            _read_text_strict(ROOT / ".agents" / "plugins" / "marketplace.json")
+        )
+        claude_marketplace = json.loads(
+            _read_text_strict(ROOT / ".claude-plugin" / "marketplace.json")
+        )
+
+        self.assertEqual(codex_marketplace["name"], "skill-finder")
+        self.assertEqual(codex_marketplace["interface"]["displayName"], "Skill Finder")
+        self.assertEqual(len(codex_marketplace["plugins"]), 1)
+        codex_entry = codex_marketplace["plugins"][0]
+        self.assertEqual(codex_entry["name"], "skill-finder")
+        self.assertEqual(codex_entry["source"]["source"], "local")
+        self.assertEqual(codex_entry["source"]["path"], "./plugins/skill-finder")
+        self.assertEqual(codex_entry["policy"]["installation"], "AVAILABLE")
+        self.assertEqual(codex_entry["policy"]["authentication"], "ON_INSTALL")
+        self.assertEqual(codex_entry["category"], "Productivity")
+
+        self.assertEqual(claude_marketplace["name"], "skill-finder")
+        self.assertEqual(claude_marketplace["owner"]["name"], "Nebulazer123")
+        self.assertEqual(len(claude_marketplace["plugins"]), 1)
+        claude_entry = claude_marketplace["plugins"][0]
+        self.assertEqual(claude_entry["name"], "skill-finder")
+        self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
+        self.assertEqual(claude_entry["displayName"], "Skill Finder")
+        self.assertEqual(claude_entry["version"], "1.0.1")
+        self.assertEqual(claude_entry["category"], "Productivity")
+
+    def test_plugin_package_is_in_sync_with_canonical_skill(self):
+        result = subprocess.run(
+            [sys.executable, "scripts/sync_plugin_package.py", "--check"],
+            cwd=ROOT,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+        )
+        self.assertEqual(
+            result.returncode,
+            0,
+            "Plugin package is out of sync:\n" + result.stdout,
+        )
 
     def test_skill_contract_keeps_required_boundaries(self):
         text = _read_text_strict(ROOT / "skills" / "skill-finder" / "SKILL.md")
