@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.2][version-shield]][version-url]
+[![Version 1.0.3][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -145,31 +145,51 @@ Invoke the local skill the same way:
 /skill-finder
 ```
 
-## Dependencies
+## Required Setup
 
-Skill Finder works with plain web/source inspection, but it is strongest when the agent can combine marketplace search, source-code evidence, current docs, and eval tooling. Install only the routes that match your environment.
+Skill Finder is designed to run with a real discovery stack. If a required route is missing, the skill should stop, explain what is missing, and ask whether you want to install or configure it before it ranks candidates.
 
-| Route | Best for | Setup |
+| Required dependency | Why it is required | Setup |
 |---|---|---|
-| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finding and installing public agent skills. | `npm install -g skills`; browse at [skills.sh](https://skills.sh). |
-| [GitHub CLI](https://cli.github.com/) | Repository search, source inspection, releases, issues, and candidate verification. | `brew install gh && gh auth login` or `winget install --id GitHub.cli && gh auth login`. |
-| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Fast repo maps and architecture hypotheses before source verification. | Add the public DeepWiki MCP endpoint to your agent host. |
-| [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Deeper Devin-backed repo work when your workspace already uses Devin. | Configure it in your agent host when you want Devin sessions or workspace-specific Devin context available. |
-| [Context7](https://github.com/upstash/context7) | Current API, SDK, framework, and MCP documentation. | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest`. |
-| [Hugging Face Hub](https://huggingface.co/docs/huggingface_hub/guides/cli) | ML capability discovery across models, datasets, papers, Spaces, evals, and benchmark material. | Install the `hf` CLI, then sign in with `hf auth login` when private or higher-limit access is needed. |
-| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Browser-backed search, fetch, and web evidence when snippets are not enough. | `npm install -g browse && browse skills install`. |
-| [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | App-action discovery when the answer is a connected SaaS workflow instead of a code package. | Install from [Composio docs](https://docs.composio.dev/docs/cli), then connect only the apps you need. |
-| [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. | Install Plugin Eval from the Codex plugin directory. |
+| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds and inspects public agent skills instead of guessing from generic search. | `npm install -g skills`; browse at [skills.sh](https://skills.sh). |
+| [GitHub MCP](https://github.com/github/github-mcp-server) | Gives the agent source-level repository search and file verification. | Configure the official GitHub MCP server for your agent host. The official server supports Docker via `ghcr.io/github/github-mcp-server`. |
+| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Gives fast public-repo maps and source-linked architecture leads before deeper verification. | Add the public DeepWiki MCP endpoint: `https://mcp.deepwiki.com/mcp`. |
+| [Context7](https://context7.com/docs/clients/codex) | Checks current API, SDK, CLI, framework, and MCP documentation. | `npx ctx7 setup`; Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY`. |
+| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Provides browser-backed search, fetch, snapshots, and live-page evidence. | `npm install -g browse && browse skills install`. |
+| Local basics | Needed for local inspection and validation. | Install `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. |
+
+## Recommended Power Routes
+
+These are not required for every run, but Skill Finder should recommend setup when one would materially improve the answer.
+
+| Recommended route | Use when | Setup |
+|---|---|---|
+| [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | A repo question needs deeper Q&A, bounded sessions, private-repo context, playbooks, knowledge, schedules, or integrations. | Configure Devin MCP with your Devin account and API key. |
+| [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | The task involves models, datasets, papers, Spaces, MCP-enabled Spaces, evals, benchmarks, inference, or training workflows. | Configure from [Hugging Face MCP settings](https://huggingface.co/settings/mcp); use `hf auth login` for private or higher-limit access. |
+| codebase-memory-mcp | Local repo work needs symbol lookup, call paths, route tracing, impact analysis, or architecture summaries. | Configure in your agent host and index the repo before relying on graph answers. |
+| [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | The best capability is a connected SaaS action or app connector. | Install from the official Composio docs and connect only the apps you need. |
+| [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | You are creating or changing a skill and need repeatable scoring. | Install Plugin Eval from the Codex plugin directory when available. |
+
+## Dependency Graph
+
+GitHub can only graph supported manifests and package data. This repo now includes `package.json` for the npm-installable setup tools that are real dependencies of the public setup path:
+
+- `skills`
+- `@upstash/context7-mcp`
+- `browse`
+
+Remote MCP URLs, Docker images, Homebrew packages, OAuth connections, and hosted account setup cannot be honestly represented as npm packages. They stay in the required setup tables above instead of being faked into the graph.
 
 Recommended evidence flow:
 
-1. Use DeepWiki or Devin for fast repo orientation.
-2. Verify important claims against GitHub source files.
-3. Use Context7 or official docs for current API behavior.
-4. Use browser evidence when the source is outside GitHub or needs live confirmation.
-5. Keep login, billing, compute, and workspace mutation needs visible in the recommendation packet.
+1. Confirm required setup is ready.
+2. Use DeepWiki for fast repo orientation.
+3. Verify important claims against GitHub MCP source files.
+4. Use Context7 or official docs for current API behavior.
+5. Use Browserbase when live web evidence is needed.
+6. Add Devin, Hugging Face, codebase-memory, Composio, or Plugin Eval when the task would benefit.
 
-A login requirement is not a disqualifier. Skill Finder should keep a strong free or public-read candidate in the ranking, mark the setup step clearly, and stop before account linking, billing, remote compute, or persistent changes.
+A login requirement is not a disqualifier. Skill Finder should keep strong free or public-read candidates in the ranking, mark the setup step clearly, and stop before account linking, billing, remote compute, or persistent changes.
 
 ## Safety Boundary
 
@@ -183,6 +203,7 @@ The final recommendation should make the next action obvious: install, configure
 
 A strong recommendation includes:
 
+- Required Setup status
 - Search Strategy and Source-Route Scorecard
 - Candidate Evidence Table
 - files read and scanned
@@ -202,13 +223,19 @@ Run public package checks from the repository root:
 python3 -m unittest discover -s validation -v
 ```
 
+Check the graphable setup manifest with:
+
+```bash
+npm pkg get dependencies
+```
+
 If you have the Codex skill validator available, validate the skill folder:
 
 ```bash
 python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
 ```
 
-This release has also been checked with Plugin Eval from the local development environment. If Plugin Eval is unavailable in your setup, treat that as an optional review tool rather than a hard dependency.
+This release has also been checked with Plugin Eval from the local development environment. Plugin Eval is recommended for skill authors and maintainers, but it is not required for ordinary use.
 
 ## How This Skill Was Built
 
@@ -224,6 +251,7 @@ skills/skill-finder/SKILL.md                    - skill entrypoint and workflow
 skills/skill-finder/agents/openai.yaml          - display metadata and helper dependency notes
 skills/skill-finder/references/                 - search, ranking, readiness, and approval rules
 examples/                                       - public-safe request and output examples
+package.json                                    - graphable npm setup dependencies
 validation/                                     - lightweight public package checks
 DILIGENCE.md                                    - responsibility and review statement
 ```
@@ -242,7 +270,7 @@ MIT. See [LICENSE](LICENSE).
 [install-claude-url]: #install-in-claude-code
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.2-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.3-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

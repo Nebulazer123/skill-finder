@@ -46,6 +46,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "CONTRIBUTING.md",
             ROOT / "CODE_OF_CONDUCT.md",
             ROOT / "SECURITY.md",
+            ROOT / "package.json",
             ROOT / ".github" / "repo-meta.yml",
             ROOT / ".github" / "ISSUE_TEMPLATE" / "bug_report.md",
             ROOT / ".github" / "ISSUE_TEMPLATE" / "feature_request.md",
@@ -101,7 +102,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.2")
+        self.assertEqual(manifest["version"], "1.0.3")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -131,7 +132,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.2")
+        self.assertEqual(manifest["version"], "1.0.3")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -164,8 +165,22 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.2")
+        self.assertEqual(claude_entry["version"], "1.0.3")
         self.assertEqual(claude_entry["category"], "Productivity")
+
+    def test_package_json_tracks_graphable_setup_dependencies(self):
+        manifest = json.loads(_read_text_strict(ROOT / "package.json"))
+
+        self.assertTrue(manifest["private"])
+        self.assertEqual(manifest["version"], "1.0.3")
+        self.assertEqual(manifest["engines"]["node"], ">=18")
+
+        dependencies = manifest["dependencies"]
+        for package_name in ("skills", "@upstash/context7-mcp", "browse"):
+            self.assertIn(package_name, dependencies)
+
+        dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
+        self.assertIn('package-ecosystem: "npm"', dependabot)
 
     def test_plugin_package_is_in_sync_with_canonical_skill(self):
         result = subprocess.run(
@@ -189,6 +204,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Source-Route Scorecard", text)
         self.assertIn("Candidate Evidence Table", text)
         self.assertIn("dependency readiness", text.lower())
+        self.assertIn("Required Setup Block", text)
         self.assertIn("Install command: not verified", text)
         self.assertIn("approval", text.lower())
         self.assertIn("DeepWiki/Ask Devin", text)
@@ -204,7 +220,9 @@ class PublicPackageTests(unittest.TestCase):
             "## Features",
             "## Quick Start",
             "## Install",
-            "## Dependencies",
+            "## Required Setup",
+            "## Recommended Power Routes",
+            "## Dependency Graph",
             "## Safety Boundary",
             "## Validation",
             "## How This Skill Was Built",
@@ -220,7 +238,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
-        self.assertIn("GitHub CLI", readme)
+        self.assertIn("GitHub MCP", readme)
         self.assertIn("DeepWiki MCP", readme)
         self.assertIn("Devin MCP", readme)
         self.assertIn("Context7", readme)
@@ -243,6 +261,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("hf auth login", readme)
         self.assertIn("browse skills install", readme)
         self.assertIn("Composio docs", readme)
+        self.assertIn("package.json", readme)
+        self.assertIn("@upstash/context7-mcp", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
         self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", readme)

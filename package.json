@@ -1,0 +1,23 @@
+{
+  "name": "@nebulazer123/skill-finder-public-package",
+  "version": "1.0.3",
+  "private": true,
+  "description": "Public package metadata for Skill Finder's graphable agent-tooling dependencies.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nebulazer123/skill-finder.git"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "test": "python3 -m unittest discover -s validation -v",
+    "check:plugin-package": "python3 scripts/sync_plugin_package.py --check"
+  },
+  "dependencies": {
+    "@upstash/context7-mcp": "^3.2.1",
+    "browse": "^0.8.5",
+    "skills": "^1.5.12"
+  }
+}

@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 - 2026-06-20
+
+- Made Agent Skills, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, and local inspection basics required setup for real Skill Finder runs.
+- Added a Required Setup Block behavior so the skill pauses and asks before installing or configuring missing required routes.
+- Marked Devin, Hugging Face, codebase-memory-mcp, Composio, and Plugin Eval as recommended power routes when they would materially improve a task.
+- Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, and `browse`.
+- Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
+
 ## 1.0.2 - 2026-06-20
 
 - Changed the Codex plugin install command to use the repository's default branch instead of pinning `--ref v1.0.1`.
