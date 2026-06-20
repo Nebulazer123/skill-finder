@@ -59,7 +59,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "codex-text.svg",
             ROOT / "assets" / "logos" / "codex.webp",
             ROOT / "assets" / "logos" / "huggingface-color.svg",
-            ROOT / "assets" / "logos" / "install-codex-compact.svg",
+            ROOT / "assets" / "logos" / "install-codex-wordmark.svg",
             ROOT / "assets" / "logos" / "install-claude-code-button.svg",
             ROOT / "assets" / "logos" / "github-invertocat-white.svg",
             ROOT / "assets" / "logos" / "deepwiki.png",
@@ -118,7 +118,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.4")
+        self.assertEqual(manifest["version"], "1.0.5")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -148,7 +148,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.4")
+        self.assertEqual(manifest["version"], "1.0.5")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -181,14 +181,14 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.4")
+        self.assertEqual(claude_entry["version"], "1.0.5")
         self.assertEqual(claude_entry["category"], "Productivity")
 
     def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
-        self.assertEqual(manifest["version"], "1.0.4")
+        self.assertEqual(manifest["version"], "1.0.5")
         self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
@@ -242,7 +242,7 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/claude-code-color.svg",
             "assets/logos/agent-skills.svg",
             "assets/logos/huggingface-color.svg",
-            "assets/logos/install-codex-compact.svg",
+            "assets/logos/install-codex-wordmark.svg",
             "assets/logos/install-claude-code-button.svg",
             "assets/logos/github-invertocat-white.svg",
             "assets/logos/deepwiki.png",
@@ -320,7 +320,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
         self.assertIn('<img src="assets/logos/agent-skills.svg"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
-        self.assertIn('<img src="assets/logos/install-codex-compact.svg"', readme)
+        self.assertIn('<img src="assets/logos/install-codex-wordmark.svg"', readme)
         self.assertIn('<img src="assets/logos/install-claude-code-button.svg"', readme)
         self.assertIn('<img src="assets/logos/github-invertocat-white.svg"', readme)
         self.assertIn('<img src="assets/logos/deepwiki.png"', readme)
@@ -347,7 +347,7 @@ class PublicPackageTests(unittest.TestCase):
                 readme,
             )
         self.assertLess(
-            readme.index("assets/logos/install-codex-compact.svg"),
+            readme.index("assets/logos/install-codex-wordmark.svg"),
             readme.index("## The Problem"),
         )
         self.assertLess(
@@ -378,7 +378,7 @@ class PublicPackageTests(unittest.TestCase):
         ):
             self.assertGreater(readme.index(logo), readme.index("## Recommended When Useful"))
         install_codex = _read_text_strict(
-            ROOT / "assets" / "logos" / "install-codex-compact.svg"
+            ROOT / "assets" / "logos" / "install-codex-wordmark.svg"
         )
         install_claude = _read_text_strict(
             ROOT / "assets" / "logos" / "install-claude-code-button.svg"
@@ -389,9 +389,9 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('fill="#DA7857"', install_claude)
         self.assertIn('width="260" height="44" viewBox="0 0 260 44"', install_codex)
         self.assertIn('width="260" height="44" viewBox="0 0 260 44"', install_claude)
-        self.assertIn('transform="translate(70 12) scale(.72)"', install_codex)
-        self.assertIn('stroke="#111827"', install_codex)
-        self.assertIn(">Codex</text>", install_codex)
+        self.assertIn('transform="translate(73 7) scale(1.25)"', install_codex)
+        self.assertIn("M79.915 14.964", install_codex)
+        self.assertNotIn("<text", install_codex)
         self.assertIn('transform="translate(61 10)"', install_claude)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
