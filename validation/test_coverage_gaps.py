@@ -104,9 +104,9 @@ class PluginPackagingTests(unittest.TestCase):
 
     def test_marketplaces_are_documented_in_readme(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("Codex:", readme)
-        self.assertIn("Claude Code:", readme)
-        self.assertIn("plugin wrapper packages that skill", readme)
+        self.assertIn("### Install In Codex", readme)
+        self.assertIn("### Install In Claude Code", readme)
+        self.assertIn("community plugin for Codex and Claude Code", readme)
 
 
 class ChangelogTests(unittest.TestCase):

@@ -6,6 +6,7 @@
 - Added a Required Setup Block behavior so the skill pauses and asks before installing or configuring missing required routes.
 - Marked Devin, Hugging Face, codebase-memory-mcp, Composio, and Plugin Eval as recommended power routes when they would materially improve a task.
 - Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, and `browse`.
+- Refocused the README for first-time reviewers with clearer problem framing, setup requirements, proof points, and validation steps.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20

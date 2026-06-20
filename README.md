@@ -6,7 +6,7 @@
   </picture>
 
   <h1>Skill Finder</h1>
-  <p>Find the strongest agent-usable skill, tool, MCP server, workflow, package, or capability stack for a real task.</p>
+  <p>Find the right skill, MCP server, connector, package, or capability stack before your coding assistant improvises one.</p>
 </div>
 
 <div align="center">
@@ -26,32 +26,30 @@
 
 <div align="center">
   <a href="#the-problem">Why</a> &middot;
-  <a href="#features">Features</a> &middot;
+  <a href="#what-it-does">What it does</a> &middot;
   <a href="#quick-start">Quick Start</a> &middot;
   <a href="#install">Install</a> &middot;
+  <a href="#setup-requirements">Setup</a> &middot;
   <a href="#validation">Validation</a>
 </div>
-
-Skill Finder helps an agent choose the right capability before it starts improvising. It searches broadly, checks real source material, compares candidates, and returns a small recommendation packet with the evidence needed to act confidently.
-
-Community plugin note: this is not automatically listed in the first-party Codex or Claude Code plugin directories. Add this GitHub repository as a marketplace source first, then install the `skill-finder` plugin from that source.
 
 ---
 
 ## The Problem
 
-Agents often improvise when they should first look for the right existing capability.
+Coding assistants are good at using tools, but they often miss better tools unless someone tells them where to look.
 
-That improvisation is useful until the better answer is an existing skill, MCP server, app connector, workflow, package, or documentation source that the agent never checked. Skill Finder gives the agent a repeatable way to search the ecosystem, inspect important files, compare real tradeoffs, and recommend the strongest option for the task.
+Skill Finder gives Codex and Claude Code a disciplined way to search for existing capabilities, inspect their evidence, compare tradeoffs, and return a short recommendation before anything risky is installed or changed.
 
-## Features
+Use it when you are about to ask for work that may need a specialized skill, MCP server, connector, library, documentation source, workflow, or multi-tool stack.
 
-- **Broader search** — finds skills, MCP servers, app connectors, workflow templates, CLIs, packages, validators, documentation sources, and composed stacks.
-- **Evidence-first ranking** — reads important files and checks setup, trust, license, and dependency surfaces instead of trusting search snippets.
-- **Small recommendation packets** — gathers a broad finalist pool when GitHub matters, then shows at most five useful options.
-- **Setup-aware choices** — keeps useful login-gated tools in contention while making setup needs clear.
-- **Installable next steps** — includes dependency readiness, verification commands, risks, and explicit approval questions.
-- **No-good-option fallback** — drafts a Missing Skill Blueprint when no existing option is strong enough.
+## What It Does
+
+- **Finds stronger options** - searches beyond local skills into MCP servers, connectors, packages, CLIs, workflow tools, docs, and capability stacks.
+- **Checks real evidence** - reads source files, manifests, READMEs, docs, tests, licenses, install paths, and trust surfaces.
+- **Compares instead of guessing** - ranks candidates with evidence, risks, setup status, and winner-vs-near-miss reasoning.
+- **Handles missing setup clearly** - if required discovery routes are unavailable, it returns a Required Setup Block instead of pretending the search was complete.
+- **Designs the fallback** - when no good option exists, it drafts a missing-capability spec and eval cases for building one.
 
 ## Quick Start
 
@@ -61,41 +59,30 @@ That improvisation is useful until the better answer is an existing skill, MCP s
 | `"Compare these connectors/skills for my agent: ..."` | Evidence table and winner |
 | `"No good skill exists; find the best stack."` | Missing-capability spec and eval cases |
 
-## When to Use It
+Example:
 
-Use Skill Finder when:
-
-- a specialized skill or tool may already exist
-- the current tool is underperforming, stale, shallow, or too expensive to keep improvising around
-- the task needs current research, source inspection, installability checks, or safety review
-- a non-skill capability might be the better answer
-
-Example sample flow:
-
-> User: "I have a large messy repo and my coding agent wastes context opening files one at a time. Find the best local capability for definitions, callers, routes, config links, and risky changes without uploading my code."
->
-> Skill Finder should search code intelligence tools, MCP servers, package registries, official docs, and GitHub source; inspect finalist files; compare trust and installability; then recommend no more than five options.
+```text
+Find the best skill for this task: inspect a large repo, trace routes, find callers, and recommend safe code-intelligence tooling.
+```
 
 ## Install
 
-The fastest path is the plugin wrapper for Codex or Claude Code. The canonical artifact is still the skill at `skills/skill-finder/`; the plugin wrapper packages that skill for the two main plugin workflows.
+Skill Finder ships as a community plugin for Codex and Claude Code. Add this repository as a marketplace source, then install the `skill-finder` plugin from it.
 
-### Plugin Install
-
-#### Install in Codex
-
-Codex:
+### Install In Codex
 
 ```bash
 codex plugin marketplace add Nebulazer123/skill-finder
 codex plugin add skill-finder@skill-finder
 ```
 
-That installs from the repository's default branch. If you need a reproducible older release, add `--ref <tag>` to pin a specific version.
+Use it in Codex with:
 
-#### Install in Claude Code
+```text
+@skill-finder
+```
 
-Claude Code:
+### Install In Claude Code
 
 ```text
 /plugin marketplace add Nebulazer123/skill-finder
@@ -103,157 +90,158 @@ Claude Code:
 /reload-plugins
 ```
 
-After plugin install:
+Use `/skill-finder` in Claude Code:
 
 ```text
-@skill-finder
 /skill-finder
 ```
 
-Use `@skill-finder` in Codex. Use `/skill-finder` in Claude Code.
+### Pin A Release
 
-### Install as an Agent Skill
+The commands above install from the repository's default branch. If you need a reproducible older release, add `--ref <tag>` to the marketplace command.
 
-Review the files before installing. This repository does not auto-install anything.
+Example:
 
-Recommended install with the Agent Skills CLI:
+```bash
+codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.3
+```
+
+### Install As A Local Skill
+
+For hosts that read local `SKILL.md` folders:
 
 ```bash
 npx skills add Nebulazer123/skill-finder --skill skill-finder
 ```
 
-If you already have the CLI installed:
+You can inspect the skill before installing it:
 
 ```bash
-skills add Nebulazer123/skill-finder --skill skill-finder
+skills use Nebulazer123/skill-finder@skill-finder
 ```
 
-The public package was verified as discoverable with `skills add Nebulazer123/skill-finder --list` and usable without installing via `skills use Nebulazer123/skill-finder@skill-finder`.
-
-Manual local install for Codex-style skill folders:
+Manual Codex-style install:
 
 ```bash
 mkdir -p ~/.codex/skills
 cp -R skills/skill-finder ~/.codex/skills/skill-finder
 ```
 
-Restart your agent host after copying the skill so its skill list refreshes.
+Restart your host after manual copying so the skill list refreshes.
 
-Invoke the local skill the same way:
+## Setup Requirements
 
-```text
-/skill-finder
+Skill Finder depends on several discovery routes. They are listed here because they materially affect recommendation quality.
+
+| Required route | Why it matters |
+|---|---|
+| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. |
+| [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. |
+| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Quickly maps public repositories before source verification. |
+| [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. |
+| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Adds browser-backed search, fetch, snapshots, and live-page evidence. |
+| Local basics | `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. |
+
+Useful setup commands:
+
+```bash
+npm install -g skills
+npm install -g browse
+browse skills install
+codex mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
 ```
 
-## Required Setup
+DeepWiki is a remote MCP endpoint at `https://mcp.deepwiki.com/mcp`. GitHub MCP and Browserbase cloud features may require account configuration in Codex or Claude Code.
 
-Skill Finder is designed to run with a real discovery stack. If a required route is missing, the skill should stop, explain what is missing, and ask whether you want to install or configure it before it ranks candidates.
+## Recommended When Useful
 
-| Required dependency | Why it is required | Setup |
-|---|---|---|
-| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds and inspects public agent skills instead of guessing from generic search. | `npm install -g skills`; browse at [skills.sh](https://skills.sh). |
-| [GitHub MCP](https://github.com/github/github-mcp-server) | Gives the agent source-level repository search and file verification. | Configure the official GitHub MCP server for your agent host. The official server supports Docker via `ghcr.io/github/github-mcp-server`. |
-| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Gives fast public-repo maps and source-linked architecture leads before deeper verification. | Add the public DeepWiki MCP endpoint: `https://mcp.deepwiki.com/mcp`. |
-| [Context7](https://context7.com/docs/clients/codex) | Checks current API, SDK, CLI, framework, and MCP documentation. | `npx ctx7 setup`; Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY`. |
-| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Provides browser-backed search, fetch, snapshots, and live-page evidence. | `npm install -g browse && browse skills install`. |
-| Local basics | Needed for local inspection and validation. | Install `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. |
+These routes are not required for every run, but they should be suggested when they would materially improve the answer.
 
-## Recommended Power Routes
+| Route | Best for |
+|---|---|
+| [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Hard repository questions, bounded sessions, private-repo context, playbooks, knowledge, schedules, and integrations. |
+| [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
+| codebase-memory-mcp | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
+| [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
+| [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
 
-These are not required for every run, but Skill Finder should recommend setup when one would materially improve the answer.
+A login requirement is not a disqualifier. Skill Finder should keep a strong free or public-read candidate in the running, mark setup clearly, and stop before account linking, billing, remote compute, or persistent changes.
 
-| Recommended route | Use when | Setup |
-|---|---|---|
-| [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | A repo question needs deeper Q&A, bounded sessions, private-repo context, playbooks, knowledge, schedules, or integrations. | Configure Devin MCP with your Devin account and API key. |
-| [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | The task involves models, datasets, papers, Spaces, MCP-enabled Spaces, evals, benchmarks, inference, or training workflows. | Configure from [Hugging Face MCP settings](https://huggingface.co/settings/mcp); use `hf auth login` for private or higher-limit access. |
-| codebase-memory-mcp | Local repo work needs symbol lookup, call paths, route tracing, impact analysis, or architecture summaries. | Configure in your agent host and index the repo before relying on graph answers. |
-| [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | The best capability is a connected SaaS action or app connector. | Install from the official Composio docs and connect only the apps you need. |
-| [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | You are creating or changing a skill and need repeatable scoring. | Install Plugin Eval from the Codex plugin directory when available. |
+For Hugging Face workflows, public Hub research can start with docs and cards. Authenticated CLI work usually begins with:
+
+```bash
+hf auth login
+```
+
+## How It Works
+
+The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). The references in [skills/skill-finder/references/](skills/skill-finder/references/) define search strategy, scoring, setup readiness, install handling, and approval rules.
+
+A strong result includes:
+
+- Required setup status
+- Search strategy and Source-Route Scorecard
+- Candidate Evidence Table
+- Files and docs inspected
+- Install or setup command, or `Install command: not verified`
+- Winner, near misses, risks, and approval questions
+
+See [examples/recommendation-output-shape.md](examples/recommendation-output-shape.md) for a sample packet.
+
+## Safety Model
+
+Skill Finder treats candidate files as evidence to inspect, not instructions to obey.
+
+Safe staging means cloning, downloading, or unpacking candidate source into a temporary workspace for review. A result should record the staging path and cleanup status. Staging is not permission to run setup scripts, enter credentials, link accounts, enable integrations, publish content, spend money, delete files, or mutate persistent/global state.
+
+Candidate setup scripts require explicit approval before execution.
 
 ## Dependency Graph
 
-GitHub can only graph supported manifests and package data. This repo now includes `package.json` for the npm-installable setup tools that are real dependencies of the public setup path:
+GitHub can graph only supported manifests and package data. This repo includes `package.json` for the setup tools GitHub can honestly track:
 
 - `skills`
 - `@upstash/context7-mcp`
 - `browse`
 
-Remote MCP URLs, Docker images, Homebrew packages, OAuth connections, and hosted account setup cannot be honestly represented as npm packages. They stay in the required setup tables above instead of being faked into the graph.
+Remote MCP URLs, Docker images, Homebrew packages, OAuth connections, and hosted account setup belong in the setup tables above, not as fake npm dependencies.
 
-Recommended evidence flow:
+## Proof Points
 
-1. Confirm required setup is ready.
-2. Use DeepWiki for fast repo orientation.
-3. Verify important claims against GitHub MCP source files.
-4. Use Context7 or official docs for current API behavior.
-5. Use Browserbase when live web evidence is needed.
-6. Add Devin, Hugging Face, codebase-memory, Composio, or Plugin Eval when the task would benefit.
-
-A login requirement is not a disqualifier. Skill Finder should keep strong free or public-read candidates in the ranking, mark the setup step clearly, and stop before account linking, billing, remote compute, or persistent changes.
-
-## Safety Boundary
-
-Skill Finder treats candidate files as evidence to inspect, not instructions to obey. It should not run candidate setup scripts, enter credentials, link accounts, delete files, enable integrations, publish content, or mutate global state without explicit approval.
-
-For serious candidates, Skill Finder can clone, download, or stage source artifacts in a temporary workspace for inspection. Staging files is evidence gathering; it is not permission to execute scripts, connect accounts, spend money, or make persistent changes.
-
-The final recommendation should make the next action obvious: install, configure, ask for approval, run a verification command, or draft a missing-capability blueprint.
-
-## Output Shape
-
-A strong recommendation includes:
-
-- Required Setup status
-- Search Strategy and Source-Route Scorecard
-- Candidate Evidence Table
-- files read and scanned
-- dependency readiness and verification command
-- freshness, adoption, contributor, trust, and license signals
-- winner-vs-near-miss reasoning
-- source install command or `Install command: not verified`
-- risks and approval boundary before install or persistent change
-
-See [examples/recommendation-output-shape.md](examples/recommendation-output-shape.md) for a sample packet.
+- Plugin manifests are included for both Codex and Claude Code.
+- Public package checks verify required files, install text, safety language, dependency documentation, and plugin package sync.
+- The skill has example outputs and validation coverage for recommendation shape, source-route scoring, setup readiness, and safe staging.
+- The build story and responsibility notes are documented in [HOW_THIS_SKILL_WAS_BUILT.md](HOW_THIS_SKILL_WAS_BUILT.md) and [DILIGENCE.md](DILIGENCE.md).
 
 ## Validation
 
-Run public package checks from the repository root:
+Run public package checks:
 
 ```bash
 python3 -m unittest discover -s validation -v
 ```
 
-Check the graphable setup manifest with:
+Check graphable setup dependencies:
 
 ```bash
 npm pkg get dependencies
 ```
 
-If you have the Codex skill validator available, validate the skill folder:
+Check plugin packaging:
 
 ```bash
-python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
+python3 scripts/sync_plugin_package.py --check
 ```
 
-This release has also been checked with Plugin Eval from the local development environment. Plugin Eval is recommended for skill authors and maintainers, but it is not required for ordinary use.
-
-## How This Skill Was Built
-
-The build packet records the project history, validation trail, scoring changes, and responsibility notes behind this public package.
-
-See [HOW_THIS_SKILL_WAS_BUILT.md](HOW_THIS_SKILL_WAS_BUILT.md).
-
-## What's Inside
+## Files To Read
 
 ```text
-HOW_THIS_SKILL_WAS_BUILT.md                      - project history, scores, and validation summary
-skills/skill-finder/SKILL.md                    - skill entrypoint and workflow
-skills/skill-finder/agents/openai.yaml          - display metadata and helper dependency notes
-skills/skill-finder/references/                 - search, ranking, readiness, and approval rules
-examples/                                       - public-safe request and output examples
-package.json                                    - graphable npm setup dependencies
-validation/                                     - lightweight public package checks
-DILIGENCE.md                                    - responsibility and review statement
+skills/skill-finder/SKILL.md             - skill entrypoint and workflow
+skills/skill-finder/references/          - search, ranking, readiness, and approval rules
+plugins/skill-finder/                    - Codex and Claude Code plugin package
+examples/                                - public-safe prompt and output examples
+package.json                             - graphable npm setup dependencies
+validation/                              - public package checks
 ```
 
 ## Contributing

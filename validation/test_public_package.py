@@ -217,15 +217,17 @@ class PublicPackageTests(unittest.TestCase):
         for phrase in (
             "assets/skill-finder-logo-512.png",
             "## The Problem",
-            "## Features",
+            "## What It Does",
             "## Quick Start",
             "## Install",
-            "## Required Setup",
-            "## Recommended Power Routes",
+            "## Setup Requirements",
+            "## Recommended When Useful",
+            "## How It Works",
+            "## Safety Model",
             "## Dependency Graph",
-            "## Safety Boundary",
+            "## Proof Points",
             "## Validation",
-            "## How This Skill Was Built",
+            "## Files To Read",
             "## Contributing",
             "## License",
         ):
@@ -234,7 +236,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('"Find the best skill for this task: ..."', readme)
         self.assertIn('"Compare these connectors/skills for my agent: ..."', readme)
         self.assertIn('"No good skill exists; find the best stack."', readme)
-        self.assertIn("does not auto-install anything", readme)
+        self.assertIn("[skills/skill-finder/SKILL.md]", readme)
+        self.assertIn("returns a Required Setup Block", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
@@ -247,7 +250,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Browserbase Browse CLI", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
-        self.assertIn("### Plugin Install", readme)
+        self.assertIn("### Install In Codex", readme)
+        self.assertIn("### Install In Claude Code", readme)
         self.assertIn("codex plugin marketplace add Nebulazer123/skill-finder", readme)
         self.assertIn("If you need a reproducible older release", readme)
         self.assertIn("codex plugin add skill-finder@skill-finder", readme)
@@ -266,6 +270,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
         self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", readme)
+        self.assertNotIn("Community plugin note", readme)
+        self.assertNotIn("Skill Finder should search", readme)
 
     def test_hugging_face_route_is_documented(self):
         readme = _read_text_strict(ROOT / "README.md")
