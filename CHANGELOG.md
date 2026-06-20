@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.8 - 2026-06-19
+
+- Added DeepWiki and Ask Devin as a stronger repo-intelligence lane for public repo maps, hard source questions, and second-pass uncertainty checks.
+- Added Context7 recovery: retry alternate names, docs-host IDs, and CLI/MCP routes before calling docs unavailable.
+- Added thin-doc handling so Context7 can count as partial evidence while source files and official docs carry the detailed trace.
+- Added clean-room repo eval evidence from harder repos, including `eunomia-bpf/bpftime`.
+- Refreshed public README wording for credentialed free tools so setup is a readiness step, not a reason to discard a useful candidate.
+
 ## 0.1.7 - 2026-06-16
 
 - Added Hugging Face as a source/dependency route for models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, ML benchmark/eval discovery, and hosted Jobs/training behind cost/credential approval.
