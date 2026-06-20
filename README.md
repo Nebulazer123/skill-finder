@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.1][version-shield]][version-url]
+[![Version 1.0.2][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -87,9 +87,11 @@ The fastest path is the plugin wrapper for Codex or Claude Code. The canonical a
 Codex:
 
 ```bash
-codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1
+codex plugin marketplace add Nebulazer123/skill-finder
 codex plugin add skill-finder@skill-finder
 ```
+
+That installs from the repository's default branch. If you need a reproducible older release, add `--ref <tag>` to pin a specific version.
 
 #### Install in Claude Code
 
@@ -105,10 +107,10 @@ After plugin install:
 
 ```text
 @skill-finder
-/skill-finder:skill-finder
+/skill-finder
 ```
 
-Use `@skill-finder` in Codex. Use `/skill-finder:skill-finder` in Claude Code because marketplace plugin skills are namespaced as `/plugin-name:skill-name`.
+Use `@skill-finder` in Codex. Use `/skill-finder` in Claude Code.
 
 ### Install as an Agent Skill
 
@@ -137,7 +139,7 @@ cp -R skills/skill-finder ~/.codex/skills/skill-finder
 
 Restart your agent host after copying the skill so its skill list refreshes.
 
-Standalone skill installs are not namespaced. Invoke the local skill as:
+Invoke the local skill the same way:
 
 ```text
 /skill-finder
@@ -240,7 +242,7 @@ MIT. See [LICENSE](LICENSE).
 [install-claude-url]: #install-in-claude-code
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.1-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.2-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

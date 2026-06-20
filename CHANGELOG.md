@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 - 2026-06-20
+
+- Changed the Codex plugin install command to use the repository's default branch instead of pinning `--ref v1.0.1`.
+- Refreshed the README and Codex plugin prompt examples around skills, connectors, and best-stack fallback.
+- Added GitHub Actions Dependabot tracking for the repository's real graphable dependencies.
+
 ## 1.0.1 - 2026-06-20
 
 - Added Codex and Claude Code plugin packaging while keeping `skills/skill-finder/` as the canonical skill source.

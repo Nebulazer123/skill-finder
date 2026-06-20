@@ -106,7 +106,7 @@ After `test_plugin_package_files_exist`, add:
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.1")
+        self.assertEqual(manifest["version"], "1.0.2")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -134,7 +134,7 @@ After `test_codex_plugin_manifest_shape`, add:
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.1")
+        self.assertEqual(manifest["version"], "1.0.2")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -173,7 +173,7 @@ After `test_claude_plugin_manifest_shape`, add:
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.1")
+        self.assertEqual(claude_entry["version"], "1.0.2")
         self.assertEqual(claude_entry["category"], "Productivity")
 ```
 
@@ -241,7 +241,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.1"
+VERSION = "1.0.2"
 PLUGIN_NAME = "skill-finder"
 REPOSITORY_URL = "https://github.com/Nebulazer123/skill-finder"
 
@@ -541,7 +541,7 @@ The canonical artifact is still the skill at `skills/skill-finder/`. The plugin 
 Codex:
 
 ```bash
-codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1
+codex plugin marketplace add Nebulazer123/skill-finder
 codex plugin add skill-finder@skill-finder
 ```
 
@@ -557,7 +557,7 @@ After install, invoke the packaged skill as:
 
 ```text
 @skill-finder
-/skill-finder:skill-finder
+/skill-finder
 ```
 ```
 
@@ -567,11 +567,11 @@ In `validation/test_public_package.py`, inside `test_readme_has_public_front_doo
 
 ```python
         self.assertIn("### Plugin Install", readme)
-        self.assertIn("codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1", readme)
+        self.assertIn("codex plugin marketplace add Nebulazer123/skill-finder", readme)
         self.assertIn("codex plugin add skill-finder@skill-finder", readme)
         self.assertIn("/plugin marketplace add Nebulazer123/skill-finder", readme)
         self.assertIn("/plugin install skill-finder@skill-finder", readme)
-        self.assertIn("/skill-finder:skill-finder", readme)
+        self.assertIn("/skill-finder", readme)
 ```
 
 - [ ] **Step 3: Add changelog entry**
@@ -746,10 +746,10 @@ Only run this step when the current session is allowed to add local Claude marke
 /plugin marketplace add .
 /plugin install skill-finder@skill-finder
 /reload-plugins
-/skill-finder:skill-finder Find the best skill for repo-intelligence work.
+/skill-finder Find the best skill for repo-intelligence work.
 ```
 
-Expected: Claude loads the packaged skill under `/skill-finder:skill-finder`.
+Expected: Claude loads the packaged skill under `/skill-finder`.
 
 - [ ] **Step 8: Commit final verification note only if files changed**
 
@@ -836,7 +836,7 @@ Expected tag output includes `refs/tags/v1` and `refs/tags/v1.0.1`. Expected PR 
 
 **Placeholder scan:** The plan contains no `TBD`, `TODO`, `implement later`, or vague "add tests" steps. Each code or manifest change includes concrete content.
 
-**Type consistency:** The plugin name is consistently `skill-finder`, the packaged skill path is consistently `plugins/skill-finder/skills/skill-finder/`, the version is consistently `1.0.1`, and the marketplace name is consistently `skill-finder`.
+**Type consistency:** The plugin name is consistently `skill-finder`, the packaged skill path is consistently `plugins/skill-finder/skills/skill-finder/`, the version is consistently `1.0.2`, and the marketplace name is consistently `skill-finder`.
 
 **Execution choice:** Plan complete and saved to `docs/superpowers/plans/2026-06-20-add-codex-claude-plugin-packaging.md`. Two execution options:
 
