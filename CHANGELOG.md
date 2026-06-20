@@ -5,6 +5,7 @@
 - Promoted the public package to v1 after merging the open Devin branches and clearing open PRs/issues.
 - Removed course-specific README framing so the front door reads like a standalone public skill package.
 - Kept the evidence packet linked with neutral project-history wording instead of personal or course-context language.
+- Renamed the evidence link and artifact to "How This Skill Was Built" for cleaner public framing.
 
 ## 0.1.9 - 2026-06-20
 
@@ -42,7 +43,7 @@
 ## 0.1.4 - 2026-06-15
 
 - Added the final public README logo image and removed unused placeholder logo assets.
-- Added `AI_FLUENCY_EVIDENCE.md` so reviewers can scan the project history, evidence trail, scoring changes, and responsibility notes.
+- Added `HOW_THIS_SKILL_WAS_BUILT.md` so reviewers can scan the project history, evidence trail, scoring changes, and responsibility notes.
 - Linked the learning evidence from the README and diligence statement.
 - Added public contribution guidance for stale source routes, broken install commands, risky candidate behavior, unclear approval boundaries, and stronger eval scenarios.
 

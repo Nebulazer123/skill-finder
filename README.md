@@ -23,7 +23,7 @@
   <a href="#install">Install</a> &middot;
   <a href="#dependencies">Dependencies</a> &middot;
   <a href="#validation">Validation</a> &middot;
-  <a href="#evidence">Evidence</a>
+  <a href="#how-this-skill-was-built">How This Skill Was Built</a>
 </div>
 
 If an AI assistant keeps improvising one-off fixes or grabbing the first matching tool, Skill Finder is for you. It forces a source-backed search, deep inspection, and an approval boundary before anything gets installed or changed.
@@ -156,16 +156,16 @@ python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
 
 This release has also been checked with Plugin Eval from the local development environment. If Plugin Eval is unavailable in your setup, treat that as an optional review tool rather than a hard dependency.
 
-## Evidence
+## How This Skill Was Built
 
-The evidence packet records the project history, validation trail, scoring changes, and responsibility notes behind this public package.
+The build packet records the project history, validation trail, scoring changes, and responsibility notes behind this public package.
 
-See [AI_FLUENCY_EVIDENCE.md](AI_FLUENCY_EVIDENCE.md).
+See [HOW_THIS_SKILL_WAS_BUILT.md](HOW_THIS_SKILL_WAS_BUILT.md).
 
 ## What's Inside
 
 ```text
-AI_FLUENCY_EVIDENCE.md                           - project evidence, scores, and validation summary
+HOW_THIS_SKILL_WAS_BUILT.md                      - project history, scores, and validation summary
 skills/skill-finder/SKILL.md                    - skill entrypoint and workflow
 skills/skill-finder/agents/openai.yaml          - display metadata and helper dependency notes
 skills/skill-finder/references/                 - search, ranking, readiness, and approval rules

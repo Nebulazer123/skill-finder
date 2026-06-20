@@ -10,4 +10,4 @@ This repository is intentionally limited to public-safe project materials. Priva
 
 Skill Finder is intended for people who use AI agents regularly and want a better way to discover current third-party skills, tools, MCP servers, workflows, packages, and capability stacks. It is provided as a workflow aid: users should review candidate tools, install commands, licenses, account or credential requirements, and safety boundaries before taking action. Generated logo imagery is project art, not trademark-cleared final identity work.
 
-For a fuller explanation of what I learned, how the project scores evolved, and how I separated my human role from AI assistance, see [AI_FLUENCY_EVIDENCE.md](AI_FLUENCY_EVIDENCE.md).
+For a fuller explanation of how the skill was built, how the project scores evolved, and how the human role was separated from AI assistance, see [HOW_THIS_SKILL_WAS_BUILT.md](HOW_THIS_SKILL_WAS_BUILT.md).

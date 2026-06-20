@@ -180,8 +180,8 @@ class DiligenceTests(unittest.TestCase):
         self.assertIn("reviewed and directed the work", self.text)
         self.assertIn("take responsibility", self.text)
 
-    def test_links_to_evidence_file(self):
-        self.assertIn("AI_FLUENCY_EVIDENCE.md", self.text)
+    def test_links_to_build_story_file(self):
+        self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", self.text)
 
     def test_excludes_private_material_note(self):
         self.assertIn("private planning notes", self.text.lower())

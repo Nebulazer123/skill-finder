@@ -1,6 +1,6 @@
-# AI Fluency Evidence
+# How This Skill Was Built
 
-This file explains how Skill Finder was created as an AI-assisted project and what I learned while building it. It is written for a reviewer who wants to quickly understand the human intent, the AI collaboration, the evaluation process, and the responsibility boundaries behind the public release.
+This file explains how Skill Finder was created as an AI-assisted project. It is written for a reviewer who wants to quickly understand the original problem, the human direction, the AI collaboration, the evaluation process, and the responsibility boundaries behind the public release.
 
 ## Project Summary
 
@@ -31,7 +31,7 @@ The problem I wanted to solve was practical: when an AI agent needs a capability
 
 The project is not simply "AI made a skill." I used AI as a collaborator, but I shaped the requirements, challenged weak outputs, changed the ranking logic, rejected or refined assumptions, and kept final responsibility for what is published.
 
-## The 4D Learning Evidence
+## Build Method
 
 ### Delegation
 

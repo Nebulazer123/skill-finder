@@ -38,7 +38,7 @@ class PublicPackageTests(unittest.TestCase):
     def test_public_repo_files_exist(self):
         required_files = [
             ROOT / "README.md",
-            ROOT / "AI_FLUENCY_EVIDENCE.md",
+            ROOT / "HOW_THIS_SKILL_WAS_BUILT.md",
             ROOT / "LICENSE",
             ROOT / "CONTRIBUTING.md",
             ROOT / "CODE_OF_CONDUCT.md",
@@ -98,7 +98,7 @@ class PublicPackageTests(unittest.TestCase):
             "## Dependencies",
             "## Safety Boundary",
             "## Validation",
-            "## Evidence",
+            "## How This Skill Was Built",
             "## Contributing",
             "## License",
         ):
@@ -137,7 +137,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("credential setup is a readiness step", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
         self.assertIn("staged paths and cleanup status", readme.lower())
-        self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
+        self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", readme)
 
     def test_hugging_face_route_is_documented(self):
         readme = _read_text_strict(ROOT / "README.md")
@@ -197,12 +197,12 @@ class PublicPackageTests(unittest.TestCase):
         ):
             self.assertIn(phrase, scanned)
 
-    def test_learning_evidence_is_scannable(self):
-        evidence = _read_text_strict(ROOT / "AI_FLUENCY_EVIDENCE.md")
+    def test_build_story_is_scannable(self):
+        evidence = _read_text_strict(ROOT / "HOW_THIS_SKILL_WAS_BUILT.md")
 
         for phrase in (
             "My Role Versus AI's Role",
-            "The 4D Learning Evidence",
+            "Build Method",
             "Score And Evolution",
             "Material Lessons Learned",
             "Public Responsibility Boundary",
