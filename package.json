@@ -1,6 +1,6 @@
 {
   "name": "@nebulazer123/skill-finder-public-package",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "description": "Public package metadata for Skill Finder's npm-installable setup tools.",
   "license": "MIT",

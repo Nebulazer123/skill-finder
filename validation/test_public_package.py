@@ -58,6 +58,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "claude-code-text.svg",
             ROOT / "assets" / "logos" / "codex-text.svg",
             ROOT / "assets" / "logos" / "codex.webp",
+            ROOT / "assets" / "logos" / "codex-cloud-color.png",
             ROOT / "assets" / "logos" / "huggingface-color.svg",
             ROOT / "assets" / "logos" / "install-codex-cloud.svg",
             ROOT / "assets" / "logos" / "install-claude-code-button.svg",
@@ -118,7 +119,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.6")
+        self.assertEqual(manifest["version"], "1.0.7")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -148,7 +149,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.6")
+        self.assertEqual(manifest["version"], "1.0.7")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -181,14 +182,14 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.6")
+        self.assertEqual(claude_entry["version"], "1.0.7")
         self.assertEqual(claude_entry["category"], "Productivity")
 
     def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
-        self.assertEqual(manifest["version"], "1.0.6")
+        self.assertEqual(manifest["version"], "1.0.7")
         self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
@@ -238,10 +239,10 @@ class PublicPackageTests(unittest.TestCase):
 
         for phrase in (
             "assets/skill-finder-logo-512.png",
-            "assets/logos/codex.webp",
             "assets/logos/claude-code-color.svg",
             "assets/logos/agent-skills.svg",
             "assets/logos/huggingface-color.svg",
+            "assets/logos/codex-cloud-color.png",
             "assets/logos/install-codex-cloud.svg",
             "assets/logos/install-claude-code-button.svg",
             "assets/logos/github-invertocat-white.svg",
@@ -316,7 +317,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("npm setup metadata", readme)
         self.assertIn("@upstash/context7-mcp", readme)
         self.assertIn("Start here", readme)
-        self.assertIn('<img src="assets/logos/codex.webp"', readme)
+        self.assertIn('<img src="assets/logos/codex-cloud-color.png"', readme)
         self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
         self.assertIn('<img src="assets/logos/agent-skills.svg"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)

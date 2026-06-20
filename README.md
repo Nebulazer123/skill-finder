@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.6][version-shield]][version-url]
+[![Version 1.0.7][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -72,7 +72,7 @@ Find the best skill for this task: inspect a large repo, trace routes, find call
 
 ### Install In Codex
 
-<img src="assets/logos/codex.webp" alt="Codex" width="28">
+<img src="assets/logos/codex-cloud-color.png" alt="Codex" width="28">
 
 Copy and paste this into your terminal:
 
@@ -248,7 +248,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.6-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.7-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io
