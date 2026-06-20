@@ -18,12 +18,18 @@
 </div>
 
 <div align="center">
+
+[![Install in Codex][install-codex-shield]][install-codex-url]
+[![Install in Claude Code][install-claude-shield]][install-claude-url]
+
+</div>
+
+<div align="center">
   <a href="#the-problem">Why</a> &middot;
+  <a href="#features">Features</a> &middot;
   <a href="#quick-start">Quick Start</a> &middot;
   <a href="#install">Install</a> &middot;
-  <a href="#dependencies">Dependencies</a> &middot;
-  <a href="#validation">Validation</a> &middot;
-  <a href="#how-this-skill-was-built">How This Skill Was Built</a>
+  <a href="#validation">Validation</a>
 </div>
 
 Skill Finder helps an agent choose the right capability before it starts improvising. It searches broadly, checks real source material, compares candidates, and returns a small recommendation packet with the evidence needed to act confidently.
@@ -32,28 +38,28 @@ Skill Finder helps an agent choose the right capability before it starts improvi
 
 ## The Problem
 
-Agents are good at making temporary helpers. That is useful until the better answer is an existing skill, MCP server, app connector, workflow, package, or documentation source that the agent never looked for.
+Agents often improvise when they should first look for the right existing capability.
 
-Skill Finder gives the agent a repeatable way to search the available ecosystem, inspect the important files, compare real tradeoffs, and recommend the strongest option for the task.
+That improvisation is useful until the better answer is an existing skill, MCP server, app connector, workflow, package, or documentation source that the agent never checked. Skill Finder gives the agent a repeatable way to search the ecosystem, inspect important files, compare real tradeoffs, and recommend the strongest option for the task.
 
 ## Features
 
-- Finds more than traditional skills: MCP servers, app connectors, workflow templates, CLIs, packages, validators, documentation sources, and composed stacks.
-- Compares candidates from evidence, not search snippets, by reading important files and scanning setup, trust, license, and dependency surfaces.
-- Keeps recommendations bounded: gather a broad finalist pool when GitHub matters, then show at most five useful options.
-- Keeps useful login-gated tools in contention while making setup needs clear.
-- Produces installable next steps with dependency readiness, verification commands, risks, and explicit approval questions.
-- Falls back to a Missing Skill Blueprint when no existing option is good enough.
+- **Broader search** — finds skills, MCP servers, app connectors, workflow templates, CLIs, packages, validators, documentation sources, and composed stacks.
+- **Evidence-first ranking** — reads important files and checks setup, trust, license, and dependency surfaces instead of trusting search snippets.
+- **Small recommendation packets** — gathers a broad finalist pool when GitHub matters, then shows at most five useful options.
+- **Setup-aware choices** — keeps useful login-gated tools in contention while making setup needs clear.
+- **Installable next steps** — includes dependency readiness, verification commands, risks, and explicit approval questions.
+- **No-good-option fallback** — drafts a Missing Skill Blueprint when no existing option is strong enough.
 
 ## Quick Start
 
-```text
-"Find the best capability for this task: ..."      -> ranked recommendation packet
-"Compare these candidate tools for my agent: ..."  -> evidence table and winner
-"No good skill exists; draft the blueprint."       -> missing-capability spec and eval cases
-```
+| Ask for | You get |
+|---|---|
+| `"Find the best capability for this task: ..."` | Ranked recommendation packet |
+| `"Compare these candidate tools for my agent: ..."` | Evidence table and winner |
+| `"No good skill exists; draft the blueprint."` | Missing-capability spec and eval cases |
 
-## Usage
+## When to Use It
 
 Use Skill Finder when:
 
@@ -69,6 +75,38 @@ Example sample flow:
 > Skill Finder should search code intelligence tools, MCP servers, package registries, official docs, and GitHub source; inspect finalist files; compare trust and installability; then recommend no more than five options.
 
 ## Install
+
+The fastest path is the plugin wrapper for Codex or Claude Code. The canonical artifact is still the skill at `skills/skill-finder/`; the plugin wrapper packages that skill for the two main plugin workflows.
+
+### Plugin Install
+
+#### Install in Codex
+
+Codex:
+
+```bash
+codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1
+codex plugin add skill-finder@skill-finder
+```
+
+#### Install in Claude Code
+
+Claude Code:
+
+```text
+/plugin marketplace add Nebulazer123/skill-finder
+/plugin install skill-finder@skill-finder
+/reload-plugins
+```
+
+After plugin install, invoke the packaged skill as:
+
+```text
+@skill-finder
+/skill-finder:skill-finder
+```
+
+### Install as an Agent Skill
 
 Review the files before installing. This repository does not auto-install anything.
 
@@ -94,32 +132,6 @@ cp -R skills/skill-finder ~/.codex/skills/skill-finder
 ```
 
 Restart your agent host after copying the skill so its skill list refreshes.
-
-### Plugin Install
-
-The canonical artifact is still the skill at `skills/skill-finder/`. The plugin wrapper packages that skill for Codex and Claude Code plugin workflows.
-
-Codex:
-
-```bash
-codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1
-codex plugin add skill-finder@skill-finder
-```
-
-Claude Code:
-
-```text
-/plugin marketplace add Nebulazer123/skill-finder
-/plugin install skill-finder@skill-finder
-/reload-plugins
-```
-
-After install, invoke the packaged skill as:
-
-```text
-@skill-finder
-/skill-finder:skill-finder
-```
 
 ## Dependencies
 
@@ -212,9 +224,13 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening
 
 MIT. See [LICENSE](LICENSE).
 
-[license-shield]: https://img.shields.io/badge/License-MIT-green.svg
+[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge
+[install-codex-url]: #install-in-codex
+[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge
+[install-claude-url]: #install-in-claude-code
+[license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.1-blue.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.1-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io
