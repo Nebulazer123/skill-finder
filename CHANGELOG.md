@@ -11,6 +11,7 @@
 - Removed the README pin-release section to keep first-time install guidance simple.
 - Expanded README setup guidance for GitHub MCP, DeepWiki, Context7, Browserbase, and local helpers.
 - Removed README-only dependency graph and proof-point sections to keep the page focused on use.
+- Added logo-marked install buttons, a clearer install lead, present-tense safety wording, and npm setup metadata wording.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20

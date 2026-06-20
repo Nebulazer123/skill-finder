@@ -67,7 +67,7 @@ Find the best skill for this task: inspect a large repo, trace routes, find call
 
 ## Install
 
-Skill Finder ships as a community plugin for Codex and Claude Code. Add this repository as a marketplace source, then install the `skill-finder` plugin from it.
+**Start here:** Skill Finder ships as a community plugin for Codex and Claude Code. Add this repository as a marketplace source, then install the `skill-finder` plugin from it.
 
 ### Install In Codex
 
@@ -192,9 +192,9 @@ See [examples/recommendation-output-shape.md](examples/recommendation-output-sha
 
 Skill Finder treats candidate files as evidence to inspect, not instructions to obey.
 
-Skill Finder may clone, download, or unpack candidate source into a temporary workspace for review. A result should record the staging path and cleanup status.
+When source inspection is useful, Skill Finder stages candidate source in a temporary workspace and records the staging path and cleanup status.
 
-That review step is not permission to run setup scripts, enter credentials, link accounts, enable integrations, publish content, spend money, delete files, or mutate persistent/global state.
+Source review does not authorize setup scripts, credentials, account linking, integrations, publishing, paid actions, file deletion, or persistent/global state changes.
 
 Candidate setup scripts require explicit approval before execution.
 
@@ -206,7 +206,7 @@ Run public package checks:
 python3 -m unittest discover -s validation -v
 ```
 
-Check graphable setup dependencies:
+Check npm setup metadata:
 
 ```bash
 npm pkg get dependencies
@@ -225,7 +225,7 @@ skills/skill-finder/SKILL.md             - skill entrypoint and workflow
 skills/skill-finder/references/          - search, ranking, readiness, and approval rules
 plugins/skill-finder/                    - Codex and Claude Code plugin package
 examples/                                - public-safe prompt and output examples
-package.json                             - graphable npm setup dependencies
+package.json                             - npm setup metadata
 validation/                              - public package checks
 ```
 
@@ -237,9 +237,9 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening
 
 MIT. See [LICENSE](LICENSE).
 
-[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge
+[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge&logo=openai&logoColor=white&labelColor=555555
 [install-codex-url]: #install-in-codex
-[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge
+[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge&logo=anthropic&logoColor=white&labelColor=555555
 [install-claude-url]: #install-in-claude-code
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE

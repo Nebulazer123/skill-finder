@@ -2,7 +2,7 @@
   "name": "@nebulazer123/skill-finder-public-package",
   "version": "1.0.3",
   "private": true,
-  "description": "Public package metadata for Skill Finder's graphable agent-tooling dependencies.",
+  "description": "Public package metadata for Skill Finder's npm-installable setup tools.",
   "license": "MIT",
   "repository": {
     "type": "git",

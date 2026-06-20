@@ -168,11 +168,12 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["version"], "1.0.3")
         self.assertEqual(claude_entry["category"], "Productivity")
 
-    def test_package_json_tracks_graphable_setup_dependencies(self):
+    def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
         self.assertEqual(manifest["version"], "1.0.3")
+        self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
         dependencies = manifest["dependencies"]
@@ -274,11 +275,17 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("browse skills install", readme)
         self.assertIn("Composio docs", readme)
         self.assertIn("package.json", readme)
+        self.assertIn("npm setup metadata", readme)
         self.assertIn("@upstash/context7-mcp", readme)
+        self.assertIn("Start here", readme)
+        self.assertIn("logo=openai", readme)
+        self.assertIn("logo=anthropic", readme)
+        self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
         self.assertNotIn("## Dependency Graph", readme)
         self.assertNotIn("## Proof Points", readme)
+        self.assertNotIn("Check graphable setup dependencies", readme)
         self.assertNotIn("hf auth login", readme)
         self.assertNotIn("Community plugin note", readme)
         self.assertNotIn("Skill Finder should search", readme)
