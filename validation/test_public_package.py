@@ -374,6 +374,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('fill="#fff"', install_claude)
         self.assertIn('fill="#111827"', install_codex)
         self.assertIn('fill="#DA7857"', install_claude)
+        self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_codex)
+        self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_claude)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
