@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="214" height="44" viewBox="0 0 214 44" role="img" aria-label="Install in Codex">
+  <rect width="214" height="44" rx="8" fill="#111827"/>
+  <g transform="translate(34 9)">
+    <path d="M16 1.5c4.1 0 7.6 2.3 9.2 5.8 3.7.5 6.5 3.6 6.5 7.6 0 4.2-3.4 7.6-7.6 7.6H8.1C3.6 22.5 0 18.9 0 14.4 0 10.5 2.8 7.2 6.5 6.5 8.2 3.4 11.5 1.5 16 1.5Z" fill="#fff"/>
+    <path d="M9.2 9.8l3.3 5.1-3.3 5.1" fill="none" stroke="#111827" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M16.7 17.8h6.2" fill="none" stroke="#111827" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
+  <text x="76" y="29" fill="#fff" font-family="Inter, Arial, Helvetica, sans-serif" font-size="24" font-weight="500" letter-spacing="0">Codex</text>
+</svg>

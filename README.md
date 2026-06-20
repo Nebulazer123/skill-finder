@@ -19,7 +19,7 @@
 
 <div align="center">
 
-<a href="#install-in-codex"><img src="assets/logos/install-codex-wide.svg" alt="Install in Codex" height="44"></a>
+<a href="#install-in-codex"><img src="assets/logos/install-codex-button.svg" alt="Install in Codex" height="44"></a>
 &nbsp;
 <a href="#install-in-claude-code"><img src="assets/logos/install-claude-code.svg" alt="Install in Claude Code" height="44"></a>
 
@@ -135,11 +135,12 @@ Skill Finder depends on several discovery routes. They are listed here because t
 
 | Required route | Why it matters | Setup note |
 |---|---|---|
-| <img src="assets/logos/agent-skills-color.png" alt="" width="22" height="22"> [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
+| <img src="assets/logos/agent-skills.svg" alt="" width="22" height="22"> [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
 | <img src="assets/logos/github-invertocat-white.svg" alt="" width="22" height="22"> [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. | Remote endpoint: `https://api.githubcopilot.com/mcp/`; configure auth in your host. |
 | <img src="assets/logos/deepwiki.png" alt="" width="22" height="22"> [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Quickly maps public repositories before source verification. | Remote endpoint: `https://mcp.deepwiki.com/mcp` |
-| <img src="assets/logos/context7.svg" alt="" width="22" height="22"> [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. | Use `@upstash/context7-mcp`; API key recommended. |
+| <img src="assets/logos/context7.png" alt="" width="22" height="22"> [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. | Use `@upstash/context7-mcp`; API key recommended. |
 | <img src="assets/logos/browserbase.svg" alt="" width="22" height="22"> [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Adds browser-backed search, fetch, snapshots, and live-page evidence. | `npm install -g browse` and `browse skills install` |
+| <img src="assets/logos/codebase-memory.png" alt="" width="22" height="22"> [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | Adds local code graph indexing, symbol lookup, call paths, route tracing, and impact analysis. | `npm install -g codebase-memory-mcp` and `codebase-memory-mcp install` |
 | Local basics | `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. | Install with your system package manager. |
 
 Codex setup commands:
@@ -147,7 +148,9 @@ Codex setup commands:
 ```bash
 npm install -g skills
 npm install -g browse
+npm install -g codebase-memory-mcp
 browse skills install
+codebase-memory-mcp install
 codex mcp add github --url https://api.githubcopilot.com/mcp/
 codex mcp add deepwiki --url https://mcp.deepwiki.com/mcp
 codex mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
@@ -158,7 +161,9 @@ Claude Code setup commands:
 ```bash
 npm install -g skills
 npm install -g browse
+npm install -g codebase-memory-mcp
 browse skills install
+codebase-memory-mcp install
 claude mcp add --transport http github https://api.githubcopilot.com/mcp/
 claude mcp add --transport http deepwiki https://mcp.deepwiki.com/mcp
 claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
@@ -174,8 +179,7 @@ These routes are not required for every run, but they should be suggested when t
 |---|---|
 | <img src="assets/logos/devin-color.svg" alt="" width="22" height="22"> [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Hard repository questions, bounded sessions, private-repo context, playbooks, knowledge, schedules, and integrations. |
 | <img src="assets/logos/huggingface-color.svg" alt="" width="22" height="22"> [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
-| <img src="assets/logos/codebase-memory.png" alt="" width="22" height="22"> [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
-| <img src="assets/logos/composio-symbol.png" alt="" width="22" height="22"> [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
+| <img src="assets/logos/composio-symbol.svg" alt="" width="22" height="22"> [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
 | <img src="assets/logos/plugin-eval.svg" alt="" width="22" height="22"> [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
 
 ## How It Works

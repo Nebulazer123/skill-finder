@@ -22,6 +22,10 @@ dependencies:
       required: true
       description: "Required: Context7 MCP for current documentation, including API and MCP documentation."
     - type: "mcp"
+      value: "codebase-memory-mcp"
+      required: true
+      description: "Required: codebase-memory-mcp for local code graph indexing, symbol lookup, call paths, route tracing, and impact analysis."
+    - type: "mcp"
       value: "huggingface"
       recommended: true
       description: "Highly recommended when relevant: Hugging Face MCP for Hub model, dataset, Space, paper, eval, and repository discovery."
@@ -41,6 +45,10 @@ dependencies:
       value: "browse"
       required: true
       description: "Required: Browserbase Browse CLI for browser search, fetch, sessions, and Browse.sh skills."
+    - type: "binary"
+      value: "codebase-memory-mcp"
+      required: true
+      description: "Required: codebase-memory-mcp CLI installer and local MCP server."
     - type: "binary"
       value: "hf"
       recommended: true

@@ -53,21 +53,21 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md",
             ROOT / "assets" / "skill-finder-logo.png",
             ROOT / "assets" / "skill-finder-logo-512.png",
-            ROOT / "assets" / "logos" / "agent-skills-color.png",
+            ROOT / "assets" / "logos" / "agent-skills.svg",
             ROOT / "assets" / "logos" / "claude-code-color.svg",
             ROOT / "assets" / "logos" / "claude-code-text.svg",
             ROOT / "assets" / "logos" / "codex-text.svg",
             ROOT / "assets" / "logos" / "codex.webp",
             ROOT / "assets" / "logos" / "huggingface-color.svg",
-            ROOT / "assets" / "logos" / "install-codex-wide.svg",
+            ROOT / "assets" / "logos" / "install-codex-button.svg",
             ROOT / "assets" / "logos" / "install-claude-code.svg",
             ROOT / "assets" / "logos" / "github-invertocat-white.svg",
             ROOT / "assets" / "logos" / "deepwiki.png",
-            ROOT / "assets" / "logos" / "context7.svg",
+            ROOT / "assets" / "logos" / "context7.png",
             ROOT / "assets" / "logos" / "browserbase.svg",
             ROOT / "assets" / "logos" / "devin-color.svg",
             ROOT / "assets" / "logos" / "codebase-memory.png",
-            ROOT / "assets" / "logos" / "composio-symbol.png",
+            ROOT / "assets" / "logos" / "composio-symbol.svg",
             ROOT / "assets" / "logos" / "plugin-eval.svg",
         ]
         for path in required_files:
@@ -193,7 +193,12 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
         dependencies = manifest["dependencies"]
-        for package_name in ("skills", "@upstash/context7-mcp", "browse"):
+        for package_name in (
+            "skills",
+            "@upstash/context7-mcp",
+            "browse",
+            "codebase-memory-mcp",
+        ):
             self.assertIn(package_name, dependencies)
 
         dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
@@ -235,17 +240,17 @@ class PublicPackageTests(unittest.TestCase):
             "assets/skill-finder-logo-512.png",
             "assets/logos/codex.webp",
             "assets/logos/claude-code-color.svg",
-            "assets/logos/agent-skills-color.png",
+            "assets/logos/agent-skills.svg",
             "assets/logos/huggingface-color.svg",
-            "assets/logos/install-codex-wide.svg",
+            "assets/logos/install-codex-button.svg",
             "assets/logos/install-claude-code.svg",
             "assets/logos/github-invertocat-white.svg",
             "assets/logos/deepwiki.png",
-            "assets/logos/context7.svg",
+            "assets/logos/context7.png",
             "assets/logos/browserbase.svg",
             "assets/logos/devin-color.svg",
             "assets/logos/codebase-memory.png",
-            "assets/logos/composio-symbol.png",
+            "assets/logos/composio-symbol.svg",
             "assets/logos/plugin-eval.svg",
             "## The Problem",
             "## What It Does",
@@ -278,6 +283,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Hugging Face Hub", readme)
         self.assertIn("Browserbase Browse CLI", readme)
         self.assertIn("[codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)", readme)
+        self.assertIn("npm install -g codebase-memory-mcp", readme)
+        self.assertIn("codebase-memory-mcp install", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
         self.assertIn("### Install In Codex", readme)
@@ -311,28 +318,28 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Start here", readme)
         self.assertIn('<img src="assets/logos/codex.webp"', readme)
         self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
-        self.assertIn('<img src="assets/logos/agent-skills-color.png"', readme)
+        self.assertIn('<img src="assets/logos/agent-skills.svg"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
-        self.assertIn('<img src="assets/logos/install-codex-wide.svg"', readme)
+        self.assertIn('<img src="assets/logos/install-codex-button.svg"', readme)
         self.assertIn('<img src="assets/logos/install-claude-code.svg"', readme)
         self.assertIn('<img src="assets/logos/github-invertocat-white.svg"', readme)
         self.assertIn('<img src="assets/logos/deepwiki.png"', readme)
-        self.assertIn('<img src="assets/logos/context7.svg"', readme)
+        self.assertIn('<img src="assets/logos/context7.png"', readme)
         self.assertIn('<img src="assets/logos/browserbase.svg"', readme)
         self.assertIn('<img src="assets/logos/devin-color.svg"', readme)
         self.assertIn('<img src="assets/logos/codebase-memory.png"', readme)
-        self.assertIn('<img src="assets/logos/composio-symbol.png"', readme)
+        self.assertIn('<img src="assets/logos/composio-symbol.svg"', readme)
         self.assertIn('<img src="assets/logos/plugin-eval.svg"', readme)
         for logo in (
-            "agent-skills-color.png",
+            "agent-skills.svg",
             "github-invertocat-white.svg",
             "deepwiki.png",
-            "context7.svg",
+            "context7.png",
             "browserbase.svg",
+            "codebase-memory.png",
             "devin-color.svg",
             "huggingface-color.svg",
-            "codebase-memory.png",
-            "composio-symbol.png",
+            "composio-symbol.svg",
             "plugin-eval.svg",
         ):
             self.assertIn(
@@ -340,7 +347,7 @@ class PublicPackageTests(unittest.TestCase):
                 readme,
             )
         self.assertLess(
-            readme.index("assets/logos/install-codex-wide.svg"),
+            readme.index("assets/logos/install-codex-button.svg"),
             readme.index("## The Problem"),
         )
         self.assertLess(
@@ -348,14 +355,15 @@ class PublicPackageTests(unittest.TestCase):
             readme.index("## The Problem"),
         )
         self.assertGreater(
-            readme.index("assets/logos/agent-skills-color.png"),
+            readme.index("assets/logos/agent-skills.svg"),
             readme.index("## Setup Requirements"),
         )
         for logo in (
             "assets/logos/github-invertocat-white.svg",
             "assets/logos/deepwiki.png",
-            "assets/logos/context7.svg",
+            "assets/logos/context7.png",
             "assets/logos/browserbase.svg",
+            "assets/logos/codebase-memory.png",
         ):
             self.assertGreater(readme.index(logo), readme.index("## Setup Requirements"))
             self.assertLess(readme.index(logo), readme.index("## Recommended When Useful"))
@@ -365,13 +373,12 @@ class PublicPackageTests(unittest.TestCase):
         )
         for logo in (
             "assets/logos/devin-color.svg",
-            "assets/logos/codebase-memory.png",
-            "assets/logos/composio-symbol.png",
+            "assets/logos/composio-symbol.svg",
             "assets/logos/plugin-eval.svg",
         ):
             self.assertGreater(readme.index(logo), readme.index("## Recommended When Useful"))
         install_codex = _read_text_strict(
-            ROOT / "assets" / "logos" / "install-codex-wide.svg"
+            ROOT / "assets" / "logos" / "install-codex-button.svg"
         )
         install_claude = _read_text_strict(
             ROOT / "assets" / "logos" / "install-claude-code.svg"
@@ -382,9 +389,9 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('fill="#DA7857"', install_claude)
         self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_codex)
         self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_claude)
-        self.assertIn('transform="translate(38 10)"', install_codex)
+        self.assertIn('transform="translate(34 9)"', install_codex)
         self.assertIn('stroke="#111827"', install_codex)
-        self.assertIn('transform="translate(74 10)"', install_codex)
+        self.assertIn(">Codex</text>", install_codex)
         self.assertIn('transform="translate(38 10)"', install_claude)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())

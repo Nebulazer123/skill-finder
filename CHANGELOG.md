@@ -2,24 +2,25 @@
 
 ## 1.0.3 - 2026-06-20
 
-- Made Agent Skills, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, and local inspection basics required setup for real Skill Finder runs.
+- Made Agent Skills, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, codebase-memory-mcp, and local inspection basics required setup for real Skill Finder runs.
 - Added a Required Setup Block behavior so the skill pauses and asks before installing or configuring missing required routes.
-- Marked Devin, Hugging Face, codebase-memory-mcp, Composio, and Plugin Eval as recommended power routes when they would materially improve a task.
-- Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, and `browse`.
+- Marked Devin, Hugging Face, Composio, and Plugin Eval as recommended power routes when they would materially improve a task.
+- Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, `browse`, and `codebase-memory-mcp`.
 - Refocused the README for first-time reviewers with clearer problem framing, setup requirements, proof points, and validation steps.
 - Changed the README install blocks to copy-paste terminal commands for both Codex and Claude Code.
 - Removed the README pin-release section to keep first-time install guidance simple.
-- Expanded README setup guidance for GitHub MCP, DeepWiki, Context7, Browserbase, and local helpers.
+- Expanded README setup guidance for GitHub MCP, DeepWiki, Context7, Browserbase, codebase-memory-mcp, and local helpers.
 - Removed README-only dependency graph and proof-point sections to keep the page focused on use.
 - Added logo-marked install buttons, a clearer install lead, present-tense safety wording, and npm setup metadata wording.
 - Replaced the top install badge row with supplied white Codex and Claude Code wordmark buttons, while keeping Agent Skills and Hugging Face logos only in their relevant setup sections.
+- Updated the Agent Skills setup logo to the white triangle mark.
 - Matched the Codex and Claude Code top install buttons to the same rendered box size.
 - Renamed the Codex install-button asset so GitHub refreshes the equal-width version instead of serving a stale cached SVG.
 - Added a left-aligned Codex icon inside the Codex install button to match the Claude Code button layout.
-- Added route-specific GitHub, DeepWiki, Context7, Browserbase, Devin, and Composio logos only in their matching setup/recommendation rows.
+- Added route-specific GitHub, DeepWiki, Context7, Browserbase, codebase-memory-mcp, Devin, and Composio logos only in their matching setup/recommendation rows.
 - Added the Plugin Eval logo and normalized all setup/recommendation row logos to the same rendered size.
-- Replaced the Composio route logo with the updated mark.
-- Added a codebase-memory-mcp logo and linked it to the official `DeusData/codebase-memory-mcp` repository.
+- Restored the Composio route logo and moved the uploaded green mark to Context7.
+- Moved codebase-memory-mcp into required setup and linked it to the official `DeusData/codebase-memory-mcp` repository.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20
@@ -66,7 +67,7 @@
 
 ## 0.1.6 - 2026-06-16
 
-- Added a public Dependencies section with the full external source-route stack: Agent Skills CLI, GitHub CLI, Context7, Browserbase Browse CLI, Composio CLI/MCP, and Codex Plugin Eval.
+- Added a public Dependencies section with the external source-route stack, now including Agent Skills CLI, GitHub CLI, Context7, Browserbase Browse CLI, codebase-memory-mcp, Composio CLI/MCP, and Codex Plugin Eval.
 - Added purpose, setup/sign-up links, and macOS/Windows setup guidance for each external capability.
 - Moved free credentialed-tool guidance below the dependency table so account/API/OAuth setup is treated as readiness work, not a disqualifier.
 

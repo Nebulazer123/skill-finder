@@ -44,7 +44,7 @@ class AgentConfigTests(unittest.TestCase):
         self.assertIn('type: "binary"', self.text)
 
     def test_mcp_dependencies_listed(self):
-        for mcp_name in ("github", "context7", "huggingface"):
+        for mcp_name in ("github", "context7", "codebase-memory-mcp", "huggingface"):
             self.assertIn(
                 f'value: "{mcp_name}"',
                 self.text,
@@ -52,7 +52,16 @@ class AgentConfigTests(unittest.TestCase):
             )
 
     def test_binary_dependencies_listed(self):
-        for binary in ("rg", "skills", "gh", "browse", "hf", "composio", "python3"):
+        for binary in (
+            "rg",
+            "skills",
+            "gh",
+            "browse",
+            "codebase-memory-mcp",
+            "hf",
+            "composio",
+            "python3",
+        ):
             self.assertIn(
                 f'value: "{binary}"',
                 self.text,
