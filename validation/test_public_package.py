@@ -53,6 +53,13 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md",
             ROOT / "assets" / "skill-finder-logo.png",
             ROOT / "assets" / "skill-finder-logo-512.png",
+            ROOT / "assets" / "logos" / "agent-skills-color.png",
+            ROOT / "assets" / "logos" / "claude-code-color.svg",
+            ROOT / "assets" / "logos" / "claude-code-text.svg",
+            ROOT / "assets" / "logos" / "claude-text.svg",
+            ROOT / "assets" / "logos" / "codex-text.svg",
+            ROOT / "assets" / "logos" / "codex.webp",
+            ROOT / "assets" / "logos" / "huggingface-color.svg",
         ]
         for path in required_files:
             self.assertTrue(
@@ -217,6 +224,12 @@ class PublicPackageTests(unittest.TestCase):
 
         for phrase in (
             "assets/skill-finder-logo-512.png",
+            "assets/logos/codex.webp",
+            "assets/logos/codex-text.svg",
+            "assets/logos/claude-code-color.svg",
+            "assets/logos/claude-code-text.svg",
+            "assets/logos/agent-skills-color.png",
+            "assets/logos/huggingface-color.svg",
             "## The Problem",
             "## What It Does",
             "## Quick Start",
@@ -278,8 +291,12 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("npm setup metadata", readme)
         self.assertIn("@upstash/context7-mcp", readme)
         self.assertIn("Start here", readme)
-        self.assertIn("logo=openai", readme)
-        self.assertIn("logo=anthropic", readme)
+        self.assertIn('<img src="assets/logos/codex.webp"', readme)
+        self.assertIn('<img src="assets/logos/codex-text.svg"', readme)
+        self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
+        self.assertIn('<img src="assets/logos/claude-code-text.svg"', readme)
+        self.assertIn('<img src="assets/logos/agent-skills-color.png"', readme)
+        self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())

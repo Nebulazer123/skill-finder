@@ -25,6 +25,18 @@
 </div>
 
 <div align="center">
+  <a href="#install-in-codex"><img src="assets/logos/codex.webp" alt="Codex" width="34"></a>
+  <a href="#install-in-codex"><img src="assets/logos/codex-text.svg" alt="Codex wordmark" height="18"></a>
+  &nbsp;&nbsp;
+  <a href="#install-in-claude-code"><img src="assets/logos/claude-code-color.svg" alt="Claude Code" height="34"></a>
+  <a href="#install-in-claude-code"><img src="assets/logos/claude-code-text.svg" alt="Claude Code wordmark" height="18"></a>
+  &nbsp;&nbsp;
+  <a href="https://agentskills.io"><img src="assets/logos/agent-skills-color.png" alt="Agent Skills" height="34"></a>
+  &nbsp;&nbsp;
+  <a href="https://huggingface.co/docs/hub/agents-mcp"><img src="assets/logos/huggingface-color.svg" alt="Hugging Face" height="34"></a>
+</div>
+
+<div align="center">
   <a href="#the-problem">Why</a> &middot;
   <a href="#what-it-does">What it does</a> &middot;
   <a href="#quick-start">Quick Start</a> &middot;
@@ -71,6 +83,8 @@ Find the best skill for this task: inspect a large repo, trace routes, find call
 
 ### Install In Codex
 
+<img src="assets/logos/codex.webp" alt="Codex" width="28">
+
 Copy and paste this into your terminal:
 
 ```bash
@@ -86,6 +100,8 @@ Use it in Codex with:
 ```
 
 ### Install In Claude Code
+
+<img src="assets/logos/claude-code-color.svg" alt="Claude Code" width="28">
 
 Copy and paste this into your terminal:
 
@@ -130,7 +146,7 @@ Skill Finder depends on several discovery routes. They are listed here because t
 
 | Required route | Why it matters | Setup note |
 |---|---|---|
-| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
+| <img src="assets/logos/agent-skills-color.png" alt="" width="22"> [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
 | [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. | Remote endpoint: `https://api.githubcopilot.com/mcp/`; configure auth in your host. |
 | [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Quickly maps public repositories before source verification. | Remote endpoint: `https://mcp.deepwiki.com/mcp` |
 | [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. | Use `@upstash/context7-mcp`; API key recommended. |
@@ -168,7 +184,7 @@ These routes are not required for every run, but they should be suggested when t
 | Route | Best for |
 |---|---|
 | [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Hard repository questions, bounded sessions, private-repo context, playbooks, knowledge, schedules, and integrations. |
-| [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
+| <img src="assets/logos/huggingface-color.svg" alt="" width="22"> [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
 | codebase-memory-mcp | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
 | [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
 | [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
@@ -237,9 +253,9 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening
 
 MIT. See [LICENSE](LICENSE).
 
-[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge&logo=openai&logoColor=white&labelColor=555555
+[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge
 [install-codex-url]: #install-in-codex
-[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge&logo=anthropic&logoColor=white&labelColor=555555
+[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge
 [install-claude-url]: #install-in-claude-code
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
