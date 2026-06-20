@@ -6,6 +6,7 @@
 - Removed course-specific README framing so the front door reads like a standalone public skill package.
 - Kept the evidence packet linked with neutral project-history wording instead of personal or course-context language.
 - Renamed the evidence link and artifact to "How This Skill Was Built" for cleaner public framing.
+- Reworked the README dependency and safety sections into public-facing guidance instead of internal routing notes.
 
 ## 0.1.9 - 2026-06-20
 
@@ -25,7 +26,7 @@
 
 ## 0.1.7 - 2026-06-16
 
-- Added Hugging Face as a source/dependency route for models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, ML benchmark/eval discovery, and hosted Jobs/training behind cost/credential approval.
+- Added Hugging Face as a source/dependency route for ML models, datasets, papers, Spaces, evals, benchmark material, and hosted workflows that require explicit setup review.
 - Added a safe temporary staging rule so strong candidates can be downloaded, cloned, fetched, or staged for direct inspection when reasonable, while execution, credentials, paid compute, and persistent mutation remain approval boundaries.
 - Added public validation coverage for Hugging Face routing and staging-vs-execution boundaries.
 

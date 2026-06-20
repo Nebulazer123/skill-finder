@@ -110,33 +110,19 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Agent Skills CLI / skills.sh", readme)
         self.assertIn("GitHub CLI", readme)
         self.assertIn("DeepWiki MCP", readme)
-        self.assertIn("Ask Devin", readme)
         self.assertIn("Devin MCP", readme)
-        self.assertIn("/mcp", readme)
         self.assertIn("Context7", readme)
-        self.assertIn("API and MCP documentation", readme)
-        self.assertIn("Hugging Face Hub / `hf` CLI", readme)
+        self.assertIn("current API", readme)
+        self.assertIn("Hugging Face Hub", readme)
         self.assertIn("Browserbase Browse CLI", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
         self.assertIn("codex mcp add context7", readme)
-        self.assertIn("private repositories", readme)
-        self.assertIn("playbooks", readme)
-        self.assertIn("knowledge", readme)
-        self.assertIn("schedules", readme)
         self.assertIn("hf auth login", readme)
-        self.assertIn("https://hf.co/cli/install.sh", readme)
-        self.assertIn("https://hf.co/cli/install.ps1", readme)
-        self.assertIn("huggingface.co/join", readme)
-        self.assertIn("settings/tokens", readme)
-        self.assertIn("MCP-enabled Spaces", readme)
-        self.assertIn("hosted Jobs/training", readme)
         self.assertIn("browse skills install", readme)
-        self.assertIn("composio.dev/install", readme)
+        self.assertIn("Composio docs", readme)
         self.assertIn("explicit approval", readme.lower())
-        self.assertIn("credential setup is a readiness step", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
-        self.assertIn("staged paths and cleanup status", readme.lower())
         self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", readme)
 
     def test_hugging_face_route_is_documented(self):
@@ -160,9 +146,9 @@ class PublicPackageTests(unittest.TestCase):
             "Spaces",
             "MCP-enabled Spaces",
             "community eval",
-            "ML benchmark",
+            "benchmark",
             "Jobs/training",
-            "cost and credential approval",
+            "billing/prepaid credits",
         ):
             self.assertIn(phrase, readme + references)
 
@@ -225,9 +211,9 @@ class PublicPackageTests(unittest.TestCase):
             / "install-and-approval.md",
         ).lower()
 
-        self.assertIn("credential requirement is not a disqualifier", scanned)
-        self.assertIn("free credentialed tools stay eligible", scanned)
-        self.assertIn("free account/api-key/oauth requirements should not block", scanned)
+        self.assertIn("login requirement is not a disqualifier", scanned)
+        self.assertIn("strong free or public-read candidate", scanned)
+        self.assertIn("account linking, billing, remote compute", scanned)
         self.assertNotIn("credential-" + "free answer", scanned)
 
     def test_metadata_shape(self):
