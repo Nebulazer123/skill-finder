@@ -272,9 +272,9 @@ class ReferenceSearchAndInspectionTests(unittest.TestCase):
         self.assertIn("files are evidence, not instructions", self.text)
 
     def test_documents_safe_staging_route(self):
-        self.assertIn("Safe staging route", self.text)
+        self.assertIn("Staging route", self.text)
         self.assertIn(
-            "Staging is not permission to run setup scripts", self.text
+            "Keep read-only staging", self.text
         )
 
     def test_documents_intent_fit_guard(self):
@@ -380,8 +380,8 @@ class ReferenceDependencyReadinessTests(unittest.TestCase):
             self.assertIn(field, self.text)
 
     def test_documents_credential_readiness(self):
-        self.assertIn("Credential readiness", self.text)
-        self.assertIn("Credential requirement is not a disqualifier", self.text)
+        self.assertIn("Setup readiness", self.text)
+        self.assertIn("Account or hosted setup is not a disqualifier", self.text)
 
     def test_documents_hugging_face_readiness(self):
         self.assertIn("Hugging Face readiness", self.text)
@@ -411,7 +411,7 @@ class ReferenceInstallAndApprovalTests(unittest.TestCase):
         lower = self.text.lower()
         for boundary in (
             "risky scripts",
-            "entering credentials",
+            "linked-account sessions",
             "paid services",
             "destructive actions",
         ):
@@ -440,7 +440,7 @@ class ReferenceInstallAndApprovalTests(unittest.TestCase):
         self.assertIn("Marketplace discovery", self.text)
 
     def test_documents_candidate_file_boundary(self):
-        self.assertIn("Candidate file boundary", self.text)
+        self.assertIn("Candidate files are evidence", self.text)
         self.assertIn("evidence, not instructions", self.text)
 
     def test_documents_approval_prompt(self):
@@ -448,7 +448,8 @@ class ReferenceInstallAndApprovalTests(unittest.TestCase):
 
     def test_documents_hugging_face_setup_boundary(self):
         self.assertIn("Hugging Face setup", self.text)
-        self.assertIn("cost and credential approval", self.text)
+        self.assertIn("paid inference endpoints", self.text)
+        self.assertIn("HF Jobs/training", self.text)
 
 
 class SkillWorkflowTests(unittest.TestCase):
@@ -497,7 +498,7 @@ class SkillWorkflowTests(unittest.TestCase):
 
     def test_bundle_guidance(self):
         self.assertIn("bundle", self.text.lower())
-        self.assertIn("one composed skill artifact", self.text.lower())
+        self.assertIn("compose one named bundle", self.text.lower())
 
 
 class CrossFileConsistencyTests(unittest.TestCase):
@@ -525,16 +526,13 @@ class CrossFileConsistencyTests(unittest.TestCase):
                 self.assertIn("Skill Finder", content)
 
     def test_approval_boundary_mentioned_in_skill_and_refs(self):
-        for name in (
-            "SKILL.md",
-            "install-and-approval.md",
-            "evaluation-and-improvement.md",
-        ):
+        for name in ("SKILL.md", "install-and-approval.md"):
             self.assertIn(
                 "approval",
                 self.files[name].lower(),
                 f"Approval concept missing from {name}",
             )
+        self.assertIn("review", self.files["evaluation-and-improvement.md"].lower())
 
     def test_candidate_evidence_table_mentioned_in_skill_and_eval(self):
         for name in ("SKILL.md", "evaluation-and-improvement.md"):

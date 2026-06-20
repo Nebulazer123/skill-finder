@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 0.1.8][version-shield]][version-url]
+[![Version 0.1.9][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -184,7 +184,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-0.1.8-blue.svg
+[version-shield]: https://img.shields.io/badge/version-0.1.9-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

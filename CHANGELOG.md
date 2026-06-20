@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.9 - 2026-06-20
+
+- Merged Devin branch cleanup for stricter public-package validation and clearer test failure messages.
+- Added GitHub Actions validation so the public package test suite runs on pushes and pull requests.
+- Added secret-file `.gitignore` coverage and stronger public-package scans for private paths and credential-shaped strings.
+- Added broad validation coverage across README, references, examples, metadata, license, and skill workflow docs.
+- Updated stale branch tests to match the current DeepWiki, Devin, Context7, and setup-readiness wording.
+
 ## 0.1.8 - 2026-06-19
 
 - Added DeepWiki and Ask Devin as a stronger repo-intelligence lane for public repo maps, hard source questions, and second-pass uncertainty checks.
