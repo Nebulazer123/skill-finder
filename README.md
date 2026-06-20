@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 0.1.9][version-shield]][version-url]
+[![Version 1.0.0][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -23,7 +23,7 @@
   <a href="#install">Install</a> &middot;
   <a href="#dependencies">Dependencies</a> &middot;
   <a href="#validation">Validation</a> &middot;
-  <a href="#learning-evidence">Learning Evidence</a>
+  <a href="#evidence">Evidence</a>
 </div>
 
 If an AI assistant keeps improvising one-off fixes or grabbing the first matching tool, Skill Finder is for you. It forces a source-backed search, deep inspection, and an approval boundary before anything gets installed or changed.
@@ -156,22 +156,22 @@ python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
 
 This release has also been checked with Plugin Eval from the local development environment. If Plugin Eval is unavailable in your setup, treat that as an optional review tool rather than a hard dependency.
 
-## Learning Evidence
+## Evidence
 
-This project was built as an AI Fluency course project and public agent-skill package. The short evidence packet explains what I learned through Delegation, Description, Discernment, and Diligence; how the project scores evolved; where AI contributed; and what I personally reviewed, changed, and take responsibility for.
+The evidence packet records the project history, validation trail, scoring changes, and responsibility notes behind this public package.
 
 See [AI_FLUENCY_EVIDENCE.md](AI_FLUENCY_EVIDENCE.md).
 
 ## What's Inside
 
 ```text
-AI_FLUENCY_EVIDENCE.md                           - learning evidence, scores, and human/AI collaboration summary
+AI_FLUENCY_EVIDENCE.md                           - project evidence, scores, and validation summary
 skills/skill-finder/SKILL.md                    - skill entrypoint and workflow
 skills/skill-finder/agents/openai.yaml          - display metadata and helper dependency notes
 skills/skill-finder/references/                 - search, ranking, readiness, and approval rules
 examples/                                       - public-safe request and output examples
 validation/                                     - lightweight public package checks
-DILIGENCE.md                                    - AI collaboration and responsibility statement
+DILIGENCE.md                                    - responsibility and review statement
 ```
 
 ## Contributing
@@ -184,7 +184,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-0.1.9-blue.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.0-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

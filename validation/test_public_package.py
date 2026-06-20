@@ -98,7 +98,7 @@ class PublicPackageTests(unittest.TestCase):
             "## Dependencies",
             "## Safety Boundary",
             "## Validation",
-            "## Learning Evidence",
+            "## Evidence",
             "## Contributing",
             "## License",
         ):
