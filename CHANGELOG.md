@@ -12,7 +12,7 @@
 - Expanded README setup guidance for GitHub MCP, DeepWiki, Context7, Browserbase, and local helpers.
 - Removed README-only dependency graph and proof-point sections to keep the page focused on use.
 - Added logo-marked install buttons, a clearer install lead, present-tense safety wording, and npm setup metadata wording.
-- Added supplied Codex, Claude Code, Agent Skills, and Hugging Face logo assets to the README for clearer platform scanning.
+- Replaced the top install badge row with supplied white Codex and Claude Code wordmark buttons, while keeping Agent Skills and Hugging Face logos only in their relevant setup sections.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20

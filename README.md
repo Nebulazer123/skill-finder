@@ -19,21 +19,10 @@
 
 <div align="center">
 
-[![Install in Codex][install-codex-shield]][install-codex-url]
-[![Install in Claude Code][install-claude-shield]][install-claude-url]
+<a href="#install-in-codex"><img src="assets/logos/install-codex.svg" alt="Install in Codex" height="44"></a>
+&nbsp;
+<a href="#install-in-claude-code"><img src="assets/logos/install-claude-code.svg" alt="Install in Claude Code" height="44"></a>
 
-</div>
-
-<div align="center">
-  <a href="#install-in-codex"><img src="assets/logos/codex.webp" alt="Codex" width="34"></a>
-  <a href="#install-in-codex"><img src="assets/logos/codex-text.svg" alt="Codex wordmark" height="18"></a>
-  &nbsp;&nbsp;
-  <a href="#install-in-claude-code"><img src="assets/logos/claude-code-color.svg" alt="Claude Code" height="34"></a>
-  <a href="#install-in-claude-code"><img src="assets/logos/claude-code-text.svg" alt="Claude Code wordmark" height="18"></a>
-  &nbsp;&nbsp;
-  <a href="https://agentskills.io"><img src="assets/logos/agent-skills-color.png" alt="Agent Skills" height="34"></a>
-  &nbsp;&nbsp;
-  <a href="https://huggingface.co/docs/hub/agents-mcp"><img src="assets/logos/huggingface-color.svg" alt="Hugging Face" height="34"></a>
 </div>
 
 <div align="center">
@@ -253,10 +242,6 @@ Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) before opening
 
 MIT. See [LICENSE](LICENSE).
 
-[install-codex-shield]: https://img.shields.io/badge/Install%20in-Codex-111827?style=for-the-badge
-[install-codex-url]: #install-in-codex
-[install-claude-shield]: https://img.shields.io/badge/Install%20in-Claude%20Code-DA7857?style=for-the-badge
-[install-claude-url]: #install-in-claude-code
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
 [version-shield]: https://img.shields.io/badge/version-1.0.3-64748B.svg
