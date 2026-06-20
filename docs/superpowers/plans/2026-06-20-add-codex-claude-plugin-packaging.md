@@ -290,9 +290,9 @@ CODEX_PLUGIN_MANIFEST = {
         "capabilities": ["Research", "Developer Tools"],
         "websiteURL": REPOSITORY_URL,
         "defaultPrompt": [
-            "Find the best capability for this task.",
-            "Compare these candidate tools for my agent.",
-            "Draft a missing capability blueprint.",
+            "Find the best skill for this task.",
+            "Compare these connectors/skills for my agent.",
+            "No good skill exists; find the best stack.",
         ],
         "brandColor": "#DA7857",
         "logo": "./assets/skill-finder-logo-512.png",
@@ -746,7 +746,7 @@ Only run this step when the current session is allowed to add local Claude marke
 /plugin marketplace add .
 /plugin install skill-finder@skill-finder
 /reload-plugins
-/skill-finder:skill-finder Find the best capability for repo-intelligence work.
+/skill-finder:skill-finder Find the best skill for repo-intelligence work.
 ```
 
 Expected: Claude loads the packaged skill under `/skill-finder:skill-finder`.

@@ -57,9 +57,9 @@ That improvisation is useful until the better answer is an existing skill, MCP s
 
 | Ask for | You get |
 |---|---|
-| `"Find the best capability for this task: ..."` | Ranked recommendation packet |
-| `"Compare these candidate tools for my agent: ..."` | Evidence table and winner |
-| `"No good skill exists; draft the blueprint."` | Missing-capability spec and eval cases |
+| `"Find the best skill for this task: ..."` | Ranked recommendation packet |
+| `"Compare these connectors/skills for my agent: ..."` | Evidence table and winner |
+| `"No good skill exists; find the best stack."` | Missing-capability spec and eval cases |
 
 ## When to Use It
 
