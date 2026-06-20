@@ -7,6 +7,7 @@
 - Marked Devin, Hugging Face, codebase-memory-mcp, Composio, and Plugin Eval as recommended power routes when they would materially improve a task.
 - Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, and `browse`.
 - Refocused the README for first-time reviewers with clearer problem framing, setup requirements, proof points, and validation steps.
+- Changed the README install blocks to copy-paste terminal commands for both Codex and Claude Code.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20

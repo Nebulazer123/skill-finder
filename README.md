@@ -71,9 +71,12 @@ Skill Finder ships as a community plugin for Codex and Claude Code. Add this rep
 
 ### Install In Codex
 
+Copy and paste this into your terminal:
+
 ```bash
 codex plugin marketplace add Nebulazer123/skill-finder
 codex plugin add skill-finder@skill-finder
+codex plugin list | grep skill-finder
 ```
 
 Use it in Codex with:
@@ -84,10 +87,12 @@ Use it in Codex with:
 
 ### Install In Claude Code
 
-```text
-/plugin marketplace add Nebulazer123/skill-finder
-/plugin install skill-finder@skill-finder
-/reload-plugins
+Copy and paste this into your terminal:
+
+```bash
+claude plugin marketplace add Nebulazer123/skill-finder
+claude plugin install skill-finder@skill-finder
+claude plugin list | grep skill-finder
 ```
 
 Use `/skill-finder` in Claude Code:
