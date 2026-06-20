@@ -60,7 +60,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "codex.webp",
             ROOT / "assets" / "logos" / "huggingface-color.svg",
             ROOT / "assets" / "logos" / "install-codex-button.svg",
-            ROOT / "assets" / "logos" / "install-claude-code.svg",
+            ROOT / "assets" / "logos" / "install-claude-code-button.svg",
             ROOT / "assets" / "logos" / "github-invertocat-white.svg",
             ROOT / "assets" / "logos" / "deepwiki.png",
             ROOT / "assets" / "logos" / "context7.png",
@@ -243,7 +243,7 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/agent-skills.svg",
             "assets/logos/huggingface-color.svg",
             "assets/logos/install-codex-button.svg",
-            "assets/logos/install-claude-code.svg",
+            "assets/logos/install-claude-code-button.svg",
             "assets/logos/github-invertocat-white.svg",
             "assets/logos/deepwiki.png",
             "assets/logos/context7.png",
@@ -321,7 +321,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('<img src="assets/logos/agent-skills.svg"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
         self.assertIn('<img src="assets/logos/install-codex-button.svg"', readme)
-        self.assertIn('<img src="assets/logos/install-claude-code.svg"', readme)
+        self.assertIn('<img src="assets/logos/install-claude-code-button.svg"', readme)
         self.assertIn('<img src="assets/logos/github-invertocat-white.svg"', readme)
         self.assertIn('<img src="assets/logos/deepwiki.png"', readme)
         self.assertIn('<img src="assets/logos/context7.png"', readme)
@@ -351,7 +351,7 @@ class PublicPackageTests(unittest.TestCase):
             readme.index("## The Problem"),
         )
         self.assertLess(
-            readme.index("assets/logos/install-claude-code.svg"),
+            readme.index("assets/logos/install-claude-code-button.svg"),
             readme.index("## The Problem"),
         )
         self.assertGreater(
@@ -381,7 +381,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "install-codex-button.svg"
         )
         install_claude = _read_text_strict(
-            ROOT / "assets" / "logos" / "install-claude-code.svg"
+            ROOT / "assets" / "logos" / "install-claude-code-button.svg"
         )
         self.assertIn('fill="#fff"', install_codex)
         self.assertIn('fill="#fff"', install_claude)

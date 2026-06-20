@@ -16,6 +16,7 @@
 - Updated the Agent Skills setup logo to the white triangle mark.
 - Matched the Codex and Claude Code top install buttons to the same rendered box size.
 - Widened the Codex and Claude Code top install buttons so the Codex icon and wordmark do not feel clipped.
+- Renamed the Claude Code install-button asset so GitHub refreshes the widened version instead of serving a stale cached SVG.
 - Renamed the Codex install-button asset so GitHub refreshes the equal-width version instead of serving a stale cached SVG.
 - Added a left-aligned Codex icon inside the Codex install button to match the Claude Code button layout.
 - Added route-specific GitHub, DeepWiki, Context7, Browserbase, codebase-memory-mcp, Devin, and Composio logos only in their matching setup/recommendation rows.

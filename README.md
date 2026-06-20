@@ -21,7 +21,7 @@
 
 <a href="#install-in-codex"><img src="assets/logos/install-codex-button.svg" alt="Install in Codex" height="44"></a>
 &nbsp;
-<a href="#install-in-claude-code"><img src="assets/logos/install-claude-code.svg" alt="Install in Claude Code" height="44"></a>
+<a href="#install-in-claude-code"><img src="assets/logos/install-claude-code-button.svg" alt="Install in Claude Code" height="44"></a>
 
 </div>
 
