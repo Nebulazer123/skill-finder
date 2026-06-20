@@ -224,8 +224,6 @@ class PublicPackageTests(unittest.TestCase):
             "## Recommended When Useful",
             "## How It Works",
             "## Safety Model",
-            "## Dependency Graph",
-            "## Proof Points",
             "## Validation",
             "## Files To Read",
             "## Contributing",
@@ -267,15 +265,21 @@ class PublicPackageTests(unittest.TestCase):
         self.assertNotIn("### Pin A Release", readme)
         self.assertNotIn("If you need a reproducible older release", readme)
         self.assertNotIn("marketplace plugin skills are namespaced", readme)
+        self.assertIn("codex mcp add github --url https://api.githubcopilot.com/mcp/", readme)
+        self.assertIn("codex mcp add deepwiki --url https://mcp.deepwiki.com/mcp", readme)
         self.assertIn("codex mcp add context7", readme)
-        self.assertIn("hf auth login", readme)
+        self.assertIn("claude mcp add --transport http github https://api.githubcopilot.com/mcp/", readme)
+        self.assertIn("claude mcp add --transport http deepwiki https://mcp.deepwiki.com/mcp", readme)
+        self.assertIn("claude mcp add context7", readme)
         self.assertIn("browse skills install", readme)
         self.assertIn("Composio docs", readme)
         self.assertIn("package.json", readme)
         self.assertIn("@upstash/context7-mcp", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
-        self.assertIn("HOW_THIS_SKILL_WAS_BUILT.md", readme)
+        self.assertNotIn("## Dependency Graph", readme)
+        self.assertNotIn("## Proof Points", readme)
+        self.assertNotIn("hf auth login", readme)
         self.assertNotIn("Community plugin note", readme)
         self.assertNotIn("Skill Finder should search", readme)
 
@@ -365,9 +369,9 @@ class PublicPackageTests(unittest.TestCase):
             / "install-and-approval.md",
         ).lower()
 
-        self.assertIn("login requirement is not a disqualifier", scanned)
-        self.assertIn("strong free or public-read candidate", scanned)
-        self.assertIn("account linking, billing, remote compute", scanned)
+        self.assertIn("account or hosted setup is not a disqualifier", scanned)
+        self.assertIn("do not downgrade a strong free candidate", scanned)
+        self.assertIn("paid/hosted compute", scanned)
         self.assertNotIn("credential-" + "free answer", scanned)
 
     def test_metadata_shape(self):

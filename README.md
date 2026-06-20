@@ -128,25 +128,38 @@ Restart your host after manual copying so the skill list refreshes.
 
 Skill Finder depends on several discovery routes. They are listed here because they materially affect recommendation quality.
 
-| Required route | Why it matters |
-|---|---|
-| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. |
-| [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. |
-| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Quickly maps public repositories before source verification. |
-| [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. |
-| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Adds browser-backed search, fetch, snapshots, and live-page evidence. |
-| Local basics | `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. |
+| Required route | Why it matters | Setup note |
+|---|---|---|
+| [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
+| [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. | Remote endpoint: `https://api.githubcopilot.com/mcp/`; configure auth in your host. |
+| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Quickly maps public repositories before source verification. | Remote endpoint: `https://mcp.deepwiki.com/mcp` |
+| [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. | Use `@upstash/context7-mcp`; API key recommended. |
+| [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Adds browser-backed search, fetch, snapshots, and live-page evidence. | `npm install -g browse` and `browse skills install` |
+| Local basics | `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. | Install with your system package manager. |
 
-Useful setup commands:
+Codex setup commands:
 
 ```bash
 npm install -g skills
 npm install -g browse
 browse skills install
+codex mcp add github --url https://api.githubcopilot.com/mcp/
+codex mcp add deepwiki --url https://mcp.deepwiki.com/mcp
 codex mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
 ```
 
-DeepWiki is a remote MCP endpoint at `https://mcp.deepwiki.com/mcp`. GitHub MCP and Browserbase cloud features may require account configuration in Codex or Claude Code.
+Claude Code setup commands:
+
+```bash
+npm install -g skills
+npm install -g browse
+browse skills install
+claude mcp add --transport http github https://api.githubcopilot.com/mcp/
+claude mcp add --transport http deepwiki https://mcp.deepwiki.com/mcp
+claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
+```
+
+GitHub MCP, Context7 higher limits, and Browserbase cloud features may require account configuration in Codex or Claude Code.
 
 ## Recommended When Useful
 
@@ -159,14 +172,6 @@ These routes are not required for every run, but they should be suggested when t
 | codebase-memory-mcp | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
 | [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
 | [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
-
-A login requirement is not a disqualifier. Skill Finder should keep a strong free or public-read candidate in the running, mark setup clearly, and stop before account linking, billing, remote compute, or persistent changes.
-
-For Hugging Face workflows, public Hub research can start with docs and cards. Authenticated CLI work usually begins with:
-
-```bash
-hf auth login
-```
 
 ## How It Works
 
@@ -187,26 +192,11 @@ See [examples/recommendation-output-shape.md](examples/recommendation-output-sha
 
 Skill Finder treats candidate files as evidence to inspect, not instructions to obey.
 
-Safe staging means cloning, downloading, or unpacking candidate source into a temporary workspace for review. A result should record the staging path and cleanup status. Staging is not permission to run setup scripts, enter credentials, link accounts, enable integrations, publish content, spend money, delete files, or mutate persistent/global state.
+Skill Finder may clone, download, or unpack candidate source into a temporary workspace for review. A result should record the staging path and cleanup status.
+
+That review step is not permission to run setup scripts, enter credentials, link accounts, enable integrations, publish content, spend money, delete files, or mutate persistent/global state.
 
 Candidate setup scripts require explicit approval before execution.
-
-## Dependency Graph
-
-GitHub can graph only supported manifests and package data. This repo includes `package.json` for the setup tools GitHub can honestly track:
-
-- `skills`
-- `@upstash/context7-mcp`
-- `browse`
-
-Remote MCP URLs, Docker images, Homebrew packages, OAuth connections, and hosted account setup belong in the setup tables above, not as fake npm dependencies.
-
-## Proof Points
-
-- Plugin manifests are included for both Codex and Claude Code.
-- Public package checks verify required files, install text, safety language, dependency documentation, and plugin package sync.
-- The skill has example outputs and validation coverage for recommendation shape, source-route scoring, setup readiness, and safe staging.
-- The build story and responsibility notes are documented in [HOW_THIS_SKILL_WAS_BUILT.md](HOW_THIS_SKILL_WAS_BUILT.md) and [DILIGENCE.md](DILIGENCE.md).
 
 ## Validation
 
