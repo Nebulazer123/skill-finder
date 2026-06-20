@@ -119,7 +119,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.7")
+        self.assertEqual(manifest["version"], "1.0.8")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -149,7 +149,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.7")
+        self.assertEqual(manifest["version"], "1.0.8")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -182,14 +182,14 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.7")
+        self.assertEqual(claude_entry["version"], "1.0.8")
         self.assertEqual(claude_entry["category"], "Productivity")
 
     def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
-        self.assertEqual(manifest["version"], "1.0.7")
+        self.assertEqual(manifest["version"], "1.0.8")
         self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
@@ -394,7 +394,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('transform="translate(98 10) scale(1.05)"', install_codex)
         self.assertIn("M79.915 14.964", install_codex)
         self.assertNotIn("<text", install_codex)
-        self.assertIn('transform="translate(61 10)"', install_claude)
+        self.assertIn('transform="translate(86 10)"', install_claude)
+        self.assertIn('transform="translate(120 10)"', install_claude)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())

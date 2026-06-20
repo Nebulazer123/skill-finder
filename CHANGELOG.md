@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.7 - 2026-06-20
+## 1.0.8 - 2026-06-20
 
 - Made Agent Skills, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, codebase-memory-mcp, and local inspection basics required setup for real Skill Finder runs.
 - Added a Required Setup Block behavior so the skill pauses and asks before installing or configuring missing required routes.
@@ -20,7 +20,8 @@
 - Renamed the Codex install-button asset so GitHub refreshes the equal-width version instead of serving a stale cached SVG.
 - Added a left-aligned Codex icon inside the Codex install button to match the Claude Code button layout.
 - Refreshed security, contribution, issue, pull request, and validation policy files around required setup, plugin sync, dependency metadata, and public-safe reporting.
-- Bumped the public package to 1.0.7 and replaced the small Codex install-section icon with the gradient Codex cloud asset.
+- Replaced the small Codex install-section icon with the gradient Codex cloud asset.
+- Bumped the public package to 1.0.8 and centered the Claude Code install-button artwork to match the Codex button.
 - Restored the Codex cloud icon at a smaller size beside the Codex wordmark in the top install button.
 - Added route-specific GitHub, DeepWiki, Context7, Browserbase, codebase-memory-mcp, Devin, and Composio logos only in their matching setup/recommendation rows.
 - Added the Plugin Eval logo and normalized all setup/recommendation row logos to the same rendered size.
