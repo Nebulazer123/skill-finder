@@ -4,39 +4,76 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 
+BINARY_SUFFIXES = frozenset((
+    ".png", ".jpg", ".jpeg", ".gif", ".ico", ".webp",
+    ".woff", ".woff2", ".ttf", ".otf", ".eot",
+    ".zip", ".tar", ".gz", ".bz2",
+    ".pdf", ".bin", ".exe", ".dll", ".so", ".dylib",
+))
+
+
+def _read_text_strict(path: Path) -> str:
+    """Read a text file with strict UTF-8 decoding.
+
+    Raises FileNotFoundError with a clear message if the file is missing,
+    and UnicodeDecodeError if the file contains invalid UTF-8.
+    """
+    if not path.is_file():
+        raise FileNotFoundError(f"Expected text file not found: {path}")
+    return path.read_text(encoding="utf-8")
+
+
+def _read_reference_files(*paths: Path) -> str:
+    """Concatenate multiple reference files with strict decoding.
+
+    Propagates encoding errors instead of silently dropping characters.
+    """
+    parts = []
+    for path in paths:
+        parts.append(_read_text_strict(path))
+    return "\n".join(parts)
+
 
 class PublicPackageTests(unittest.TestCase):
     def test_public_repo_files_exist(self):
-        self.assertTrue((ROOT / "README.md").is_file())
-        self.assertTrue((ROOT / "AI_FLUENCY_EVIDENCE.md").is_file())
-        self.assertTrue((ROOT / "LICENSE").is_file())
-        self.assertTrue((ROOT / "CONTRIBUTING.md").is_file())
-        self.assertTrue((ROOT / "CODE_OF_CONDUCT.md").is_file())
-        self.assertTrue((ROOT / "SECURITY.md").is_file())
-        self.assertTrue((ROOT / ".github" / "repo-meta.yml").is_file())
-        self.assertTrue(
-            (ROOT / ".github" / "ISSUE_TEMPLATE" / "bug_report.md").is_file()
-        )
-        self.assertTrue(
-            (ROOT / ".github" / "ISSUE_TEMPLATE" / "feature_request.md").is_file()
-        )
-        self.assertTrue((ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md").is_file())
-        self.assertTrue((ROOT / "assets" / "skill-finder-logo.png").is_file())
-        self.assertTrue((ROOT / "assets" / "skill-finder-logo-512.png").is_file())
+        required_files = [
+            ROOT / "README.md",
+            ROOT / "AI_FLUENCY_EVIDENCE.md",
+            ROOT / "LICENSE",
+            ROOT / "CONTRIBUTING.md",
+            ROOT / "CODE_OF_CONDUCT.md",
+            ROOT / "SECURITY.md",
+            ROOT / ".github" / "repo-meta.yml",
+            ROOT / ".github" / "ISSUE_TEMPLATE" / "bug_report.md",
+            ROOT / ".github" / "ISSUE_TEMPLATE" / "feature_request.md",
+            ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md",
+            ROOT / "assets" / "skill-finder-logo.png",
+            ROOT / "assets" / "skill-finder-logo-512.png",
+        ]
+        for path in required_files:
+            self.assertTrue(
+                path.is_file(),
+                f"Required file missing: {path.relative_to(ROOT)}",
+            )
 
     def test_skill_files_exist(self):
         skill_root = ROOT / "skills" / "skill-finder"
-        self.assertTrue((skill_root / "SKILL.md").is_file())
-        self.assertTrue((skill_root / "agents" / "openai.yaml").is_file())
-        self.assertTrue((skill_root / "references" / "search-and-inspection.md").is_file())
-        self.assertTrue((skill_root / "references" / "evaluation-and-improvement.md").is_file())
-        self.assertTrue((skill_root / "references" / "dependency-and-capability-readiness.md").is_file())
-        self.assertTrue((skill_root / "references" / "install-and-approval.md").is_file())
+        required_skill_files = [
+            skill_root / "SKILL.md",
+            skill_root / "agents" / "openai.yaml",
+            skill_root / "references" / "search-and-inspection.md",
+            skill_root / "references" / "evaluation-and-improvement.md",
+            skill_root / "references" / "dependency-and-capability-readiness.md",
+            skill_root / "references" / "install-and-approval.md",
+        ]
+        for path in required_skill_files:
+            self.assertTrue(
+                path.is_file(),
+                f"Required skill file missing: {path.relative_to(ROOT)}",
+            )
 
     def test_skill_contract_keeps_required_boundaries(self):
-        text = (ROOT / "skills" / "skill-finder" / "SKILL.md").read_text(
-            encoding="utf-8"
-        )
+        text = _read_text_strict(ROOT / "skills" / "skill-finder" / "SKILL.md")
 
         self.assertIn("20+ finalists", text)
         self.assertIn("show at most five", text)
@@ -50,7 +87,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("staged/downloaded artifacts", text.lower())
 
     def test_readme_has_public_front_door_sections(self):
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        readme = _read_text_strict(ROOT / "README.md")
 
         for phrase in (
             "assets/skill-finder-logo-512.png",
@@ -65,7 +102,7 @@ class PublicPackageTests(unittest.TestCase):
             "## Contributing",
             "## License",
         ):
-            self.assertIn(phrase, readme)
+            self.assertIn(phrase, readme, f"README.md missing section: {phrase}")
 
         self.assertIn("does not auto-install anything", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
@@ -103,29 +140,17 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("AI_FLUENCY_EVIDENCE.md", readme)
 
     def test_hugging_face_route_is_documented(self):
-        readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        agent_meta = (
+        readme = _read_text_strict(ROOT / "README.md")
+        agent_meta = _read_text_strict(
             ROOT / "skills" / "skill-finder" / "agents" / "openai.yaml"
-        ).read_text(encoding="utf-8")
-        references = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "search-and-inspection.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        )
+        references = _read_reference_files(
+            ROOT / "skills" / "skill-finder" / "references"
+            / "search-and-inspection.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "install-and-approval.md",
         )
 
         for phrase in (
@@ -149,32 +174,17 @@ class PublicPackageTests(unittest.TestCase):
         self.assertNotIn("huggingface_hub" + "[cli]", readme + references)
 
     def test_safe_staging_download_policy_is_documented(self):
-        scanned = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT / "README.md",
-                ROOT / "skills" / "skill-finder" / "SKILL.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "search-and-inspection.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "evaluation-and-improvement.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        scanned = _read_reference_files(
+            ROOT / "README.md",
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "search-and-inspection.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "evaluation-and-improvement.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "install-and-approval.md",
         ).lower()
 
         for phrase in (
@@ -188,7 +198,7 @@ class PublicPackageTests(unittest.TestCase):
             self.assertIn(phrase, scanned)
 
     def test_learning_evidence_is_scannable(self):
-        evidence = (ROOT / "AI_FLUENCY_EVIDENCE.md").read_text(encoding="utf-8")
+        evidence = _read_text_strict(ROOT / "AI_FLUENCY_EVIDENCE.md")
 
         for phrase in (
             "My Role Versus AI's Role",
@@ -204,27 +214,15 @@ class PublicPackageTests(unittest.TestCase):
             self.assertIn(phrase, evidence)
 
     def test_free_credentialed_tools_are_not_disqualified(self):
-        scanned = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in (
-                ROOT / "README.md",
-                ROOT / "skills" / "skill-finder" / "SKILL.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "dependency-and-capability-readiness.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "evaluation-and-improvement.md",
-                ROOT
-                / "skills"
-                / "skill-finder"
-                / "references"
-                / "install-and-approval.md",
-            )
+        scanned = _read_reference_files(
+            ROOT / "README.md",
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "evaluation-and-improvement.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "install-and-approval.md",
         ).lower()
 
         self.assertIn("credential requirement is not a disqualifier", scanned)
@@ -233,7 +231,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertNotIn("credential-" + "free answer", scanned)
 
     def test_metadata_shape(self):
-        meta = (ROOT / ".github" / "repo-meta.yml").read_text(encoding="utf-8")
+        meta = _read_text_strict(ROOT / ".github" / "repo-meta.yml")
         description = []
         in_description = False
         topics = []
@@ -253,21 +251,56 @@ class PublicPackageTests(unittest.TestCase):
             if stripped.startswith("- "):
                 topics.append(stripped[2:])
 
-        self.assertLessEqual(len(" ".join(description)), 350)
-        self.assertGreaterEqual(len(topics), 8)
-        self.assertLessEqual(len(topics), 20)
+        desc_text = " ".join(description)
+        self.assertGreater(
+            len(desc_text), 0,
+            "repo-meta.yml: description section is empty",
+        )
+        self.assertLessEqual(
+            len(desc_text), 350,
+            f"repo-meta.yml: description too long ({len(desc_text)} chars > 350)",
+        )
+        self.assertGreaterEqual(
+            len(topics), 8,
+            f"repo-meta.yml: too few topics ({len(topics)} < 8)",
+        )
+        self.assertLessEqual(
+            len(topics), 20,
+            f"repo-meta.yml: too many topics ({len(topics)} > 20)",
+        )
         for topic in topics:
-            self.assertRegex(topic, r"^[a-z0-9][a-z0-9-]*$")
+            self.assertRegex(
+                topic, r"^[a-z0-9][a-z0-9-]*$",
+                f"repo-meta.yml: invalid topic format: {topic!r}",
+            )
 
     def test_public_docs_do_not_include_private_workspace_paths(self):
-        scanned = "\n".join(
-            path.read_text(encoding="utf-8", errors="ignore")
-            for path in ROOT.rglob("*")
-            if path.is_file()
-            and ".git" not in path.parts
-            and "__pycache__" not in path.parts
-            and path.suffix != ".pyc"
-        )
+        scanned_parts = []
+        unreadable_files = []
+        for path in ROOT.rglob("*"):
+            if not path.is_file():
+                continue
+            if ".git" in path.parts or "__pycache__" in path.parts:
+                continue
+            if path.suffix == ".pyc":
+                continue
+            if path.suffix.lower() in BINARY_SUFFIXES:
+                continue
+            try:
+                scanned_parts.append(path.read_text(encoding="utf-8"))
+            except UnicodeDecodeError as exc:
+                unreadable_files.append((path.relative_to(ROOT), exc))
+
+        if unreadable_files:
+            details = "; ".join(
+                f"{p}: {e}" for p, e in unreadable_files
+            )
+            self.fail(
+                f"Files contain invalid UTF-8 (possible encoding "
+                f"corruption or unexpected binary): {details}"
+            )
+
+        scanned = "\n".join(scanned_parts)
 
         forbidden = (
             "/" + "Users/",
@@ -279,13 +312,45 @@ class PublicPackageTests(unittest.TestCase):
             "PASS" + "WORD=",
         )
         for phrase in forbidden:
-            self.assertNotIn(phrase, scanned)
+            self.assertNotIn(
+                phrase, scanned,
+                f"Private/sensitive content leaked into public docs: {phrase!r}",
+            )
 
     def test_gitignore_covers_generated_cache_files(self):
-        gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
-        self.assertIn("__pycache__/", gitignore)
-        self.assertIn("*.pyc", gitignore)
-        self.assertIn(".pytest_cache/", gitignore)
+        gitignore = _read_text_strict(ROOT / ".gitignore")
+        for pattern in ("__pycache__/", "*.pyc", ".pytest_cache/"):
+            self.assertIn(
+                pattern, gitignore,
+                f".gitignore missing required pattern: {pattern}",
+            )
+
+    def test_all_text_files_are_valid_utf8(self):
+        """Verify that all text files in the repo are valid UTF-8.
+
+        Catches encoding corruption early instead of silently ignoring
+        malformed bytes at test time.
+        """
+        invalid_files = []
+        for path in ROOT.rglob("*"):
+            if not path.is_file():
+                continue
+            if ".git" in path.parts or "__pycache__" in path.parts:
+                continue
+            if path.suffix.lower() in BINARY_SUFFIXES:
+                continue
+            if path.suffix == ".pyc":
+                continue
+            try:
+                path.read_text(encoding="utf-8")
+            except UnicodeDecodeError as exc:
+                invalid_files.append(f"{path.relative_to(ROOT)}: {exc}")
+
+        if invalid_files:
+            self.fail(
+                "Text files with invalid UTF-8 encoding found:\n"
+                + "\n".join(f"  - {f}" for f in invalid_files)
+            )
 
 
 if __name__ == "__main__":
