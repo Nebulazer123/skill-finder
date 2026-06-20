@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.0][version-shield]][version-url]
+[![Version 1.0.1][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -94,6 +94,32 @@ cp -R skills/skill-finder ~/.codex/skills/skill-finder
 ```
 
 Restart your agent host after copying the skill so its skill list refreshes.
+
+### Plugin Install
+
+The canonical artifact is still the skill at `skills/skill-finder/`. The plugin wrapper packages that skill for Codex and Claude Code plugin workflows.
+
+Codex:
+
+```bash
+codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.1
+codex plugin add skill-finder@skill-finder
+```
+
+Claude Code:
+
+```text
+/plugin marketplace add Nebulazer123/skill-finder
+/plugin install skill-finder@skill-finder
+/reload-plugins
+```
+
+After install, invoke the packaged skill as:
+
+```text
+@skill-finder
+/skill-finder:skill-finder
+```
 
 ## Dependencies
 
@@ -188,7 +214,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.0-blue.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.1-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

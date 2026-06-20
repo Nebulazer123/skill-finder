@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.1 - 2026-06-20
+
+- Added Codex and Claude Code plugin packaging while keeping `skills/skill-finder/` as the canonical skill source.
+- Added repo marketplace files for Codex and Claude plugin installation.
+- Added a deterministic sync/check script and validation coverage so packaged plugin skills cannot drift from the canonical skill.
+
 ## 1.0.0 - 2026-06-20
 
 - Promoted the public package to v1 after merging the open Devin branches and clearing open PRs/issues.
