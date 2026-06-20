@@ -174,8 +174,8 @@ These routes are not required for every run, but they should be suggested when t
 |---|---|
 | <img src="assets/logos/devin-color.svg" alt="" width="22" height="22"> [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Hard repository questions, bounded sessions, private-repo context, playbooks, knowledge, schedules, and integrations. |
 | <img src="assets/logos/huggingface-color.svg" alt="" width="22" height="22"> [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
-| codebase-memory-mcp | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
-| <img src="assets/logos/composio-symbol.svg" alt="" width="22" height="22"> [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
+| <img src="assets/logos/codebase-memory.png" alt="" width="22" height="22"> [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | Local symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. |
+| <img src="assets/logos/composio-symbol.png" alt="" width="22" height="22"> [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
 | <img src="assets/logos/plugin-eval.svg" alt="" width="22" height="22"> [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
 
 ## How It Works

@@ -66,7 +66,8 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "context7.svg",
             ROOT / "assets" / "logos" / "browserbase.svg",
             ROOT / "assets" / "logos" / "devin-color.svg",
-            ROOT / "assets" / "logos" / "composio-symbol.svg",
+            ROOT / "assets" / "logos" / "codebase-memory.png",
+            ROOT / "assets" / "logos" / "composio-symbol.png",
             ROOT / "assets" / "logos" / "plugin-eval.svg",
         ]
         for path in required_files:
@@ -243,7 +244,8 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/context7.svg",
             "assets/logos/browserbase.svg",
             "assets/logos/devin-color.svg",
-            "assets/logos/composio-symbol.svg",
+            "assets/logos/codebase-memory.png",
+            "assets/logos/composio-symbol.png",
             "assets/logos/plugin-eval.svg",
             "## The Problem",
             "## What It Does",
@@ -275,6 +277,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("current API", readme)
         self.assertIn("Hugging Face Hub", readme)
         self.assertIn("Browserbase Browse CLI", readme)
+        self.assertIn("[codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp)", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
         self.assertIn("### Install In Codex", readme)
@@ -317,7 +320,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('<img src="assets/logos/context7.svg"', readme)
         self.assertIn('<img src="assets/logos/browserbase.svg"', readme)
         self.assertIn('<img src="assets/logos/devin-color.svg"', readme)
-        self.assertIn('<img src="assets/logos/composio-symbol.svg"', readme)
+        self.assertIn('<img src="assets/logos/codebase-memory.png"', readme)
+        self.assertIn('<img src="assets/logos/composio-symbol.png"', readme)
         self.assertIn('<img src="assets/logos/plugin-eval.svg"', readme)
         for logo in (
             "agent-skills-color.png",
@@ -327,7 +331,8 @@ class PublicPackageTests(unittest.TestCase):
             "browserbase.svg",
             "devin-color.svg",
             "huggingface-color.svg",
-            "composio-symbol.svg",
+            "codebase-memory.png",
+            "composio-symbol.png",
             "plugin-eval.svg",
         ):
             self.assertIn(
@@ -360,7 +365,8 @@ class PublicPackageTests(unittest.TestCase):
         )
         for logo in (
             "assets/logos/devin-color.svg",
-            "assets/logos/composio-symbol.svg",
+            "assets/logos/codebase-memory.png",
+            "assets/logos/composio-symbol.png",
             "assets/logos/plugin-eval.svg",
         ):
             self.assertGreater(readme.index(logo), readme.index("## Recommended When Useful"))
@@ -376,6 +382,10 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('fill="#DA7857"', install_claude)
         self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_codex)
         self.assertIn('width="214" height="44" viewBox="0 0 214 44"', install_claude)
+        self.assertIn('transform="translate(38 10)"', install_codex)
+        self.assertIn('stroke="#111827"', install_codex)
+        self.assertIn('transform="translate(74 10)"', install_codex)
+        self.assertIn('transform="translate(38 10)"', install_claude)
         self.assertIn("Source review does not authorize", readme)
         self.assertIn("explicit approval", readme.lower())
         self.assertIn("temporary workspace", readme.lower())
