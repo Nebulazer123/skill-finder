@@ -76,6 +76,39 @@ class AgentConfigTests(unittest.TestCase):
         )
 
 
+class PluginPackagingTests(unittest.TestCase):
+    """Plugin wrapper and marketplace files need direct coverage."""
+
+    def test_sync_script_exists(self):
+        script = ROOT / "scripts" / "sync_plugin_package.py"
+        self.assertTrue(script.is_file())
+        text = script.read_text(encoding="utf-8")
+        self.assertIn("CODEX_PLUGIN_MANIFEST", text)
+        self.assertIn("CLAUDE_PLUGIN_MANIFEST", text)
+        self.assertIn("CODEX_MARKETPLACE_MANIFEST", text)
+        self.assertIn("CLAUDE_MARKETPLACE_MANIFEST", text)
+
+    def test_codex_manifest_mentions_skills_directory(self):
+        text = (
+            ROOT / "plugins" / "skill-finder" / ".codex-plugin" / "plugin.json"
+        ).read_text(encoding="utf-8")
+        self.assertIn('"skills": "./skills/"', text)
+        self.assertIn('"name": "skill-finder"', text)
+
+    def test_claude_manifest_mentions_skills_directory(self):
+        text = (
+            ROOT / "plugins" / "skill-finder" / ".claude-plugin" / "plugin.json"
+        ).read_text(encoding="utf-8")
+        self.assertIn('"skills": "./skills/"', text)
+        self.assertIn('"name": "skill-finder"', text)
+
+    def test_marketplaces_are_documented_in_readme(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("Codex:", readme)
+        self.assertIn("Claude Code:", readme)
+        self.assertIn("plugin wrapper packages that skill", readme)
+
+
 class ChangelogTests(unittest.TestCase):
     """CHANGELOG.md had zero coverage."""
 
