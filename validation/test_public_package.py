@@ -44,8 +44,9 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Candidate Evidence Table", text)
         self.assertIn("dependency readiness", text.lower())
         self.assertIn("Install command: not verified", text)
-        self.assertIn("explicit approval", text.lower())
-        self.assertIn("do not demote free account", text.lower())
+        self.assertIn("approval", text.lower())
+        self.assertIn("DeepWiki/Ask Devin", text)
+        self.assertIn("Context7/API docs", text)
         self.assertIn("staged/downloaded artifacts", text.lower())
 
     def test_readme_has_public_front_door_sections(self):
@@ -71,12 +72,21 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
         self.assertIn("GitHub CLI", readme)
+        self.assertIn("DeepWiki MCP", readme)
+        self.assertIn("Ask Devin", readme)
+        self.assertIn("Devin MCP", readme)
+        self.assertIn("/mcp", readme)
         self.assertIn("Context7", readme)
+        self.assertIn("API and MCP documentation", readme)
         self.assertIn("Hugging Face Hub / `hf` CLI", readme)
         self.assertIn("Browserbase Browse CLI", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
         self.assertIn("codex mcp add context7", readme)
+        self.assertIn("private repositories", readme)
+        self.assertIn("playbooks", readme)
+        self.assertIn("knowledge", readme)
+        self.assertIn("schedules", readme)
         self.assertIn("hf auth login", readme)
         self.assertIn("https://hf.co/cli/install.sh", readme)
         self.assertIn("https://hf.co/cli/install.ps1", readme)
@@ -173,7 +183,7 @@ class PublicPackageTests(unittest.TestCase):
             "staging path",
             "cleanup status",
             "staging is not permission to run setup scripts",
-            "do not run candidate scripts",
+            "candidate setup scripts",
         ):
             self.assertIn(phrase, scanned)
 

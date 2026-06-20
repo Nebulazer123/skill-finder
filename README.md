@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 0.1.7][version-shield]][version-url]
+[![Version 0.1.8][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -101,15 +101,21 @@ Set up these external capabilities for the full Skill Finder workflow across ski
 |---|---|---|---|---|
 | [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Discover and install agent skills from GitHub repositories and the open skills ecosystem. | No account required. Browse public skills at [skills.sh](https://skills.sh). | `npm install -g skills` | `npm install -g skills` |
 | [GitHub CLI](https://cli.github.com/) | Search repositories, inspect source files, check releases/issues, and verify GitHub candidates from the terminal. | Use a GitHub account, then authenticate with `gh auth login`. | `brew install gh && gh auth login` | `winget install --id GitHub.cli && gh auth login` |
-| [Context7](https://github.com/upstash/context7) | Pull current library, SDK, API, and framework documentation into the agent workflow. | Get a free API key at [context7.com/dashboard](https://context7.com/dashboard) for higher limits. | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` |
+| [DeepWiki MCP](https://docs.devin.ai/work-with-devin/deepwiki-mcp) | Build quick public-repository maps, generated architecture docs, and Ask Devin-style repo Q&A before source-file verification. | No account required for public repositories. | Add the DeepWiki MCP endpoint at `/mcp` in your agent host. | Add the DeepWiki MCP endpoint at `/mcp` in your agent host. |
+| [Devin MCP](https://docs.devin.ai/work-with-devin/devin-mcp) | Use approved Devin sessions, private-repository docs, playbooks, knowledge, schedules, and integrations when DeepWiki is not enough. | Requires a Devin account and API key; private repositories and session actions need explicit approval. | Configure Devin MCP only after approval and secret setup. | Configure Devin MCP only after approval and secret setup. |
+| [Context7](https://github.com/upstash/context7) | Pull current library, SDK, API, MCP, and framework documentation into the agent workflow. | Get a free API key at [context7.com/dashboard](https://context7.com/dashboard) for higher limits. | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` | `npx ctx7 setup`; for Codex MCP: `codex mcp add context7 -- npx -y @upstash/context7-mcp@latest` |
 | [Hugging Face Hub / `hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Discover source-backed ML capabilities: models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmark/eval data, and hosted Jobs/training candidates. | Create a free account at [huggingface.co/join](https://huggingface.co/join). Create least-privilege tokens at [settings/tokens](https://huggingface.co/settings/tokens); use `hf auth login` or `HF_TOKEN`. Hosted Jobs/training require token plus billing/prepaid credits and explicit approval. | <code>curl -LsSf https://hf.co/cli/install.sh &#124; bash</code>; or `brew install hf`; then `hf auth login` | <code>powershell -ExecutionPolicy ByPass -c "irm https://hf.co/cli/install.ps1 &#124; iex"</code>; then `hf auth login` |
 | [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Use search, fetch, cloud browser sessions, and Browse.sh skills when normal search snippets are not enough. | Create a Browserbase account and API key at [browserbase.com](https://www.browserbase.com/). | `npm install -g browse && browse skills install` | `npm install -g browse && browse skills install` |
 | [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Discover, authenticate, and use app connectors across SaaS tools; useful when the best capability is an app action, not a code package. | Create or sign in to Composio; app connections may require OAuth. Codex MCP setup is documented at [composio.dev/toolkits/composio/framework/codex](https://composio.dev/toolkits/composio/framework/codex). | <code>curl -fsSL https://composio.dev/install &#124; bash && composio login</code> | Use WSL with <code>curl -fsSL https://composio.dev/install &#124; bash && composio login</code>, or follow the Codex MCP setup page. |
 | [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Score and improve skills with repeatable checks instead of relying on vibes. | Install Plugin Eval from the Codex plugin directory. Codex plugin setup is documented at [developers.openai.com/codex/plugins](https://developers.openai.com/codex/plugins). | Run `codex`, then `/plugins`, then install Plugin Eval. | Run `codex`, then `/plugins`, then install Plugin Eval. |
 
-For agent-facing Hugging Face access, use the official [Hugging Face MCP settings](https://huggingface.co/settings/mcp) and [MCP server docs](https://huggingface.co/docs/hub/agents-mcp). It is especially relevant for model, dataset, paper, Space, MCP-enabled Space, community-eval, and ML benchmark discovery; add community Spaces only after inspecting their source and trust surface.
+For agent-facing Hugging Face access, use the official [Hugging Face MCP settings](https://huggingface.co/settings/mcp) and [MCP server docs](https://huggingface.co/docs/hub/agents-mcp). It is especially relevant for model, dataset, paper, Space, MCP-enabled Space, community-eval, and ML benchmark discovery; add community Spaces only after inspecting their source and trust surface. Use cost and credential approval before hosted Jobs/training, paid inference, GPU Spaces, or other remote compute.
 
-Credential setup is a readiness step. Free tools that require an account, API key, OAuth flow, or browser login should still be considered valid candidates and can still win. Paid services, required payment, risky authorization, opaque code, destructive actions, or persistent/global mutation remain approval boundaries.
+For repository-understanding work, use DeepWiki/Ask Devin for fast hypotheses, GitHub source files for verification, and Context7 or official docs for current API and MCP documentation. Devin MCP remains account/API-key gated and should stop before private repositories, sessions, playbooks, knowledge, schedules, or integrations unless the user explicitly approves that boundary.
+
+Credential setup is a readiness step. Credential requirement is not a disqualifier: free credentialed tools stay eligible, and free account/API-key/OAuth requirements should not block a recommendation or safe source inspection. Paid services, required payment, risky authorization, opaque code, destructive actions, or persistent/global mutation remain approval boundaries.
+
+For repository-intelligence work, DeepWiki/Ask Devin should be used for fast repo maps and hard source questions, while GitHub/source files verify the claims. Context7 should be retried with alternate names or website-style IDs before being marked unavailable; if it resolves but returns thin docs, treat it as partial evidence and continue with official docs and source files.
 
 ## Safety Boundary
 
@@ -178,7 +184,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-green.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-0.1.7-blue.svg
+[version-shield]: https://img.shields.io/badge/version-0.1.8-blue.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io
