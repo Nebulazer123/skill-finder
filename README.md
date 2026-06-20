@@ -101,16 +101,6 @@ Use `/skill-finder` in Claude Code:
 /skill-finder
 ```
 
-### Pin A Release
-
-The commands above install from the repository's default branch. If you need a reproducible older release, add `--ref <tag>` to the marketplace command.
-
-Example:
-
-```bash
-codex plugin marketplace add Nebulazer123/skill-finder --ref v1.0.3
-```
-
 ### Install As A Local Skill
 
 For hosts that read local `SKILL.md` folders:

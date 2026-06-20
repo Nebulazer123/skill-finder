@@ -8,6 +8,7 @@
 - Added `package.json` for graphable npm setup dependencies: `skills`, `@upstash/context7-mcp`, and `browse`.
 - Refocused the README for first-time reviewers with clearer problem framing, setup requirements, proof points, and validation steps.
 - Changed the README install blocks to copy-paste terminal commands for both Codex and Claude Code.
+- Removed the README pin-release section to keep first-time install guidance simple.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.
 
 ## 1.0.2 - 2026-06-20
