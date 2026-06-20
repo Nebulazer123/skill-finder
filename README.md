@@ -34,6 +34,8 @@
 
 Skill Finder helps an agent choose the right capability before it starts improvising. It searches broadly, checks real source material, compares candidates, and returns a small recommendation packet with the evidence needed to act confidently.
 
+Community plugin note: this is not automatically listed in the first-party Codex or Claude Code plugin directories. Add this GitHub repository as a marketplace source first, then install the `skill-finder` plugin from that source.
+
 ---
 
 ## The Problem
@@ -99,12 +101,14 @@ Claude Code:
 /reload-plugins
 ```
 
-After plugin install, invoke the packaged skill as:
+After plugin install:
 
 ```text
 @skill-finder
-/skill-finder
+/skill-finder:skill-finder
 ```
+
+Use `@skill-finder` in Codex. Use `/skill-finder:skill-finder` in Claude Code because marketplace plugin skills are namespaced as `/plugin-name:skill-name`.
 
 ### Install as an Agent Skill
 
@@ -132,6 +136,12 @@ cp -R skills/skill-finder ~/.codex/skills/skill-finder
 ```
 
 Restart your agent host after copying the skill so its skill list refreshes.
+
+Standalone skill installs are not namespaced. Invoke the local skill as:
+
+```text
+/skill-finder
+```
 
 ## Dependencies
 
