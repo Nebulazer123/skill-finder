@@ -11,6 +11,8 @@ Thanks for improving Skill Finder. This repository is intentionally small: keep 
 
 ```bash
 python3 -m unittest discover -s validation -v
+python3 scripts/sync_plugin_package.py --check
+npm pkg get dependencies
 ```
 
 5. If you have access to a Codex skill validator, also run:
@@ -19,16 +21,23 @@ python3 -m unittest discover -s validation -v
 python3 /path/to/skill-creator/scripts/quick_validate.py skills/skill-finder
 ```
 
-6. Open a pull request with a short explanation, test results, and any approval or safety boundary affected by the change.
+6. If you changed `skills/skill-finder/`, sync the plugin package before opening a pull request:
+
+```bash
+python3 scripts/sync_plugin_package.py
+```
+
+7. Open a pull request with a short explanation, test results, and any approval or safety boundary affected by the change.
 
 ## Contribution Guidelines
 
 - Do not add private paths, credentials, raw chat logs, local workspace notes, or unrelated examples.
 - Keep the skill universal. Avoid tuning the public instructions to one person, one private use case, one company, or one local machine.
 - Treat candidate install commands as evidence. Do not add guessed commands.
+- Keep `package.json` limited to real npm-installable setup dependencies used by the README or skill docs.
 - Preserve explicit approval before installs, credentials, risky scripts, publishing, destructive actions, or persistent/global mutation.
 - Add or update validation when changing public package structure or safety boundaries.
 
 ## Useful Issue Reports
 
-Please open an issue if you find stale source routes, broken install commands, risky candidate setup behavior, biased recommendations, unclear approval boundaries, or a stronger evaluation scenario. Include the task prompt, sources searched if known, candidates returned, what seemed wrong, and any safer or stronger alternative.
+Please open an issue if you find stale source routes, broken install commands, risky candidate setup behavior, biased recommendations, unclear approval boundaries, stale required setup, or a stronger evaluation scenario. Include the task prompt, sources searched if known, candidates returned, what seemed wrong, and any safer or stronger alternative.

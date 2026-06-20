@@ -23,6 +23,7 @@ Include relevant output, screenshots, or links. Redact secrets, local private pa
 - Agent host:
 - OS:
 - Helper tools available:
+- Required setup route involved, if any:
 
 ## Safety boundary
 

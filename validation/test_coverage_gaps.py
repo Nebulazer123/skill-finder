@@ -164,6 +164,8 @@ class ContributingContentTests(unittest.TestCase):
 
     def test_documents_test_command(self):
         self.assertIn("python3 -m unittest discover -s validation -v", self.text)
+        self.assertIn("python3 scripts/sync_plugin_package.py --check", self.text)
+        self.assertIn("npm pkg get dependencies", self.text)
 
     def test_has_contribution_guidelines_section(self):
         self.assertIn("## Contribution Guidelines", self.text)
@@ -187,6 +189,9 @@ class SecurityContentTests(unittest.TestCase):
     def test_has_reporting_section(self):
         self.assertIn("## Reporting a Vulnerability", self.text)
 
+    def test_has_supported_versions_section(self):
+        self.assertIn("## Supported Versions", self.text)
+
     def test_has_scope_section(self):
         self.assertIn("## Scope", self.text)
 
@@ -201,6 +206,9 @@ class SecurityContentTests(unittest.TestCase):
 
     def test_has_safety_notes_section(self):
         self.assertIn("## Safety Notes", self.text)
+
+    def test_has_handling_section(self):
+        self.assertIn("## Handling", self.text)
 
     def test_warns_against_credential_exposure(self):
         self.assertIn("credentials", self.text.lower())

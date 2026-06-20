@@ -21,3 +21,7 @@ Link to public examples, docs, candidate tools, or prior failures that support t
 ## Safety boundary
 
 Would this require credentials, package installs, browser login, global state, or a hosted service?
+
+## Setup impact
+
+Would this change required setup, recommended setup, package metadata, plugin packaging, or validation?

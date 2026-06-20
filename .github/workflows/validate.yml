@@ -18,3 +18,9 @@ jobs:
 
       - name: Run public package validation
         run: python3 -m unittest discover -s validation -v
+
+      - name: Check plugin package sync
+        run: python3 scripts/sync_plugin_package.py --check
+
+      - name: Check npm dependency metadata
+        run: npm pkg get dependencies
