@@ -19,7 +19,7 @@
 
 <div align="center">
 
-<a href="#install-in-codex"><img src="assets/logos/install-codex.svg" alt="Install in Codex" height="44"></a>
+<a href="#install-in-codex"><img src="assets/logos/install-codex-wide.svg" alt="Install in Codex" height="44"></a>
 &nbsp;
 <a href="#install-in-claude-code"><img src="assets/logos/install-claude-code.svg" alt="Install in Claude Code" height="44"></a>
 

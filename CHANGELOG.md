@@ -14,6 +14,7 @@
 - Added logo-marked install buttons, a clearer install lead, present-tense safety wording, and npm setup metadata wording.
 - Replaced the top install badge row with supplied white Codex and Claude Code wordmark buttons, while keeping Agent Skills and Hugging Face logos only in their relevant setup sections.
 - Matched the Codex and Claude Code top install buttons to the same rendered box size.
+- Renamed the Codex install-button asset so GitHub refreshes the equal-width version instead of serving a stale cached SVG.
 - Added route-specific GitHub, DeepWiki, Context7, Browserbase, Devin, and Composio logos only in their matching setup/recommendation rows.
 - Added the Plugin Eval logo and normalized all setup/recommendation row logos to the same rendered size.
 - Added npm Dependabot tracking and removed an internal implementation-plan document from the public package.

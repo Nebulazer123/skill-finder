@@ -59,7 +59,7 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "codex-text.svg",
             ROOT / "assets" / "logos" / "codex.webp",
             ROOT / "assets" / "logos" / "huggingface-color.svg",
-            ROOT / "assets" / "logos" / "install-codex.svg",
+            ROOT / "assets" / "logos" / "install-codex-wide.svg",
             ROOT / "assets" / "logos" / "install-claude-code.svg",
             ROOT / "assets" / "logos" / "github-invertocat-white.svg",
             ROOT / "assets" / "logos" / "deepwiki.png",
@@ -236,7 +236,7 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/claude-code-color.svg",
             "assets/logos/agent-skills-color.png",
             "assets/logos/huggingface-color.svg",
-            "assets/logos/install-codex.svg",
+            "assets/logos/install-codex-wide.svg",
             "assets/logos/install-claude-code.svg",
             "assets/logos/github-invertocat-white.svg",
             "assets/logos/deepwiki.png",
@@ -310,7 +310,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
         self.assertIn('<img src="assets/logos/agent-skills-color.png"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
-        self.assertIn('<img src="assets/logos/install-codex.svg"', readme)
+        self.assertIn('<img src="assets/logos/install-codex-wide.svg"', readme)
         self.assertIn('<img src="assets/logos/install-claude-code.svg"', readme)
         self.assertIn('<img src="assets/logos/github-invertocat-white.svg"', readme)
         self.assertIn('<img src="assets/logos/deepwiki.png"', readme)
@@ -335,7 +335,7 @@ class PublicPackageTests(unittest.TestCase):
                 readme,
             )
         self.assertLess(
-            readme.index("assets/logos/install-codex.svg"),
+            readme.index("assets/logos/install-codex-wide.svg"),
             readme.index("## The Problem"),
         )
         self.assertLess(
@@ -365,7 +365,7 @@ class PublicPackageTests(unittest.TestCase):
         ):
             self.assertGreater(readme.index(logo), readme.index("## Recommended When Useful"))
         install_codex = _read_text_strict(
-            ROOT / "assets" / "logos" / "install-codex.svg"
+            ROOT / "assets" / "logos" / "install-codex-wide.svg"
         )
         install_claude = _read_text_strict(
             ROOT / "assets" / "logos" / "install-claude-code.svg"
