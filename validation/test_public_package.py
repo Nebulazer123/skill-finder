@@ -61,6 +61,13 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "huggingface-color.svg",
             ROOT / "assets" / "logos" / "install-codex.svg",
             ROOT / "assets" / "logos" / "install-claude-code.svg",
+            ROOT / "assets" / "logos" / "github-invertocat-white.svg",
+            ROOT / "assets" / "logos" / "deepwiki.png",
+            ROOT / "assets" / "logos" / "context7.svg",
+            ROOT / "assets" / "logos" / "browserbase.svg",
+            ROOT / "assets" / "logos" / "devin-color.svg",
+            ROOT / "assets" / "logos" / "composio-symbol.svg",
+            ROOT / "assets" / "logos" / "plugin-eval.svg",
         ]
         for path in required_files:
             self.assertTrue(
@@ -231,6 +238,13 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/huggingface-color.svg",
             "assets/logos/install-codex.svg",
             "assets/logos/install-claude-code.svg",
+            "assets/logos/github-invertocat-white.svg",
+            "assets/logos/deepwiki.png",
+            "assets/logos/context7.svg",
+            "assets/logos/browserbase.svg",
+            "assets/logos/devin-color.svg",
+            "assets/logos/composio-symbol.svg",
+            "assets/logos/plugin-eval.svg",
             "## The Problem",
             "## What It Does",
             "## Quick Start",
@@ -298,6 +312,28 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
         self.assertIn('<img src="assets/logos/install-codex.svg"', readme)
         self.assertIn('<img src="assets/logos/install-claude-code.svg"', readme)
+        self.assertIn('<img src="assets/logos/github-invertocat-white.svg"', readme)
+        self.assertIn('<img src="assets/logos/deepwiki.png"', readme)
+        self.assertIn('<img src="assets/logos/context7.svg"', readme)
+        self.assertIn('<img src="assets/logos/browserbase.svg"', readme)
+        self.assertIn('<img src="assets/logos/devin-color.svg"', readme)
+        self.assertIn('<img src="assets/logos/composio-symbol.svg"', readme)
+        self.assertIn('<img src="assets/logos/plugin-eval.svg"', readme)
+        for logo in (
+            "agent-skills-color.png",
+            "github-invertocat-white.svg",
+            "deepwiki.png",
+            "context7.svg",
+            "browserbase.svg",
+            "devin-color.svg",
+            "huggingface-color.svg",
+            "composio-symbol.svg",
+            "plugin-eval.svg",
+        ):
+            self.assertIn(
+                f'assets/logos/{logo}" alt="" width="22" height="22"',
+                readme,
+            )
         self.assertLess(
             readme.index("assets/logos/install-codex.svg"),
             readme.index("## The Problem"),
@@ -310,10 +346,24 @@ class PublicPackageTests(unittest.TestCase):
             readme.index("assets/logos/agent-skills-color.png"),
             readme.index("## Setup Requirements"),
         )
+        for logo in (
+            "assets/logos/github-invertocat-white.svg",
+            "assets/logos/deepwiki.png",
+            "assets/logos/context7.svg",
+            "assets/logos/browserbase.svg",
+        ):
+            self.assertGreater(readme.index(logo), readme.index("## Setup Requirements"))
+            self.assertLess(readme.index(logo), readme.index("## Recommended When Useful"))
         self.assertGreater(
             readme.index("assets/logos/huggingface-color.svg"),
             readme.index("## Recommended When Useful"),
         )
+        for logo in (
+            "assets/logos/devin-color.svg",
+            "assets/logos/composio-symbol.svg",
+            "assets/logos/plugin-eval.svg",
+        ):
+            self.assertGreater(readme.index(logo), readme.index("## Recommended When Useful"))
         install_codex = _read_text_strict(
             ROOT / "assets" / "logos" / "install-codex.svg"
         )
