@@ -103,7 +103,7 @@ After plugin install, invoke the packaged skill as:
 
 ```text
 @skill-finder
-/skill-finder:skill-finder
+/skill-finder
 ```
 
 ### Install as an Agent Skill

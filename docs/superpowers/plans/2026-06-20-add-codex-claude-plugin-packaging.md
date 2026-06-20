@@ -557,7 +557,7 @@ After install, invoke the packaged skill as:
 
 ```text
 @skill-finder
-/skill-finder:skill-finder
+/skill-finder
 ```
 ```
 
@@ -571,7 +571,7 @@ In `validation/test_public_package.py`, inside `test_readme_has_public_front_doo
         self.assertIn("codex plugin add skill-finder@skill-finder", readme)
         self.assertIn("/plugin marketplace add Nebulazer123/skill-finder", readme)
         self.assertIn("/plugin install skill-finder@skill-finder", readme)
-        self.assertIn("/skill-finder:skill-finder", readme)
+        self.assertIn("/skill-finder", readme)
 ```
 
 - [ ] **Step 3: Add changelog entry**
@@ -746,10 +746,10 @@ Only run this step when the current session is allowed to add local Claude marke
 /plugin marketplace add .
 /plugin install skill-finder@skill-finder
 /reload-plugins
-/skill-finder:skill-finder Find the best capability for repo-intelligence work.
+/skill-finder Find the best capability for repo-intelligence work.
 ```
 
-Expected: Claude loads the packaged skill under `/skill-finder:skill-finder`.
+Expected: Claude loads the packaged skill under `/skill-finder`.
 
 - [ ] **Step 8: Commit final verification note only if files changed**
 
