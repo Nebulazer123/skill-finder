@@ -1,0 +1,23 @@
+{
+  "author": {
+    "name": "Nebulazer123",
+    "url": "https://github.com/Nebulazer123"
+  },
+  "description": "Find, compare, vet, and prepare agent-usable skills, tools, MCP servers, workflows, packages, documentation sources, and capability stacks.",
+  "displayName": "Skill Finder",
+  "homepage": "https://github.com/Nebulazer123/skill-finder",
+  "keywords": [
+    "agent-skills",
+    "capability",
+    "capability-discovery",
+    "mcp",
+    "tooling",
+    "research",
+    "evaluation"
+  ],
+  "license": "MIT",
+  "name": "skill-finder",
+  "repository": "https://github.com/Nebulazer123/skill-finder",
+  "skills": "./skills/",
+  "version": "1.0.1"
+}

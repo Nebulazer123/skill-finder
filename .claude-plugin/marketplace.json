@@ -1,0 +1,33 @@
+{
+  "description": "Skill Finder plugin marketplace.",
+  "name": "skill-finder",
+  "owner": {
+    "name": "Nebulazer123"
+  },
+  "plugins": [
+    {
+      "author": {
+        "name": "Nebulazer123",
+        "url": "https://github.com/Nebulazer123"
+      },
+      "category": "Productivity",
+      "description": "Find, compare, vet, and prepare agent-usable skills, tools, MCP servers, workflows, packages, documentation sources, and capability stacks.",
+      "displayName": "Skill Finder",
+      "homepage": "https://github.com/Nebulazer123/skill-finder",
+      "license": "MIT",
+      "name": "skill-finder",
+      "repository": "https://github.com/Nebulazer123/skill-finder",
+      "source": "./plugins/skill-finder",
+      "tags": [
+        "agent-skills",
+        "capability",
+        "capability-discovery",
+        "mcp",
+        "tooling",
+        "research"
+      ],
+      "version": "1.0.1"
+    }
+  ],
+  "version": "1.0.1"
+}

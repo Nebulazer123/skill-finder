@@ -1,0 +1,20 @@
+{
+  "interface": {
+    "displayName": "Skill Finder"
+  },
+  "name": "skill-finder",
+  "plugins": [
+    {
+      "category": "Productivity",
+      "name": "skill-finder",
+      "policy": {
+        "authentication": "ON_INSTALL",
+        "installation": "AVAILABLE"
+      },
+      "source": {
+        "path": "./plugins/skill-finder",
+        "source": "local"
+      }
+    }
+  ]
+}
