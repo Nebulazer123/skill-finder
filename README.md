@@ -12,14 +12,14 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.3][version-shield]][version-url]
+[![Version 1.0.4][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
 
 <div align="center">
 
-<a href="#install-in-codex"><img src="assets/logos/install-codex-button.svg" alt="Install in Codex" height="44"></a>
+<a href="#install-in-codex"><img src="assets/logos/install-codex-compact.svg" alt="Install in Codex" height="44"></a>
 &nbsp;
 <a href="#install-in-claude-code"><img src="assets/logos/install-claude-code-button.svg" alt="Install in Claude Code" height="44"></a>
 
@@ -248,7 +248,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.3-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.0.4-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io
