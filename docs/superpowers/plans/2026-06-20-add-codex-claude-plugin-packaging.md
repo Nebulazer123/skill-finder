@@ -510,7 +510,7 @@ Expected: all five tests PASS.
 Run:
 
 ```bash
-python3 /Users/corbinfloyd/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/skill-finder
+python3 <skill-creator-root>/../plugin-creator/scripts/validate_plugin.py plugins/skill-finder
 ```
 
 Expected: validation succeeds with no errors.
@@ -684,7 +684,7 @@ Expected: all public package tests PASS.
 
 - [ ] **Step 2: Run workspace tests**
 
-Run from `/Users/corbinfloyd/Documents/Claude A.I. Fluency, Anthropic Academy`:
+Run from the workspace root that contains the shared `tests/` directory:
 
 ```bash
 python3 -m unittest discover -s tests
@@ -711,7 +711,7 @@ Plugin package is in sync.
 Run:
 
 ```bash
-python3 /Users/corbinfloyd/.codex/skills/.system/plugin-creator/scripts/validate_plugin.py plugins/skill-finder
+python3 <skill-creator-root>/../plugin-creator/scripts/validate_plugin.py plugins/skill-finder
 ```
 
 Expected: validation succeeds with no errors.
