@@ -1,6 +1,6 @@
 {
   "name": "@nebulazer123/skill-finder-public-package",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "private": true,
   "description": "Public package metadata for Skill Finder's npm-installable setup tools.",
   "license": "MIT",
@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "@upstash/context7-mcp": "^3.2.1",
-    "browse": "^0.8.5",
+    "browse": "^0.9.1",
     "codebase-memory-mcp": "^0.8.1",
     "skills": "^1.5.12"
   }

@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9 - 2026-06-27
+
+- Refreshed the graphable Browse CLI setup dependency from `browse ^0.8.5` to `browse ^0.9.1` after local validation.
+- Reinstalled the local Browse skill from Browse CLI `0.9.1`; unsupported hosts were skipped by the installer, while Codex-compatible targets succeeded.
+
 ## 1.0.8 - 2026-06-20
 
 - Made Agent Skills, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, codebase-memory-mcp, and local inspection basics required setup for real Skill Finder runs.
