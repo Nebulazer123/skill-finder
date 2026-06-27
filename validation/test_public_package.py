@@ -587,10 +587,10 @@ class PublicPackageTests(unittest.TestCase):
             )
 
         scanned = "\n".join(scanned_parts)
+        scanned_lower = scanned.lower()
 
         forbidden = (
             "/" + "Users/",
-            "corbin" + "floyd",
             "Anthropic " + "Academy",
             "Claude A.I. " + "Fluency",
             "raw " + "evidence",
@@ -607,6 +607,17 @@ class PublicPackageTests(unittest.TestCase):
             self.assertNotIn(
                 phrase, scanned,
                 f"Private/sensitive content leaked into public docs: {phrase!r}",
+            )
+
+        personal_name_parts = (
+            "cor" + "bin",
+            "flo" + "yd",
+        )
+        for phrase in personal_name_parts:
+            self.assertNotIn(
+                phrase,
+                scanned_lower,
+                "Private personal name leaked into public docs",
             )
 
     def test_gitignore_covers_generated_cache_files(self):
