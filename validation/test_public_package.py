@@ -119,7 +119,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.9")
+        self.assertEqual(manifest["version"], "1.0.10")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -149,7 +149,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.9")
+        self.assertEqual(manifest["version"], "1.0.10")
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -182,14 +182,14 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.9")
+        self.assertEqual(claude_entry["version"], "1.0.10")
         self.assertEqual(claude_entry["category"], "Productivity")
 
     def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
-        self.assertEqual(manifest["version"], "1.0.9")
+        self.assertEqual(manifest["version"], "1.0.10")
         self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
@@ -234,6 +234,24 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("DeepWiki/Ask Devin", text)
         self.assertIn("Context7/API docs", text)
         self.assertIn("staged/downloaded artifacts", text.lower())
+
+    def test_stale_dependency_self_repair_and_issue_reporting_is_documented(self):
+        scanned = _read_reference_files(
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "install-and-approval.md",
+        )
+
+        for phrase in (
+            "repair or update that route first",
+            "Nebulazer123/skill-finder",
+            "gh issue create",
+            "issue draft",
+            "If the failure is unrelated to Skill Finder",
+        ):
+            self.assertIn(phrase, scanned)
 
     def test_readme_has_public_front_door_sections(self):
         readme = _read_text_strict(ROOT / "README.md")

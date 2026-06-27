@@ -19,5 +19,5 @@
   "name": "skill-finder",
   "repository": "https://github.com/Nebulazer123/skill-finder",
   "skills": "./skills/",
-  "version": "1.0.9"
+  "version": "1.0.10"
 }

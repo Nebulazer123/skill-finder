@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.10 - 2026-06-27
+
+- Added stale/error recovery behavior: Skill Finder now repairs stale required or recommended routes first, then verifies the repair.
+- Added maintainer reporting guidance so Skill Finder-related setup/docs/package mismatches create or prepare an issue for `Nebulazer123/skill-finder` after local repair.
+- Clarified that unrelated task-tool failures should be fixed locally without creating Skill Finder repository issues.
+
 ## 1.0.9 - 2026-06-27
 
 - Refreshed the graphable Browse CLI setup dependency from `browse ^0.8.5` to `browse ^0.9.1` after local validation.
