@@ -206,6 +206,44 @@ class PublicPackageTests(unittest.TestCase):
         dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
         self.assertIn('package-ecosystem: "npm"', dependabot)
 
+    def test_npm_setup_dependencies_match_public_docs(self):
+        manifest = json.loads(_read_text_strict(ROOT / "package.json"))
+        dependencies = manifest["dependencies"]
+
+        npm_setup_dependencies = (
+            "skills",
+            "@upstash/context7-mcp",
+            "browse",
+            "codebase-memory-mcp",
+        )
+        public_setup_docs = _read_reference_files(
+            ROOT / "README.md",
+            ROOT / "CONTRIBUTING.md",
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "install-and-approval.md",
+        )
+
+        for package_name in npm_setup_dependencies:
+            self.assertIn(package_name, dependencies)
+            self.assertIn(
+                package_name,
+                public_setup_docs,
+                f"package.json dependency missing from public setup docs: {package_name}",
+            )
+
+        non_npm_capability_routes = ("GitHub MCP", "DeepWiki MCP")
+        dependency_names = {name.lower() for name in dependencies}
+        for route_name in non_npm_capability_routes:
+            self.assertIn(route_name, public_setup_docs)
+            self.assertNotIn(
+                route_name.lower(),
+                dependency_names,
+                f"Non-npm capability route should not be a package dependency: {route_name}",
+            )
+
     def test_plugin_package_is_in_sync_with_canonical_skill(self):
         result = subprocess.run(
             [sys.executable, "scripts/sync_plugin_package.py", "--check"],
