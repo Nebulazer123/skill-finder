@@ -117,6 +117,21 @@ class PluginPackagingTests(unittest.TestCase):
         self.assertIn("### Install In Claude Code", readme)
         self.assertIn("community plugin for Codex and Claude Code", readme)
 
+    def test_install_approval_script_references_exist(self):
+        docs = [
+            REFS / "install-and-approval.md",
+            ROOT / "plugins" / "skill-finder" / "skills" / "skill-finder"
+            / "references" / "install-and-approval.md",
+        ]
+        for path in docs:
+            text = path.read_text(encoding="utf-8")
+            for match in re.findall(r"`(scripts/[^`\s]+\.py)`", text):
+                with self.subTest(file=path.relative_to(ROOT), script=match):
+                    self.assertTrue(
+                        (ROOT / match).is_file(),
+                        f"{path.relative_to(ROOT)} references missing script {match}",
+                    )
+
 
 class ChangelogTests(unittest.TestCase):
     """CHANGELOG.md had zero coverage."""
