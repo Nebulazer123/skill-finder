@@ -4,6 +4,8 @@ import subprocess
 import sys
 import unittest
 
+from helpers import read_package_version
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -112,6 +114,7 @@ class PublicPackageTests(unittest.TestCase):
             )
 
     def test_codex_plugin_manifest_shape(self):
+        package_version = read_package_version()
         manifest = json.loads(
             _read_text_strict(
                 ROOT / "plugins" / "skill-finder" / ".codex-plugin" / "plugin.json"
@@ -119,7 +122,7 @@ class PublicPackageTests(unittest.TestCase):
         )
 
         self.assertEqual(manifest["name"], "skill-finder")
-        self.assertEqual(manifest["version"], "1.0.10")
+        self.assertEqual(manifest["version"], package_version)
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -141,6 +144,7 @@ class PublicPackageTests(unittest.TestCase):
             self.assertLessEqual(len(prompt), 128)
 
     def test_claude_plugin_manifest_shape(self):
+        package_version = read_package_version()
         manifest = json.loads(
             _read_text_strict(
                 ROOT / "plugins" / "skill-finder" / ".claude-plugin" / "plugin.json"
@@ -149,7 +153,7 @@ class PublicPackageTests(unittest.TestCase):
 
         self.assertEqual(manifest["name"], "skill-finder")
         self.assertEqual(manifest["displayName"], "Skill Finder")
-        self.assertEqual(manifest["version"], "1.0.10")
+        self.assertEqual(manifest["version"], package_version)
         self.assertEqual(manifest["skills"], "./skills/")
         self.assertEqual(manifest["license"], "MIT")
         self.assertEqual(manifest["repository"], "https://github.com/Nebulazer123/skill-finder")
@@ -157,6 +161,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("capability", manifest["keywords"])
 
     def test_plugin_marketplaces_reference_skill_finder(self):
+        package_version = read_package_version()
         codex_marketplace = json.loads(
             _read_text_strict(ROOT / ".agents" / "plugins" / "marketplace.json")
         )
@@ -182,14 +187,14 @@ class PublicPackageTests(unittest.TestCase):
         self.assertEqual(claude_entry["name"], "skill-finder")
         self.assertEqual(claude_entry["source"], "./plugins/skill-finder")
         self.assertEqual(claude_entry["displayName"], "Skill Finder")
-        self.assertEqual(claude_entry["version"], "1.0.10")
+        self.assertEqual(claude_entry["version"], package_version)
         self.assertEqual(claude_entry["category"], "Productivity")
 
     def test_package_json_tracks_npm_setup_dependencies(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))
 
         self.assertTrue(manifest["private"])
-        self.assertEqual(manifest["version"], "1.0.10")
+        self.assertEqual(manifest["version"], read_package_version())
         self.assertIn("npm-installable setup tools", manifest["description"])
         self.assertEqual(manifest["engines"]["node"], ">=18")
 
@@ -205,6 +210,17 @@ class PublicPackageTests(unittest.TestCase):
 
         dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
         self.assertIn('package-ecosystem: "npm"', dependabot)
+
+    def test_manifest_version_assertions_use_package_json_source(self):
+        source = _read_text_strict(ROOT / "validation" / "test_public_package.py")
+        package_version = read_package_version()
+
+        self.assertIn("read_package_version", source)
+        self.assertNotIn(
+            f'["version"], "{package_version}"',
+            source,
+            "Manifest version assertions should compare against package.json",
+        )
 
     def test_npm_setup_dependencies_match_public_docs(self):
         manifest = json.loads(_read_text_strict(ROOT / "package.json"))

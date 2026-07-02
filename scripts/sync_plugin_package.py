@@ -11,7 +11,6 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "1.0.10"
 PLUGIN_NAME = "skill-finder"
 REPOSITORY_URL = "https://github.com/Nebulazer123/skill-finder"
 
@@ -22,6 +21,17 @@ PLUGIN_ASSET_ROOT = PLUGIN_ROOT / "assets"
 CODEX_MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 LOGO_SOURCE = ROOT / "assets" / "skill-finder-logo-512.png"
+
+
+def read_package_version() -> str:
+    manifest = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+    version = manifest.get("version")
+    if not isinstance(version, str) or not version:
+        raise ValueError("package.json version must be a non-empty string")
+    return version
+
+
+VERSION = read_package_version()
 
 
 CODEX_PLUGIN_MANIFEST = {

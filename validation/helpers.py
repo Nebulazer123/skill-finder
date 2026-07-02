@@ -1,5 +1,6 @@
 """Shared constants and utilities for Skill Finder validation tests."""
 
+import json
 from pathlib import Path
 from typing import Sequence
 import unittest
@@ -32,6 +33,15 @@ def read_files(*paths: Path, encoding: str = "utf-8") -> str:
 def read_all_references() -> str:
     """Read and concatenate all skill reference files."""
     return read_files(*ALL_REFERENCE_FILES)
+
+
+def read_package_version(root: Path = ROOT) -> str:
+    """Read the package version from package.json."""
+    manifest = json.loads((root / "package.json").read_text(encoding="utf-8"))
+    version = manifest.get("version")
+    if not isinstance(version, str) or not version:
+        raise AssertionError("package.json version must be a non-empty string")
+    return version
 
 
 def assert_phrases_present(
