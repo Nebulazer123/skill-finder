@@ -195,6 +195,38 @@ class ContributingContentTests(unittest.TestCase):
         self.assertIn("## Useful Issue Reports", self.text)
 
 
+class ValidationCommandParityTests(unittest.TestCase):
+    """Public validation command surfaces should not drift apart."""
+
+    REQUIRED_COMMANDS = (
+        "python3 -m unittest discover -s validation -v",
+        "python3 scripts/sync_plugin_package.py --check",
+        "npm pkg get dependencies",
+    )
+
+    def test_required_commands_match_docs_pr_template_and_ci(self):
+        surfaces = {
+            "README.md": ROOT / "README.md",
+            "CONTRIBUTING.md": ROOT / "CONTRIBUTING.md",
+            ".github/PULL_REQUEST_TEMPLATE.md": ROOT / ".github" / "PULL_REQUEST_TEMPLATE.md",
+            ".github/workflows/validate.yml": ROOT / ".github" / "workflows" / "validate.yml",
+        }
+
+        for label, path in surfaces.items():
+            text = path.read_text(encoding="utf-8")
+            for command in self.REQUIRED_COMMANDS:
+                with self.subTest(surface=label, command=command):
+                    self.assertIn(command, text)
+
+    def test_package_json_exposes_validation_scripts(self):
+        package_json = (ROOT / "package.json").read_text(encoding="utf-8")
+        self.assertIn('"test": "python3 -m unittest discover -s validation -v"', package_json)
+        self.assertIn(
+            '"check:plugin-package": "python3 scripts/sync_plugin_package.py --check"',
+            package_json,
+        )
+
+
 class SecurityContentTests(unittest.TestCase):
     """SECURITY.md had only file-existence coverage."""
 
