@@ -61,3 +61,15 @@ dependencies:
       value: "python3"
       required: true
       description: "Required: Python runtime for validation and evidence scripts."
+    - type: "binary"
+      value: "node"
+      required: true
+      description: "Required: Node.js 18+ runtime for package-tool discovery and MCP setup commands."
+    - type: "binary"
+      value: "npm"
+      required: true
+      description: "Required: npm for package metadata, setup dependency checks, and source-backed install commands."
+    - type: "binary"
+      value: "npx"
+      required: true
+      description: "Required: npx for skills.sh and Context7 setup commands when no persistent install exists."

@@ -61,12 +61,25 @@ class AgentConfigTests(unittest.TestCase):
             "hf",
             "composio",
             "python3",
+            "node",
+            "npm",
+            "npx",
         ):
             self.assertIn(
                 f'value: "{binary}"',
                 self.text,
                 f"Binary dependency {binary!r} missing",
             )
+
+    def test_node_runtime_dependencies_listed(self):
+        for binary in ("node", "npm", "npx"):
+            with self.subTest(binary=binary):
+                self.assertIn(
+                    f'value: "{binary}"',
+                    self.text,
+                    f"Node runtime dependency {binary!r} missing",
+                )
+        self.assertIn("Node.js 18+", self.text)
 
     def test_every_tool_has_description(self):
         entries = self.text.split("- type:")
@@ -468,8 +481,9 @@ class ReferenceDependencyReadinessTests(unittest.TestCase):
 
     def test_documents_baseline_helper_readiness(self):
         self.assertIn("Baseline helper readiness", self.text)
-        for helper in ("python3", "git", "rg", "node"):
+        for helper in ("python3", "git", "rg", "npm", "npx"):
             self.assertIn(f"`{helper}`", self.text)
+        self.assertIn("Node.js 18+", self.text)
 
     def test_documents_dependency_readiness_ledger(self):
         self.assertIn("Dependency readiness ledger", self.text)
