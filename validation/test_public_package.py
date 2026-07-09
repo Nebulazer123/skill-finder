@@ -86,6 +86,7 @@ class PublicPackageTests(unittest.TestCase):
             skill_root / "agents" / "openai.yaml",
             skill_root / "references" / "search-and-inspection.md",
             skill_root / "references" / "evaluation-and-improvement.md",
+            skill_root / "references" / "research-quality-evaluation.md",
             skill_root / "references" / "dependency-and-capability-readiness.md",
             skill_root / "references" / "install-and-approval.md",
         ]
@@ -307,6 +308,34 @@ class PublicPackageTests(unittest.TestCase):
         ):
             self.assertIn(phrase, scanned)
 
+    def test_deep_evaluation_research_quality_contract_is_documented(self):
+        scanned = _read_reference_files(
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "evaluation-and-improvement.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "research-quality-evaluation.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "search-and-inspection.md",
+        )
+
+        for phrase in (
+            "Quick Evaluation",
+            "Deep Evaluation",
+            "Evidence Ledger",
+            "source type",
+            "accessibility",
+            "date checked",
+            "lead evidence",
+            "verification evidence",
+            "DeepWiki and Devin",
+            "Counter-Review",
+            "Recovery Log",
+            "Unresolved Research Lines",
+            "confidence rationale",
+        ):
+            self.assertIn(phrase.lower(), scanned.lower())
+
     def test_readme_has_public_front_door_sections(self):
         readme = _read_text_strict(ROOT / "README.md")
 
@@ -344,6 +373,9 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn('"Find the best skill for this task: ..."', readme)
         self.assertIn('"Compare these connectors/skills for my agent: ..."', readme)
         self.assertIn('"No good skill exists; find the best stack."', readme)
+        self.assertIn("## Research-Quality Evaluation", readme)
+        self.assertIn("Evidence Ledger", readme)
+        self.assertIn("Counter-Review", readme)
         self.assertIn("[skills/skill-finder/SKILL.md]", readme)
         self.assertIn("returns a Required Setup Block", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)

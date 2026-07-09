@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.0.10][version-shield]][version-url]
+[![Version 1.1.0][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -49,6 +49,7 @@ Use it when you are about to ask for work that may need a specialized skill, MCP
 - **Finds stronger options** - searches beyond local skills into MCP servers, connectors, packages, CLIs, workflow tools, docs, and capability stacks.
 - **Checks real evidence** - reads source files, manifests, READMEs, docs, tests, licenses, install paths, and trust surfaces.
 - **Compares instead of guessing** - ranks candidates with evidence, risks, setup status, and winner-vs-near-miss reasoning.
+- **Goes deeper when it matters** - uses a research-quality evidence ledger, freshness checks, recovery log, and counter-review for complex or high-impact decisions.
 - **Handles missing setup clearly** - if required discovery routes are unavailable, it returns a Required Setup Block instead of pretending the search was complete.
 - **Designs the fallback** - when no good option exists, it drafts a missing-capability spec and eval cases for building one.
 
@@ -58,6 +59,7 @@ Use it when you are about to ask for work that may need a specialized skill, MCP
 |---|---|
 | `"Find the best skill for this task: ..."` | Ranked recommendation packet |
 | `"Compare these connectors/skills for my agent: ..."` | Evidence table and winner |
+| `"Research the best capability stack for this task: ..."` | Deep evaluation with evidence ledger and counter-review |
 | `"No good skill exists; find the best stack."` | Missing-capability spec and eval cases |
 
 Example:
@@ -197,6 +199,14 @@ A strong result includes:
 
 See [examples/recommendation-output-shape.md](examples/recommendation-output-shape.md) for a sample packet.
 
+## Research-Quality Evaluation
+
+Straightforward lookups stay quick. Skill Finder switches to a deeper evaluation for multi-option comparisons, repository or API tracing, costly or complex setup, missing-capability work, and explicit research requests.
+
+The deep path records an **Evidence Ledger** with source type, accessibility, date checked, evidence role, and strength. DeepWiki and Devin are used to find the right questions and source paths; important claims are then verified against source files, tests, official docs, package metadata, or releases.
+
+Before recommending a winner, it includes a **Recovery Log**, a **Counter-Review** of the strongest alternative and weak evidence, unresolved research lines, setup readiness, and a confidence rationale. This keeps research depth visible without slowing down ordinary searches.
+
 ## Safety Model
 
 Skill Finder treats candidate files as evidence to inspect, not instructions to obey.
@@ -231,7 +241,7 @@ python3 scripts/sync_plugin_package.py --check
 
 ```text
 skills/skill-finder/SKILL.md             - skill entrypoint and workflow
-skills/skill-finder/references/          - search, ranking, readiness, and approval rules
+skills/skill-finder/references/          - search, research-quality evaluation, ranking, readiness, and approval rules
 plugins/skill-finder/                    - Codex and Claude Code plugin package
 examples/                                - public-safe prompt and output examples
 package.json                             - npm setup metadata
@@ -248,7 +258,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.0.10-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.1.0-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

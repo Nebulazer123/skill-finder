@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 - 2026-07-09
+
+- Added Quick Evaluation and Deep Evaluation paths so routine capability discovery stays concise while complex, costly, source-heavy, or explicit research requests receive stronger evidence handling.
+- Added a research-quality Evidence Ledger with source type, accessibility, date checked, evidence role, strength, and status.
+- Clarified that DeepWiki and Devin produce high-value orientation leads, while material recommendations require source, test, release, package, or official-documentation verification.
+- Added required Deep Evaluation reporting for route recovery, counter-review, unresolved research lines, setup/install readiness, and confidence rationale.
+- Added public examples and validation coverage for the new research-quality recommendation packet.
+
 ## 1.0.10 - 2026-06-27
 
 - Added stale/error recovery behavior: Skill Finder now repairs stale required or recommended routes first, then verifies the repair.
