@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.1.0][version-shield]][version-url]
+[![Version 1.2.0][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -183,10 +183,27 @@ These routes are not required for every run, but they should be suggested when t
 | <img src="assets/logos/huggingface-color.svg" alt="" width="22" height="22"> [Hugging Face Hub MCP](https://huggingface.co/docs/hub/agents-mcp) and [`hf` CLI](https://huggingface.co/docs/huggingface_hub/guides/cli) | Models, datasets, papers, Spaces, MCP-enabled Spaces, community evals, benchmarks, inference, and training workflows. |
 | <img src="assets/logos/composio-symbol.svg" alt="" width="22" height="22"> [Composio CLI / MCP](https://docs.composio.dev/docs/cli) | Connected SaaS actions and app connector discovery. Use the Composio docs for setup and app-specific scopes. |
 | <img src="assets/logos/plugin-eval.svg" alt="" width="22" height="22"> [Codex Plugin Eval](https://developers.openai.com/blog/eval-skills) | Repeatable skill scoring and regression checks. |
+| [skills.md](https://skills.md/) CLI/MCP | Broad remote skill catalog; load one selected contract at a time and quote premium work before running. |
+
+### Optional skills.md setup
+
+skills.md is a separate remote catalog from skills.sh. Its CLI also uses the name `skills`, so keep the two providers distinct. The current setup is:
+
+```bash
+brew install bun
+bun install -g @hasna/skills
+$HOME/.bun/bin/skills setup agents
+$HOME/.bun/bin/skills --version
+$HOME/.bun/bin/skills list --json
+```
+
+Use `$HOME/.bun/bin/skills auth signup` when account-backed or private work is needed. Use `$HOME/.bun/bin/skills info <name>` to inspect a candidate and `$HOME/.bun/bin/skills quote <name>` before any premium run. Do not add `@hasna/skills` to this repository's npm dependencies; it is a separate global CLI/MCP integration.
+
+For skills.sh discovery, keep using `npx skills ...`. Do not assume that whichever `skills` executable appears first on `PATH` is the provider you intended.
 
 ## How It Works
 
-The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). The references in [skills/skill-finder/references/](skills/skill-finder/references/) define search strategy, scoring, setup readiness, install handling, and approval rules.
+The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). The references in [skills/skill-finder/references/](skills/skill-finder/references/) define search strategy, skills.md routing, scoring, setup readiness, install handling, and approval rules.
 
 A strong result includes:
 
@@ -258,7 +275,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.1.0-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.2.0-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

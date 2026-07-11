@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0 - 2026-07-11
+
+- Added skills.md as a recommended remote catalog and MCP route for discovering and selectively loading hosted skill contracts.
+- Added explicit setup guidance for Bun, `@hasna/skills`, `skills setup agents`, public registry checks, and passwordless account setup.
+- Added command-collision guidance so skills.md's `skills` CLI is not confused with the existing skills.sh CLI.
+- Added quote-before-run and approval rules for premium, private, account-backed, or sensitive skills.md work.
+- Added source and pricing fields for skills.md candidates, plus validation coverage and plugin package synchronization.
+
 ## 1.1.0 - 2026-07-09
 
 - Added Quick Evaluation and Deep Evaluation paths so routine capability discovery stays concise while complex, costly, source-heavy, or explicit research requests receive stronger evidence handling.

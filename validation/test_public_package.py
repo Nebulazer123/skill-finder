@@ -87,6 +87,7 @@ class PublicPackageTests(unittest.TestCase):
             skill_root / "references" / "search-and-inspection.md",
             skill_root / "references" / "evaluation-and-improvement.md",
             skill_root / "references" / "research-quality-evaluation.md",
+            skill_root / "references" / "skills-md-route.md",
             skill_root / "references" / "dependency-and-capability-readiness.md",
             skill_root / "references" / "install-and-approval.md",
         ]
@@ -335,6 +336,32 @@ class PublicPackageTests(unittest.TestCase):
             "confidence rationale",
         ):
             self.assertIn(phrase.lower(), scanned.lower())
+
+    def test_skills_md_remote_route_is_documented(self):
+        scanned = _read_reference_files(
+            ROOT / "README.md",
+            ROOT / "skills" / "skill-finder" / "SKILL.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "skills-md-route.md",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md",
+            ROOT / "skills" / "skill-finder" / "agents" / "openai.yaml",
+        ).lower()
+
+        for phrase in (
+            "skills.md",
+            "@hasna/skills",
+            "skills setup agents",
+            "skills list --json",
+            "skills quote",
+            "premium",
+            "approval",
+            "skills.sh",
+        ):
+            self.assertIn(phrase.lower(), scanned)
+
+        self.assertIn("do not confuse", scanned)
+        self.assertNotIn("skills mcp connect", scanned)
 
     def test_readme_has_public_front_door_sections(self):
         readme = _read_text_strict(ROOT / "README.md")
