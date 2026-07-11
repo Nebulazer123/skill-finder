@@ -53,31 +53,6 @@ Use it when you are about to ask for work that may need a specialized skill, MCP
 - **Handles missing setup clearly** - if required discovery routes are unavailable, it returns a Required Setup Block instead of pretending the search was complete.
 - **Designs the fallback** - when no good option exists, it drafts a missing-capability spec and eval cases for building one.
 
-## How It Fits Into A Real Workflow
-
-Skill Finder is the decision layer before a capability is installed or used. It combines several discovery and verification routes, with each route doing a different job:
-
-1. **Define the need** - turns the request into a concrete capability, setup constraint, and success condition. It asks one clarifying question when the answer would change the search or ranking.
-2. **Check readiness** - verifies the required local tools and discovery routes. If an important route is missing or broken, it reports that gap before presenting a weakened recommendation.
-3. **Find candidates** - searches local skills, skills.sh, the skills.md remote catalog, MCP catalogs, packages, CLIs, and relevant domain sources. skills.md is useful when a hosted skill may solve the task, but it is one candidate source rather than the final authority.
-4. **Get oriented** - uses DeepWiki or Devin for repository maps and difficult source questions when available. These results identify promising files, symbols, and follow-up questions.
-5. **Verify the shortlist** - checks material claims against GitHub source, a staged local clone, official documentation, tests, package metadata, or release history. Context7 is especially useful for current API and MCP details; Browserbase supplies live-page evidence when static sources are not enough.
-6. **Choose the evaluation depth** - keeps simple lookups short, while comparisons, repository traces, expensive setup, missing-capability work, and explicit research requests receive an evidence ledger, freshness checks, recovery log, counter-review, and confidence rationale.
-7. **Recommend and hand off** - returns the winner, near misses, dependencies, risks, and the next command or approval needed. It can stage source for inspection, but installation, credentials, account linking, paid runs, and persistent changes remain separate actions.
-
-### Where Skills.md Fits
-
-The skills.md route expands the candidate pool with remotely hosted skills. A typical run uses it like this:
-
-| Stage | What Skill Finder does | What skills.md contributes |
-|---|---|---|
-| Discovery | Searches for a capability beyond the local installation. | Public catalog names, descriptions, and available skill contracts. |
-| Screening | Compares task fit, source, trust surface, freshness, and setup. | Remote skill metadata, pricing tier, and account requirements. |
-| Verification | Confirms important technical claims through stronger sources. | Contract, documentation, quote, or returned artifact as separate evidence. |
-| Execution | Recommends a next step and asks before consequential actions. | A quote before premium work and a run receipt/artifact after approved execution. |
-
-The practical rule is: **use skills.md to widen discovery, not to skip verification**. A listed or remotely returned `SKILL.md` can explain what a skill claims to do, but it does not by itself prove that the skill is the best choice, safe for sensitive input, free, or equivalent to a local implementation. For premium, private, account-backed, or data-sensitive work, Skill Finder records the price and data surface and waits for approval before running it.
-
 ## Quick Start
 
 | Ask for | You get |
@@ -228,7 +203,7 @@ For skills.sh discovery, keep using `npx skills ...`. Do not assume that whichev
 
 ## How It Works
 
-The complete operating procedure lives in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). Its references define the route ladder, skills.md handling, evidence scoring, setup readiness, installation handling, and approval rules. The workflow above is the reader-facing summary; the skill file is the implementation contract used by Codex and Claude Code.
+The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). The references in [skills/skill-finder/references/](skills/skill-finder/references/) define search strategy, skills.md routing, scoring, setup readiness, install handling, and approval rules.
 
 A strong result includes:
 
