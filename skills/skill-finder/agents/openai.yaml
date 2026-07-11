@@ -18,6 +18,10 @@ dependencies:
       recommended: true
       description: "Highly recommended: Devin MCP for hard repository scans, sessions, playbooks, knowledge, schedules, and integrations."
     - type: "mcp"
+      value: "skills-md"
+      recommended: true
+      description: "Recommended: skills.md remote catalog and hosted skill execution route; inspect pricing and request approval before premium runs."
+    - type: "mcp"
       value: "context7"
       required: true
       description: "Required: Context7 MCP for current documentation, including API and MCP documentation."
