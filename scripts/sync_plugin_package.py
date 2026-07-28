@@ -21,7 +21,9 @@ PLUGIN_ASSET_ROOT = PLUGIN_ROOT / "assets"
 CODEX_MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 LOGO_SOURCE = ROOT / "assets" / "skill-finder-logo-512.png"
-GENERATED_PARTS = frozenset({"__pycache__", ".pytest_cache"})
+GENERATED_PARTS = frozenset(
+    {"__pycache__", ".pytest_cache", ".plugin-eval"}
+)
 
 
 def is_generated(path: Path) -> bool:

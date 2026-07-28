@@ -9,6 +9,8 @@
 - Added deterministic evidence records, route attempts, scoring, conflict checks, counter-review, and six-file Deep Evaluation bundles.
 - Added different-source-family recovery for failed, cancelled, timed-out, or weak material routes.
 - Added a 20-case evaluation harness for public completion, primary verification, recovery, private routing, malformed responses, duplicate identities, security advisories, and prompt injection.
+- Removed remaining universal setup-block wording from focused references and made engine commands resolve from the loaded skill directory.
+- Added public-only and connected clean-room source traces plus three isolated observed-use Plugin Eval scenarios.
 - Updated setup dependencies to `skills ^1.5.20`, `@upstash/context7-mcp ^3.2.5`, `browse ^0.9.5`, and `codebase-memory-mcp ^0.9.0`.
 - Added a lockfile and synchronized the Codex and Claude Code plugin packages at `1.3.0`.
 

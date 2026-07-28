@@ -106,6 +106,7 @@ class PluginPackagingTests(unittest.TestCase):
         self.assertTrue(script.is_file())
         text = script.read_text(encoding="utf-8")
         self.assertIn("__pycache__", text)
+        self.assertIn(".plugin-eval", text)
         self.assertIn('path.suffix == ".pyc"', text)
         text = script.read_text(encoding="utf-8")
         self.assertIn("CODEX_PLUGIN_MANIFEST", text)

@@ -45,6 +45,28 @@ def _read_reference_files(*paths: Path) -> str:
     return "\n".join(parts)
 
 
+def _public_package_paths() -> list[Path]:
+    """Return tracked and non-ignored files that Git could publish."""
+    result = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "--cached",
+            "--others",
+            "--exclude-standard",
+            "-z",
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return [
+        ROOT / relative
+        for relative in result.stdout.decode("utf-8").split("\0")
+        if relative
+    ]
+
+
 class PublicPackageTests(unittest.TestCase):
     def test_public_repo_files_exist(self):
         required_files = [
@@ -669,7 +691,7 @@ class PublicPackageTests(unittest.TestCase):
     def test_public_docs_do_not_include_private_workspace_paths(self):
         scanned_parts = []
         unreadable_files = []
-        for path in ROOT.rglob("*"):
+        for path in _public_package_paths():
             if not path.is_file():
                 continue
             if EXCLUDED_SCAN_PARTS.intersection(path.parts):
@@ -741,7 +763,7 @@ class PublicPackageTests(unittest.TestCase):
         malformed bytes at test time.
         """
         invalid_files = []
-        for path in ROOT.rglob("*"):
+        for path in _public_package_paths():
             if not path.is_file():
                 continue
             if EXCLUDED_SCAN_PARTS.intersection(path.parts):
@@ -774,13 +796,28 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "skills" / "skill-finder" / "references"
             / "dependency-and-capability-readiness.md"
         )
-        combined = f"{skill_text}\n{readiness}".lower()
+        reference_text = _read_reference_files(
+            *(ROOT / "skills" / "skill-finder" / "references").glob("*.md")
+        )
+        combined = f"{skill_text}\n{readiness}\n{reference_text}".lower()
 
         self.assertIn("task-specific evidence floor", combined)
         self.assertIn("public/local lane", combined)
         self.assertIn("connected lane", combined)
         self.assertIn("missing optional routes do not block", combined)
         self.assertNotIn("if any required route is missing", combined)
+        self.assertNotIn("required before search", combined)
+        self.assertNotIn("required setup block", combined)
+
+    def test_engine_commands_resolve_from_loaded_skill_directory(self):
+        skill_text = _read_text_strict(
+            ROOT / "skills" / "skill-finder" / "SKILL.md"
+        )
+        self.assertIn("<skill-directory>/scripts/evidence_engine.py", skill_text)
+        self.assertIn(
+            "Do not assume the workspace root contains the engine",
+            skill_text,
+        )
 
     def test_generated_sources_and_route_failures_have_strict_recovery_rules(self):
         skill_text = _read_text_strict(

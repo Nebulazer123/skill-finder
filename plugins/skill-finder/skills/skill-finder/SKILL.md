@@ -103,9 +103,11 @@ capability.
 
 ## Engine Support
 
-Use `scripts/evidence_engine.py doctor --json` to check local essentials and
-`scripts/evidence_engine.py plan` to produce a route plan. For a Deep Evaluation,
-write a run bundle containing:
+Resolve the directory containing this loaded `SKILL.md`, then run
+`python3 <skill-directory>/scripts/evidence_engine.py doctor --json` to check
+local essentials or `python3 <skill-directory>/scripts/evidence_engine.py plan`
+to produce a route plan. Do not assume the workspace root contains the engine.
+For a Deep Evaluation, write a run bundle containing:
 
 ```text
 run.json

@@ -11,9 +11,9 @@ the verification command, source-backed install command, setup state, staging
 path, cleanup status, cost, data classification, and notes.
 
 Missing optional routes do not block a run. They reduce evidence coverage,
-trigger recovery, or become an unresolved research line. A Required Setup Block
-is appropriate only when the current task's evidence floor cannot be reached
-without a specific missing route.
+trigger recovery, or become an unresolved research line. Pause for setup only
+when the current task's evidence floor cannot be reached without a specific
+missing route.
 
 ## Local Essentials
 
