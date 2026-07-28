@@ -1,5 +1,5 @@
 description: >
-  Find and vet the strongest agent-usable skill, tool, MCP server, workflow, package, or capability stack for a real task.
+  Find, verify, and set up the right skill, MCP server, connector, package, or capability stack for a task.
 topics:
   - ai
   - llm

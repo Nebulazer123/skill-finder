@@ -6,7 +6,7 @@
   </picture>
 
   <h1>Skill Finder</h1>
-  <p>Find the right skill, MCP server, connector, package, or capability stack before your coding assistant improvises one.</p>
+  <p>Find, verify, and set up the right skill, MCP server, connector, package, or capability stack for a task.</p>
 </div>
 
 <div align="center">
@@ -38,23 +38,25 @@
 
 ## The Problem
 
-Coding assistants are good at using tools, but they often miss better tools unless someone tells them where to look.
+The first plausible tool is often not the best one for the job. It may be stale, unsupported in your host, unsafe to install, or simply a poor fit for the task.
 
-Skill Finder gives Codex and Claude Code a disciplined way to search for existing capabilities, inspect their evidence, compare tradeoffs, and return a short recommendation before anything risky is installed or changed.
+Skill Finder helps Codex and Claude Code search for existing capabilities, verify the important claims, compare tradeoffs, and recommend a clear next step before work begins.
 
-Use it when you are about to ask for work that may need a specialized skill, MCP server, connector, library, documentation source, workflow, or multi-tool stack.
+Use it before work that may need a specialized skill, MCP server, connector, library, documentation source, workflow, or multi-tool stack. It is a research and selection tool, not a package manager or task executor.
 
 ## What It Does
 
 - **Finds stronger options** - searches beyond local skills into MCP servers, connectors, packages, CLIs, workflow tools, docs, and capability stacks.
-- **Checks real evidence** - reads source files, manifests, READMEs, docs, tests, licenses, install paths, and trust surfaces.
-- **Compares instead of guessing** - ranks candidates with evidence, risks, setup status, and winner-vs-near-miss reasoning.
-- **Goes deeper when it matters** - uses a research-quality evidence ledger, freshness checks, recovery log, and counter-review for complex or high-impact decisions.
-- **Works without account-backed tools** - plans a public/local evidence route first, then uses connected services only when they add evidence the task actually needs.
-- **Recovers instead of giving up** - a failed or cancelled material route triggers a different source family or becomes a clearly reported unresolved line.
-- **Designs the fallback** - when no good option exists, it drafts a missing-capability spec and eval cases for building one.
+- **Shows the proof** - grounds the recommendation in source files, docs, tests, licenses, install paths, and trust signals.
+- **Compares instead of guessing** - ranks candidates with evidence, risks, setup status, and winner-versus-near-miss reasoning.
+- **Explains complex choices** - adds freshness checks, recovery history, and a review of the strongest alternative when the decision deserves deeper research.
+- **Works without account-backed tools** - starts with public and local evidence, then uses connected services only when they add something the task needs.
+- **Keeps missing research visible** - recovers from failed routes through another source or clearly names what could not be verified.
+- **Designs the fallback** - drafts a missing-capability spec and eval cases when no good option exists.
 
 ## Quick Start
+
+Start with `@skill-finder` in Codex or `/skill-finder` in Claude Code, then ask for one of these outcomes:
 
 | Ask for | You get |
 |---|---|
@@ -63,7 +65,7 @@ Use it when you are about to ask for work that may need a specialized skill, MCP
 | `"Research the best capability stack for this task: ..."` | Deep evaluation with evidence ledger and counter-review |
 | `"No good skill exists; find the best stack."` | Missing-capability spec and eval cases |
 
-Example:
+Example prompt:
 
 ```text
 Find the best skill for this task: inspect a large repo, trace routes, find callers, and recommend safe code-intelligence tooling.
@@ -85,7 +87,7 @@ codex plugin add skill-finder@skill-finder
 codex plugin list | grep skill-finder
 ```
 
-Use it in Codex with:
+Use `@skill-finder` in Codex:
 
 ```text
 @skill-finder
@@ -109,32 +111,9 @@ Use `/skill-finder` in Claude Code:
 /skill-finder
 ```
 
-### Install As A Local Skill
-
-For hosts that read local `SKILL.md` folders:
-
-```bash
-npx skills add Nebulazer123/skill-finder --skill skill-finder
-```
-
-You can inspect the skill before installing it:
-
-```bash
-skills use Nebulazer123/skill-finder@skill-finder
-```
-
-Manual Codex-style install:
-
-```bash
-mkdir -p ~/.codex/skills
-cp -R skills/skill-finder ~/.codex/skills/skill-finder
-```
-
-Restart your host after manual copying so the skill list refreshes.
-
 ## Setup Requirements
 
-The only local essentials are `python3`, `git`, and `rg`. Everything else is a task-specific research route. Missing optional routes do not block a run; Skill Finder uses another source family, reports lower coverage, or offers setup when the missing route would materially improve the result.
+Start with `python3`, `git`, and `rg`. Everything else is a task-specific research route. Missing optional routes do not block a run: Skill Finder uses another source family, reports lower coverage, or offers setup when the missing route would materially improve the result.
 
 | Route | Use it when | Setup note |
 |---|---|---|
@@ -188,7 +167,7 @@ These routes are selected only when available, authorized for the task data, and
 
 ### Optional skills.md setup
 
-skills.md is a separate remote catalog from skills.sh. Its CLI also uses the name `skills`, so keep the two providers distinct. The current setup is:
+skills.md is a separate remote catalog from skills.sh. Both expose a `skills` command, so use the full path below when you mean skills.md:
 
 ```bash
 brew install bun
@@ -198,9 +177,7 @@ $HOME/.bun/bin/skills --version
 $HOME/.bun/bin/skills list --json
 ```
 
-Use `$HOME/.bun/bin/skills auth signup` when account-backed or private work is needed. Use `$HOME/.bun/bin/skills info <name>` to inspect a candidate and `$HOME/.bun/bin/skills quote <name>` before any premium run. Do not add `@hasna/skills` to this repository's npm dependencies; it is a separate global CLI/MCP integration.
-
-For skills.sh discovery, keep using `npx skills ...`. Do not assume that whichever `skills` executable appears first on `PATH` is the provider you intended.
+Use `$HOME/.bun/bin/skills auth signup` for private or account-backed work. Inspect with `$HOME/.bun/bin/skills info <name>` and request a quote with `$HOME/.bun/bin/skills quote <name>` before any premium run. For skills.sh discovery, use `npx skills ...`; do not rely on whichever `skills` executable appears first on `PATH`.
 
 ## How It Works
 

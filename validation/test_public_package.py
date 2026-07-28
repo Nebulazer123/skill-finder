@@ -425,6 +425,10 @@ class PublicPackageTests(unittest.TestCase):
         ):
             self.assertIn(phrase, readme, f"README.md missing section: {phrase}")
 
+        self.assertIn(
+            "Find, verify, and set up the right skill, MCP server, connector, package, or capability stack",
+            readme,
+        )
         self.assertIn('"Find the best skill for this task: ..."', readme)
         self.assertIn('"Compare these connectors/skills for my agent: ..."', readme)
         self.assertIn('"No good skill exists; find the best stack."', readme)
@@ -433,8 +437,12 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Counter-Review", readme)
         self.assertIn("[skills/skill-finder/SKILL.md]", readme)
         self.assertIn("Missing optional routes do not block a run", readme)
-        self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
-        self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
+        self.assertIn("Use `@skill-finder` in Codex", readme)
+        self.assertNotIn("### Install As A Local Skill", readme)
+        self.assertNotIn("Manual Codex-style install", readme)
+        self.assertNotIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
+        self.assertNotIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
+        self.assertNotIn("coding assistant improvises", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
         self.assertIn("GitHub MCP", readme)
         self.assertIn("DeepWiki MCP", readme)
@@ -687,6 +695,17 @@ class PublicPackageTests(unittest.TestCase):
                 topic, r"^[a-z0-9][a-z0-9-]*$",
                 f"repo-meta.yml: invalid topic format: {topic!r}",
             )
+
+    def test_metadata_description_matches_readme_value_proposition(self):
+        description = (
+            "Find, verify, and set up the right skill, MCP server, connector, "
+            "package, or capability stack for a task."
+        )
+        meta = _read_text_strict(ROOT / ".github" / "repo-meta.yml")
+        readme = _read_text_strict(ROOT / "README.md")
+
+        self.assertIn(description, meta)
+        self.assertIn(description, readme)
 
     def test_public_docs_do_not_include_private_workspace_paths(self):
         scanned_parts = []
