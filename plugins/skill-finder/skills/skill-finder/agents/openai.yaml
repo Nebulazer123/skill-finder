@@ -7,12 +7,12 @@ dependencies:
   tools:
     - type: "mcp"
       value: "github"
-      required: true
-      description: "Required: GitHub MCP for repo/code search and source verification."
+      recommended: true
+      description: "Conditional: GitHub MCP for repository discovery and source verification."
     - type: "mcp"
       value: "deepwiki"
-      required: true
-      description: "Required: DeepWiki MCP for public repository maps and Ask Devin questions."
+      recommended: true
+      description: "Conditional: DeepWiki MCP for public repository maps and source-path leads."
     - type: "mcp"
       value: "devin"
       recommended: true
@@ -23,12 +23,12 @@ dependencies:
       description: "Recommended: skills.md remote catalog and hosted skill execution route; inspect pricing and request approval before premium runs."
     - type: "mcp"
       value: "context7"
-      required: true
-      description: "Required: Context7 MCP for current documentation, including API and MCP documentation."
+      recommended: true
+      description: "Conditional: Context7 MCP for current API, SDK, CLI, and MCP documentation."
     - type: "mcp"
       value: "codebase-memory-mcp"
-      required: true
-      description: "Required: codebase-memory-mcp for local code graph indexing, symbol lookup, call paths, route tracing, and impact analysis."
+      recommended: true
+      description: "Conditional: codebase-memory-mcp for local symbols, call paths, route tracing, and impact analysis."
     - type: "mcp"
       value: "huggingface"
       recommended: true
@@ -39,20 +39,20 @@ dependencies:
       description: "Required: ripgrep for local file inspection."
     - type: "binary"
       value: "skills"
-      required: true
-      description: "Required: Skills CLI for skills.sh marketplace discovery."
+      recommended: true
+      description: "Conditional: Skills CLI for skills.sh marketplace discovery."
     - type: "binary"
       value: "gh"
       recommended: true
       description: "Recommended: GitHub CLI fallback for repository/source inspection."
     - type: "binary"
       value: "browse"
-      required: true
-      description: "Required: Browserbase Browse CLI for browser search, fetch, sessions, and Browse.sh skills."
+      recommended: true
+      description: "Conditional: Browserbase Browse CLI for browser search, fetch, snapshots, and live-page evidence."
     - type: "binary"
       value: "codebase-memory-mcp"
-      required: true
-      description: "Required: codebase-memory-mcp CLI installer and local MCP server."
+      recommended: true
+      description: "Conditional: codebase-memory-mcp CLI installer and local MCP server."
     - type: "binary"
       value: "hf"
       recommended: true
@@ -64,16 +64,20 @@ dependencies:
     - type: "binary"
       value: "python3"
       required: true
-      description: "Required: Python runtime for validation and evidence scripts."
+      description: "Local essential: Python runtime for the evidence engine and validation."
+    - type: "binary"
+      value: "git"
+      required: true
+      description: "Local essential: Git for source identity, revision, history, and staged clones."
     - type: "binary"
       value: "node"
-      required: true
-      description: "Required: Node.js 18+ runtime for package-tool discovery and MCP setup commands."
+      recommended: true
+      description: "Conditional: Node.js 18+ for JavaScript packages and MCP setup."
     - type: "binary"
       value: "npm"
-      required: true
-      description: "Required: npm for package metadata, setup dependency checks, and source-backed install commands."
+      recommended: true
+      description: "Conditional: npm for JavaScript package metadata and verified setup."
     - type: "binary"
       value: "npx"
-      required: true
-      description: "Required: npx for skills.sh and Context7 setup commands when no persistent install exists."
+      recommended: true
+      description: "Conditional: npx for skills.sh and one-shot package tools."

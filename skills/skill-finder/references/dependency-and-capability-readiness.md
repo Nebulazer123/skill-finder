@@ -1,45 +1,84 @@
 # Dependency And Capability Readiness
 
-Capability candidate: skill, plugin, MCP server, app/connector, workflow/automation template, CLI/tool, binary, package/library, validator/test runner, docs source, Hugging Face model, dataset, Space, API/MCP Space, Hub repo route, Missing Skill Blueprint.
+Readiness is task-specific. The local essentials are `python3`, `git`, and
+`rg`. Other tools are route capabilities, not universal prerequisites.
 
-Inspect README, `SKILL.md`, references, scripts, manifests, install/setup docs, lockfiles, Dockerfiles, MCP config, CLI docs, release notes, workflow JSON, tests. Use ripgrep for dependency/setup/package-manager/auth/admin/global terms. Blast-radius: hosted/private-code indexing, OAuth/account/payment, telemetry, global MCP config, OpenAPI/generated-client commands, task graphs, cache/index, CI.
+## Readiness Ledger
 
-Prefer source evidence: skills.sh, `npx skills`, GitHub CLI skills, Hugging Face Hub/cards/docs/API, `hf` CLI docs, community evals, package docs, Composio catalogs, n8n workflow JSON, MCP registries, `find-docs`, Context7, canonical docs.
+Record each relevant route as required-for-this-task, optional, connected,
+installed, missing, unauthorized, staged/downloaded, or unavailable. Include
+the verification command, source-backed install command, setup state, staging
+path, cleanup status, cost, data classification, and notes.
 
-Required setup gate: do not run a real Skill Finder recommendation until the core discovery stack is ready. Required dependencies are Agent Skills CLI or skills.sh access, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, codebase-memory-mcp, `rg`, `git`, `python3`, Node.js 18+, `npm`, and `npx`. Verify them with harmless checks before ranking candidates. If any required dependency is missing, not callable, or visible to the user but not the agent shell, stop and output a Required Setup Block with the missing dependency, why it matters, the source-backed setup command or link, and a question asking whether the user wants it installed/configured now. Do not silently degrade to a web-only or source-only run unless the user explicitly changes the task to setup planning only.
+Missing optional routes do not block a run. They reduce evidence coverage,
+trigger recovery, or become an unresolved research line. A Required Setup Block
+is appropriate only when the current task's evidence floor cannot be reached
+without a specific missing route.
 
-Stale/error recovery: when a required route or recommended power route is stale, broken, or errors during a Skill Finder run, classify whether the failure belongs to Skill Finder's own setup stack or to the user's unrelated task. If it belongs to the Skill Finder stack, repair or update that route first when the active policy allows safe helper setup, rerun the harmless verification, and record the observed version/error plus repair result. Then create or prepare a maintainer issue for `Nebulazer123/skill-finder` so the public docs, package metadata, dependency graph, or skill instructions can be updated. If the failure is unrelated to Skill Finder, fix the local task and do not create a Skill Finder repo issue.
+## Local Essentials
 
-Graphable setup dependencies: the public repository includes `package.json` entries for npm-installable setup tools that GitHub can honestly track: `skills`, `@upstash/context7-mcp`, `browse`, and `codebase-memory-mcp`. GitHub's dependency graph cannot represent remote MCP URLs, OAuth/app connectors, Docker images, Homebrew packages, or account-level setup as npm dependencies. Keep those in the README dependency table and setup gate instead of adding fake packages.
+- `python3` runs the evidence engine and validation.
+- `git` inspects repository identity, revisions, and history.
+- `rg` performs exhaustive local source and non-code searches.
 
-Codebase-memory readiness: codebase-memory-mcp is required for repository-understanding tasks because it gives local graph search, symbol lookup, call paths, route tracing, impact analysis, and architecture summaries. Verify the CLI or MCP route with a harmless version/list/status check, then index the current repo before relying on graph answers. If it is missing, use the source-backed setup route `npm install -g codebase-memory-mcp` followed by `codebase-memory-mcp install`, or the official one-line installer from `https://github.com/DeusData/codebase-memory-mcp`.
+Node.js, `npm`, and `npx` are required only when the selected candidate,
+registry, or setup path uses them.
 
-Baseline helper readiness: verify `python3` for validation/evidence scripts, `git` for repository inspection, `rg` for local file scans, `skills` or `npx skills` for skills.sh marketplace discovery, Node.js 18+ plus `npm`/`npx` for package-tool discovery, and Browserbase `browse` for browser-backed evidence. GitHub MCP is required for the primary source route; GitHub CLI is a useful fallback and local verification helper, but it is not a substitute for the required MCP route unless the user explicitly downgrades the run. Record unavailable helpers in the Required Setup Block rather than assuming they exist from global agent guidance.
+## Conditional Routes
 
-Repo-intelligence readiness: DeepWiki MCP is required for public-repository orientation. Verify by a harmless `read_wiki_structure` or `ask_question` call against a public repo before relying on it. Record DeepWiki MCP as missing setup if the MCP server is absent, rate-limited, returns no wiki for the smoke repo, or cannot answer. Devin MCP is highly recommended for deeper repository scans, private-repository docs, playbooks, knowledge, schedules, and integrations. Use `devin-codex-setup.md` for Codex configuration and verify Devin availability with a harmless status or read-only tool call before relying on it. When Devin would materially improve the task and is not set up, ask whether the user wants it configured.
+- **Repository work:** GitHub source, a staged clone, codebase-memory-mcp, or
+  Sourcegraph. Codebase-memory is high-value for symbols and call paths, but
+  direct files and `rg` remain source authority and recovery.
+- **Current API documentation:** Context7 or official docs. Retry alternate
+  names and docs hosts; thin Context7 output is partial evidence, not failure.
+- **Repository orientation:** DeepWiki or Devin can find architecture and
+  source paths. They are lead evidence and never sole proof.
+- **Browser evidence:** Browserbase Browse CLI or another browser route when
+  static docs and source are insufficient.
+- **Skill catalogs:** skills.sh/`npx skills` and skills.md public listings.
+- **ML work:** Hugging Face MCP/CLI for models, datasets, Spaces, papers, and
+  evals.
+- **Connected apps:** Composio or the host's connector when account data or app
+  actions are central to the task.
+- **Supply chain:** MCP Registry, deps.dev, OSV, optional OSV-Scanner, OpenSSF,
+  and ecosyste.ms.
 
-Context7 readiness for repo scans: Context7 is required for current API, SDK, framework, CLI, and MCP documentation checks. Verify it by resolving the library/product ID and querying docs for the exact API documentation or MCP documentation needed by the candidate. If Context7 cannot resolve the first name, retry with alternate repo/product/package names, README titles, official docs hosts, and website-style IDs before marking it unavailable for that dependency. If Context7 resolves but returns thin docs, classify it as partial evidence and continue with official docs/source files. Thin docs are not a setup failure; missing Context7 itself is. Do not claim callable methods, endpoint names, setup syntax, or install commands from DeepWiki/Ask Devin alone when Context7 or official docs can verify them.
+Account-backed routes remain eligible, but select them only when available,
+authorized for the input, and materially useful. Private material must stay
+within routes already authorized for that source.
 
-Helper setup: installing/verifying expected helper tools is dependency preparation when the active user/session/project policy allows helper setup or the user asks for it. Candidate package-manager activity is different from helper setup; keep a discovered repo's setup/install scripts or package installs in the sandbox scope.
+## Stale Or Failed Routes
 
-Dependency readiness ledger: required, recommended, optional, installed, missing, prepared, staged/downloaded, staging path, cleanup status, pending admin/interactive setup, verification command, install command source, notes. Hosted/enterprise adds account/OAuth/SSO/private-code indexing/payment/data-retention/admin review. Guardrails need OpenAPI spec path, generated-client command, old/new spec, CI baseline. Use `unknown` unless proven; `none` only with evidence. Safe staging is evidence collection, not proof that a dependency is installed or executable.
+Repair or update that route first when the active policy permits safe helper
+setup, then rerun a harmless check. If it exposes a Skill Finder documentation,
+package, engine, or plugin mismatch, create a `Nebulazer123/skill-finder` issue
+with `gh issue create`, or prepare an issue draft. If the failure is unrelated
+to Skill Finder, fix the task route and do not file a Skill Finder issue.
 
-Setup readiness passes when the required local tool or connected configuration is present and verified by a harmless official command. Do not count `launchctl getenv`, `printenv`, keychain lookup, or a CLI auth command as ready only because it exits 0. If the user says setup exists but the agent shell cannot see it, classify as `available to user / not exported to agent` and give the exact setup command or resume step.
+After a failed or cancelled material route, try a different source family.
+Examples: DeepWiki to GitHub source, GitHub search to a local clone, Context7 to
+official docs, or a graph trace to `rg` plus source inspection. Preserve the
+missing line when recovery cannot verify it.
 
-Account or hosted setup is not a disqualifier. If a candidate is free but needs connected setup, keep it eligible and mark the setup step. Download or install the package when the active task allows it, then record the resume point for any remaining external setup.
+## Setup Commands
 
-Hugging Face readiness: Hugging Face MCP/CLI is highly recommended when the task touches models, datasets, Spaces, papers, ML benchmarks, community evals, MCP-enabled Spaces, inference, training, or hosted ML workflows. Record model/dataset/Space id, repo owner, task, license/reuse lane, gated/private status, downloads/likes/last modified, storage/compute needs, local runtime packages, API/inference surface, Space hardware/runtime, MCP metadata if present, dataset provenance, model card/dataset card quality, and community evals when available. Verify public metadata with harmless Hub/API/CLI reads; authenticated routes may use `hf auth login` or `HF_TOKEN` when the user has set them up. If HF would materially improve the run and is missing, ask whether to set it up. HF Jobs, training, fine-tuning, paid inference endpoints, private repos, GPU/paid Space hardware, and billing/prepaid credits should be documented as separate compute or account setup routes.
+The repository tracks real npm-installable setup tools in `package.json`:
+`skills`, `@upstash/context7-mcp`, `browse`, and
+`codebase-memory-mcp`. These packages make the dependency graph honest; their
+presence does not make every route mandatory for every run.
 
-Browserbase route: Browserbase Browse CLI is required setup because Skill Finder needs a browser-backed evidence route when snippets and static source pages are not enough. `browse` CLI local mode can be verified with `browse doctor --json` plus a local `browse open`/`snapshot`/`stop` smoke path. Browserbase cloud search/fetch/sessions/functions should be verified with `browse cloud projects list` or another harmless cloud-status command. In Codex desktop, connected setup may exist in the user environment but not be inherited by shell commands. If only local mode works, mark cloud features as not configured and ask whether the user wants cloud setup when cloud search/fetch would improve the run.
+Useful source-backed setup examples include:
 
-Quote source install commands; if missing, write `Install command: not verified`. Never guess.
+```bash
+npm install -g codebase-memory-mcp
+codebase-memory-mcp install
+```
 
-Recommended power routes: Devin MCP for hard repository questions and sessions; Hugging Face MCP/CLI for ML artifacts and evals; Composio CLI/MCP for app connectors; Plugin Eval for skill scoring; Sourcegraph MCP, Serena, CodeGraph, oasdiff, Nx affected, Turborepo filters, and n8n workflows when the task fits. Missing recommended routes do not block the run, but when one would materially improve the task, ask whether the user wants it installed/configured and record the skipped value if the user declines.
+For skills.md use `bun install -g @hasna/skills` and
+`skills setup agents`. Do not confuse its `skills` executable with skills.sh;
+use `npx skills` for skills.sh commands. Check public listings with
+`skills list --json`; quote premium work with `skills quote` before asking for
+approval.
 
-skills.md readiness: skills.md is a recommended remote catalog and execution route, not a replacement for skills.sh or local source verification. Install its CLI with Bun using `bun install -g @hasna/skills`, then register supported agents with `skills setup agents`. Verify the route with `skills --version` and `skills list --json`. The current executable is also named `skills`, so do not confuse it with Vercel's skills.sh CLI: keep skills.sh commands as `npx skills ...` or the verified Vercel binary, and use the skills.md CLI through its explicit path or a deliberately controlled PATH. Do not add `@hasna/skills` to this repository's npm dependencies; it is a separate global CLI/MCP integration and would make the package graph misleading.
-
-skills.md account and run readiness: public registry listing can be checked without signing in, but account-backed, private, or premium work requires `skills auth signup` or `skills auth login`. Inspect `skills info` or `skills docs` before choosing a remote skill. For premium work, run `skills quote <skill>` first, show the price and input units, and ask for approval before `skills run <skill>`. Never infer that a listed skill is free, private-safe, or locally executable from its name alone. Record the remote skill name, source, pricing tier, quote result, account status, inputs sent, exported artifact path, and receipt when a skills.md run is approved.
-
-Examples: FFmpeg, Playwright, GitHub CLI, Hugging Face `hf` CLI/Hub API, Skills CLI (`npx skills find`, `npx skills add`, `npx skills check`, `npx skills update`), ripgrep, plugin-eval, MCP servers, Sourcegraph MCP, codebase-memory-mcp, Serena, CodeGraph, oasdiff, Nx affected, Turborepo filters, Composio/app connectors, n8n workflows.
-
-Sandbox install/test/cleanup should prefer temp dirs, fixtures, dry runs, local-only paths, and reversible steps. Source downloads and read-only staging can happen earlier as evidence collection when clearly relevant. For paid services, production systems, browser sessions, or persistent/global state, record the setup link, reason, partial evidence, and resume point.
+For any command not verified from a current source, write
+`Install command: not verified`. Never guess.
