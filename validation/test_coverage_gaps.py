@@ -257,6 +257,12 @@ class ValidationCommandParityTests(unittest.TestCase):
             package_json,
         )
 
+    def test_ci_provisions_declared_local_essentials(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "validate.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("apt-get install -y ripgrep", workflow)
+
 
 class SecurityContentTests(unittest.TestCase):
     """SECURITY.md had only file-existence coverage."""

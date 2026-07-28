@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install local search dependency
+        run: sudo apt-get update && sudo apt-get install -y ripgrep
+
       - name: Run packaged engine smoke tests
         run: python3 -m unittest discover -s skills/skill-finder/tests -v
 
