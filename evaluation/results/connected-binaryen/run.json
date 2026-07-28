@@ -1,0 +1,11 @@
+{
+  "checked_at": "2026-07-28T06:38:00Z",
+  "confidence": 92,
+  "engine_version": "1.3.0",
+  "schema_version": "1.0.0",
+  "selected_routes": [
+    "browserbase-cloud-search",
+    "github-source-clone"
+  ],
+  "task_digest": "trace-binaryen-wasm-opt-pass-selection-to-output"
+}

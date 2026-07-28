@@ -1,0 +1,44 @@
+{
+  "$id": "https://github.com/Nebulazer123/skill-finder/schemas/evidence.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "accessibility": {"type": "string"},
+    "account_state": {"type": "string"},
+    "artifact_digest": {"type": "string"},
+    "candidate_id": {"minLength": 1, "type": "string"},
+    "checked_at": {"format": "date-time", "type": "string"},
+    "claim": {"minLength": 1, "type": "string"},
+    "evidence_role": {
+      "enum": ["lead", "corroboration", "verification", "contradiction"]
+    },
+    "material": {"type": "boolean"},
+    "notes": {"type": "string"},
+    "record_id": {"minLength": 1, "type": "string"},
+    "route_id": {"type": "string"},
+    "source_family": {"type": "string"},
+    "source_type": {"type": "string"},
+    "source_updated_at": {"type": "string"},
+    "source_uri": {"minLength": 1, "type": "string"},
+    "status": {
+      "enum": ["verified", "unverified", "contradicted", "stale", "unavailable"]
+    },
+    "strength": {"enum": ["low", "medium", "high"]}
+  },
+  "required": [
+    "record_id",
+    "candidate_id",
+    "claim",
+    "material",
+    "source_uri",
+    "source_type",
+    "evidence_role",
+    "route_id",
+    "source_family",
+    "checked_at",
+    "strength",
+    "status"
+  ],
+  "title": "Skill Finder Evidence Record",
+  "type": "object"
+}

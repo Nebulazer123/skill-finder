@@ -16,6 +16,12 @@ BINARY_SUFFIXES = frozenset((
     ".pdf", ".bin", ".exe", ".dll", ".so", ".dylib",
 ))
 
+EXCLUDED_SCAN_PARTS = frozenset((
+    ".git",
+    "__pycache__",
+    "node_modules",
+))
+
 
 def _read_text_strict(path: Path) -> str:
     """Read a text file with strict UTF-8 decoding.
@@ -37,6 +43,28 @@ def _read_reference_files(*paths: Path) -> str:
     for path in paths:
         parts.append(_read_text_strict(path))
     return "\n".join(parts)
+
+
+def _public_package_paths() -> list[Path]:
+    """Return tracked and non-ignored files that Git could publish."""
+    result = subprocess.run(
+        [
+            "git",
+            "ls-files",
+            "--cached",
+            "--others",
+            "--exclude-standard",
+            "-z",
+        ],
+        cwd=ROOT,
+        check=True,
+        capture_output=True,
+    )
+    return [
+        ROOT / relative
+        for relative in result.stdout.decode("utf-8").split("\0")
+        if relative
+    ]
 
 
 class PublicPackageTests(unittest.TestCase):
@@ -208,7 +236,7 @@ class PublicPackageTests(unittest.TestCase):
             "codebase-memory-mcp",
         ):
             self.assertIn(package_name, dependencies)
-        self.assertEqual(dependencies["browse"], "^0.9.1")
+        self.assertEqual(dependencies["browse"], "^0.9.5")
 
         dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
         self.assertIn('package-ecosystem: "npm"', dependabot)
@@ -283,13 +311,13 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("show at most five", text)
         self.assertIn("Source-Route Scorecard", text)
         self.assertIn("Candidate Evidence Table", text)
-        self.assertIn("dependency readiness", text.lower())
-        self.assertIn("Required Setup Block", text)
+        self.assertIn("setup/install readiness", text.lower())
+        self.assertIn("task-specific evidence floor", text)
         self.assertIn("Install command: not verified", text)
         self.assertIn("approval", text.lower())
-        self.assertIn("DeepWiki/Ask Devin", text)
-        self.assertIn("Context7/API docs", text)
-        self.assertIn("staged/downloaded artifacts", text.lower())
+        self.assertIn("DeepWiki", text)
+        self.assertIn("Context7", text)
+        self.assertIn("temporary workspace", text.lower())
 
     def test_stale_dependency_self_repair_and_issue_reporting_is_documented(self):
         scanned = _read_reference_files(
@@ -404,7 +432,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Evidence Ledger", readme)
         self.assertIn("Counter-Review", readme)
         self.assertIn("[skills/skill-finder/SKILL.md]", readme)
-        self.assertIn("returns a Required Setup Block", readme)
+        self.assertIn("Missing optional routes do not block a run", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
@@ -552,23 +580,11 @@ class PublicPackageTests(unittest.TestCase):
             / "install-and-approval.md",
         )
 
-        for phrase in (
-            "models",
-            "datasets",
-            "papers",
-            "Spaces",
-            "MCP-enabled Spaces",
-            "community eval",
-            "benchmark",
-            "Jobs/training",
-            "billing/prepaid credits",
-        ):
+        for phrase in ("models", "datasets", "papers", "Spaces", "evals"):
             self.assertIn(phrase, readme + references)
 
         self.assertIn('value: "huggingface"', agent_meta)
         self.assertIn('value: "hf"', agent_meta)
-        self.assertIn("HF_TOKEN", references)
-        self.assertIn("billing/prepaid credits", references)
         self.assertNotIn("huggingface-" + "cli", readme + references)
         self.assertNotIn("huggingface_hub" + "[cli]", readme + references)
 
@@ -587,8 +603,7 @@ class PublicPackageTests(unittest.TestCase):
         ).lower()
 
         for phrase in (
-            "safe staging",
-            "temporary/sandbox",
+            "temporary",
             "staging path",
             "cleanup status",
             "staging is not permission to run setup scripts",
@@ -624,7 +639,7 @@ class PublicPackageTests(unittest.TestCase):
             / "install-and-approval.md",
         ).lower()
 
-        self.assertIn("account or hosted setup is not a disqualifier", scanned)
+        self.assertIn("account-backed routes remain eligible", scanned)
         self.assertIn("do not downgrade a strong free candidate", scanned)
         self.assertIn("paid/hosted compute", scanned)
         self.assertNotIn("credential-" + "free answer", scanned)
@@ -676,10 +691,10 @@ class PublicPackageTests(unittest.TestCase):
     def test_public_docs_do_not_include_private_workspace_paths(self):
         scanned_parts = []
         unreadable_files = []
-        for path in ROOT.rglob("*"):
+        for path in _public_package_paths():
             if not path.is_file():
                 continue
-            if ".git" in path.parts or "__pycache__" in path.parts:
+            if EXCLUDED_SCAN_PARTS.intersection(path.parts):
                 continue
             if path.suffix == ".pyc":
                 continue
@@ -748,10 +763,10 @@ class PublicPackageTests(unittest.TestCase):
         malformed bytes at test time.
         """
         invalid_files = []
-        for path in ROOT.rglob("*"):
+        for path in _public_package_paths():
             if not path.is_file():
                 continue
-            if ".git" in path.parts or "__pycache__" in path.parts:
+            if EXCLUDED_SCAN_PARTS.intersection(path.parts):
                 continue
             if path.suffix.lower() in BINARY_SUFFIXES:
                 continue
@@ -772,6 +787,60 @@ class PublicPackageTests(unittest.TestCase):
         gitignore = (ROOT / ".gitignore").read_text(encoding="utf-8")
         for pattern in (".env", "*.pem", "*.key", "*.p12", "*.pfx"):
             self.assertIn(pattern, gitignore)
+
+    def test_hybrid_evidence_floor_replaces_all_tools_gate(self):
+        skill_text = _read_text_strict(
+            ROOT / "skills" / "skill-finder" / "SKILL.md"
+        )
+        readiness = _read_text_strict(
+            ROOT / "skills" / "skill-finder" / "references"
+            / "dependency-and-capability-readiness.md"
+        )
+        reference_text = _read_reference_files(
+            *(ROOT / "skills" / "skill-finder" / "references").glob("*.md")
+        )
+        combined = f"{skill_text}\n{readiness}\n{reference_text}".lower()
+
+        self.assertIn("task-specific evidence floor", combined)
+        self.assertIn("public/local lane", combined)
+        self.assertIn("connected lane", combined)
+        self.assertIn("missing optional routes do not block", combined)
+        self.assertNotIn("if any required route is missing", combined)
+        self.assertNotIn("required before search", combined)
+        self.assertNotIn("required setup block", combined)
+
+    def test_engine_commands_resolve_from_loaded_skill_directory(self):
+        skill_text = _read_text_strict(
+            ROOT / "skills" / "skill-finder" / "SKILL.md"
+        )
+        self.assertIn("<skill-directory>/scripts/evidence_engine.py", skill_text)
+        self.assertIn(
+            "Do not assume the workspace root contains the engine",
+            skill_text,
+        )
+
+    def test_generated_sources_and_route_failures_have_strict_recovery_rules(self):
+        skill_text = _read_text_strict(
+            ROOT / "skills" / "skill-finder" / "SKILL.md"
+        ).lower()
+
+        self.assertIn("never sole proof", skill_text)
+        self.assertIn("different source family", skill_text)
+        self.assertIn("prompt injection", skill_text)
+        self.assertIn("unresolved research", skill_text)
+
+    def test_engine_contract_files_are_public_and_packaged(self):
+        paths = [
+            ROOT / "skills" / "skill-finder" / "config" / "routes.json",
+            ROOT / "skills" / "skill-finder" / "schemas" / "request.schema.json",
+            ROOT / "skills" / "skill-finder" / "schemas" / "evidence.schema.json",
+            ROOT / "skills" / "skill-finder" / "schemas" / "run.schema.json",
+            ROOT / "skills" / "skill-finder" / "scripts" / "evidence_engine.py",
+            ROOT / "skills" / "skill-finder" / "references"
+            / "hybrid-evidence-engine.md",
+        ]
+        for path in paths:
+            self.assertTrue(path.is_file(), path)
 
 
 if __name__ == "__main__":

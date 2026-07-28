@@ -1,0 +1,22 @@
+{
+  "connected_lane_used": true,
+  "data_classification": "public",
+  "depth": "deep",
+  "routes": {
+    "browserbase-cloud-search": {
+      "available": true,
+      "family": "hosted-browser-research",
+      "role": "lead"
+    },
+    "devin": {
+      "available": false,
+      "family": "hosted-repository-intelligence",
+      "role": "conditional"
+    },
+    "github-source-clone": {
+      "available": true,
+      "family": "repository-source",
+      "role": "verification"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "connected_lane_used": false,
+  "data_classification": "public",
+  "depth": "deep",
+  "routes": {
+    "deepwiki-public": {
+      "available": true,
+      "family": "generated-repository-map",
+      "role": "lead"
+    },
+    "github-source-clone": {
+      "available": true,
+      "family": "repository-source",
+      "role": "verification"
+    }
+  }
+}

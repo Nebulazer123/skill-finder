@@ -21,7 +21,10 @@ Please report issues that could cause Skill Finder to:
 - install or mutate global state without approval
 - recommend unsafe commands as verified
 - blur the boundary between source evidence and executable instructions
-- misrepresent required setup for MCP servers, plugins, CLIs, or package dependencies
+- follow prompt injection embedded in fetched candidate content
+- send private material to an unauthorized connected route
+- misrepresent task-specific setup for MCP servers, plugins, CLIs, or package dependencies
+- treat generated summaries, popularity, or aggregate scores as sole proof
 - package stale plugin files that differ from the canonical skill
 
 Out of scope: vulnerabilities in third-party services, MCP servers, plugins, packages, or hosted platforms that Skill Finder only links to. Report those issues to the upstream project unless Skill Finder documents the unsafe behavior as verified or safe.
@@ -29,6 +32,8 @@ Out of scope: vulnerabilities in third-party services, MCP servers, plugins, pac
 ## Handling
 
 Maintainers will triage reports on a best-effort basis, patch public documentation or validation when needed, and add regression coverage for confirmed issues. If a report concerns a third-party command, dependency, or integration, the fix may be to mark the command unverified, change setup guidance, or point users to upstream guidance.
+
+The evidence engine stores no global research history or telemetry. Deep Evaluation bundles are written only to a user-selected or temporary directory. Evidence records must not contain secrets.
 
 ## Safety Notes
 

@@ -2,7 +2,12 @@
 
 External source search is normal. Default lean; broaden only when it may change the winner, source family, ranking, or trust.
 
-Required before search: Skill Finder needs Agent Skills CLI or skills.sh access, GitHub MCP, DeepWiki MCP, Context7, Browserbase Browse CLI, codebase-memory-mcp, `rg`, `git`, and `python3` before a real recommendation run. If a required route is missing or not callable, stop with a Required Setup Block and ask whether to install/configure it. Do not silently downgrade to a weakened web-only search unless the user explicitly changes the task to setup planning.
+Readiness before search: verify the local essentials `python3`, `git`, and `rg`,
+then inventory only the route families relevant to the task. Agent Skills,
+GitHub, DeepWiki, Context7, Browserbase, codebase-memory, and connected services
+are conditional capabilities. Select the smallest diverse portfolio that can
+meet the evidence floor. Missing optional routes reduce coverage, trigger a
+different-family recovery, or remain unresolved; they do not block the run.
 
 Routes/query ladder after setup passes: exact search; semantic search; skills.sh leaderboard; `skills find` or `npx skills find`; local/project/global/plugin skills; skills.md `list`, `search`, and `info`; seeds `openai/skills`, `anthropics/skills`, Vercel, `github/awesome-copilot`; GitHub MCP repo/code/file; DeepWiki MCP and Ask Devin repo Q&A; codebase-memory graph search/trace for local repos; Context7 API documentation and MCP documentation; Browserbase search/fetch/browser evidence; Hugging Face Hub models/datasets/Spaces/papers; MCP catalogs; Composio app/connector; n8n workflow/automation; package/tool catalogs; official docs/changelogs; web. Prefer `find-docs`, Context7, official docs, Hugging Face docs/Hub API, and HF MCP/CLI routes when relevant. Signals: install count, GitHub stars, Hub downloads/likes/last modified, package coordinates, source reputation, README/SKILL.md/model card/dataset card/Space quality, `skills check/update`, and skills.md pricing/source metadata.
 
@@ -12,11 +17,26 @@ Context7 cross-check route: when DeepWiki, Ask Devin, GitHub, marketplace, or pa
 
 Devin branch: Devin MCP is highly recommended for deeper repository Q&A, bounded repository sessions, playbooks, knowledge, scheduled work, or integration inspection. Pair Devin's scan with DeepWiki-style questions and GitHub/Context7 verification, and record which Devin questions were asked and which claims were confirmed or rejected. If Devin would materially improve the run and is not set up, ask whether the user wants it configured; do not pretend a non-Devin route supplied Devin-level evidence.
 
-Route recovery: after required setup is present, a failed, weak, unavailable, or cancelled GitHub/codebase-memory/DeepWiki/Devin/Context7 call is a research signal, not a stopping point. Record the route status, then recover through a materially different path such as GitHub source, fresh local clone, official docs, Context7 retry/CLI, package source, DeepWiki follow-up, Devin follow-up, Browserbase fetch/browser evidence, or direct local search. If the gap remains, preserve it as a missing research line in the final packet. Missing required setup is different from a weak route result: missing setup stops the recommendation and becomes a setup task.
+Route recovery: a failed, weak, unavailable, or cancelled GitHub,
+codebase-memory, DeepWiki, Devin, Context7, or other material call is a research
+signal, not a stopping point. Record the route status, then recover through a
+materially different source family such as GitHub source, a fresh local clone,
+official docs, package source, Browserbase evidence, or direct local search. A
+narrower query counts only when it changes the evidence path. If the gap remains,
+preserve it as an unresolved research line. Offer setup only when a missing route
+would materially improve coverage; stop for setup only when no available route
+portfolio can meet the evidence floor.
 
 Hugging Face route when relevant: search models, datasets, Spaces, papers, org/user Hub repos, community evals, and HF docs. Inspect model cards, dataset cards, Space READMEs/app files, repo files, licenses, tags, tasks, examples, eval tables, API/inference surfaces, and gated/private status. Treat API-backed Spaces, MCP-enabled Spaces, Hub models/datasets, `hf` CLI workflows, and HF docs as agent-usable candidates when they can support the target host. Treat papers, blog posts, leaderboards, and docs-only pages as source/method evidence unless they expose a usable model, dataset, Space, CLI, API, MCP server, package, or workflow.
 
-Browserbase route: use `browse cloud search` to discover likely source URLs when the agent does not know where information lives, `browse cloud fetch` to quickly read static or low-complexity pages, and `browse open --remote`/browser sessions only when the page needs interaction, login, JavaScript rendering, bot-resistant access, or higher accuracy than fetch. Local Browse CLI setup is required; cloud features are recommended when live search/fetch materially improve the task. Do not use full browser automation for every page when Search or Fetch is enough; do not stop at Search results when Fetch or Browser evidence is needed to rank a candidate.
+Browserbase route: use `browse cloud search` to discover likely source URLs when
+the agent does not know where information lives, `browse cloud fetch` to quickly
+read static or low-complexity pages, and `browse open --remote` or browser
+sessions only when the page needs interaction, login, JavaScript rendering,
+bot-resistant access, or higher accuracy than fetch. Browserbase is conditional:
+select it when hosted search or browser evidence materially improves the task.
+Do not use full browser automation for every page when Search or Fetch is enough;
+do not stop at Search results when source verification is needed.
 
 Skills CLI fallback: if `skills find` returns `owner/repo@skill` but `skills use owner/repo --skill skill` reports no matching skill and lists available skills, do not mark the package dead immediately. Record the mismatch, inspect the available skill names, and try the closest listed skill only when its description still matches the user's task. Treat package-level search hits and internal skill names as separate evidence fields.
 

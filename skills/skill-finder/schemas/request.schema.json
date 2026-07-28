@@ -1,0 +1,48 @@
+{
+  "$id": "https://github.com/Nebulazer123/skill-finder/schemas/request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "data_classification": {
+      "enum": ["public", "private", "secret"]
+    },
+    "depth": {
+      "enum": ["quick", "deep"]
+    },
+    "excluded_route_families": {
+      "items": {"type": "string"},
+      "type": "array"
+    },
+    "goal": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "local_only": {
+      "type": "boolean"
+    },
+    "max_cost_usd": {
+      "minimum": 0,
+      "type": "number"
+    },
+    "max_minutes": {
+      "minimum": 1,
+      "type": "integer"
+    },
+    "output_mode": {
+      "type": "string"
+    },
+    "required_route_families": {
+      "items": {"type": "string"},
+      "type": "array"
+    },
+    "target_host": {
+      "type": "string"
+    },
+    "task_category": {
+      "type": "string"
+    }
+  },
+  "required": ["goal", "depth", "target_host", "data_classification"],
+  "title": "Skill Finder Evaluation Request",
+  "type": "object"
+}

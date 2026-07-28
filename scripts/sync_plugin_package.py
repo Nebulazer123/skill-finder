@@ -21,6 +21,13 @@ PLUGIN_ASSET_ROOT = PLUGIN_ROOT / "assets"
 CODEX_MARKETPLACE = ROOT / ".agents" / "plugins" / "marketplace.json"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 LOGO_SOURCE = ROOT / "assets" / "skill-finder-logo-512.png"
+GENERATED_PARTS = frozenset(
+    {"__pycache__", ".pytest_cache", ".plugin-eval"}
+)
+
+
+def is_generated(path: Path) -> bool:
+    return bool(GENERATED_PARTS.intersection(path.parts)) or path.suffix == ".pyc"
 
 
 def read_package_version() -> str:
@@ -173,7 +180,7 @@ def expected_files() -> dict[Path, bytes]:
     }
 
     for source_path in sorted(CANONICAL_SKILL_ROOT.rglob("*")):
-        if source_path.is_file():
+        if source_path.is_file() and not is_generated(source_path):
             relative = source_path.relative_to(CANONICAL_SKILL_ROOT)
             files[PLUGIN_SKILL_ROOT / relative] = source_path.read_bytes()
 
@@ -184,7 +191,11 @@ def expected_files() -> dict[Path, bytes]:
 def managed_existing_files() -> set[Path]:
     files: set[Path] = set()
     if PLUGIN_ROOT.exists():
-        files.update(path for path in PLUGIN_ROOT.rglob("*") if path.is_file())
+        files.update(
+            path
+            for path in PLUGIN_ROOT.rglob("*")
+            if path.is_file() and not is_generated(path)
+        )
     for marketplace in (CODEX_MARKETPLACE, CLAUDE_MARKETPLACE):
         if marketplace.exists():
             files.add(marketplace)

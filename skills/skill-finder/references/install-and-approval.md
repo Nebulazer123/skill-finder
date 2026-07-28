@@ -1,8 +1,18 @@
 # Install And Approval
 
-Use the active user/session/project install policy; do not assume a private global AGENTS file exists. Free account or OAuth requirements should not block recommendation or source download/install by themselves. Record global AGENTS changes, risky scripts, linked-account sessions, MCP/tool integrations, candidate package-manager activity, publishing, destructive actions, paid services, hosted compute/training/jobs, gated-model terms, or non-temporary deletion as separate next steps. Expected helper discovery/prep such as verifying or installing `skills`, `rg`, `python3`, Node.js 18+, `npm`, `npx`, `browse`, `codebase-memory-mcp`, GitHub MCP, DeepWiki MCP, or Context7 is required dependency preparation. If the active policy allows setup, ask to install/configure missing required dependencies and do that setup first. If setup is not allowed, stop with setup instructions instead of running a weakened Skill Finder recommendation.
+Use the active user/session/project install policy; do not assume a private global AGENTS file exists. Free account or OAuth requirements should not block recommendation or source download/install by themselves. Record global AGENTS changes, risky scripts, linked-account sessions, MCP/tool integrations, candidate package-manager activity, publishing, destructive actions, paid services, hosted compute/training/jobs, gated-model terms, or non-temporary deletion as separate next steps. Verify only the helpers selected by the task-specific route plan. Missing optional routes do not block a run; offer setup when a missing route would materially improve coverage. Stop for setup only when no available route portfolio can meet the evidence floor.
 
-Self-repair and maintainer reporting: if a Skill Finder required route or recommended power route is stale or errors, repair or update that route first when active policy allows safe helper setup, then rerun the harmless verification. If the issue reveals a Skill Finder docs/package/setup mismatch, create a maintainer issue with `gh issue create --repo Nebulazer123/skill-finder` after the local repair. Include the failing route, observed version or error, repair command or action, verification result, and the public files that may need an update. If issue creation is unavailable, write an issue draft instead. If the failure is unrelated to Skill Finder, fix the local task and do not create a Skill Finder repo issue. Never include secrets, tokens, private repo details, private user paths, or account-specific data in the issue.
+Self-repair and maintainer reporting: if a selected Skill Finder route is stale
+or errors, repair or update that route first when active policy allows safe
+helper setup, then rerun the harmless verification. If the issue reveals a Skill
+Finder docs, package, setup, engine, or plugin mismatch, create a maintainer issue
+with `gh issue create --repo Nebulazer123/skill-finder` after the local repair.
+Include the failing route, observed version or error, repair action, verification
+result, and the public files that may need an update. If issue creation is
+unavailable, write an issue draft instead. If the failure is unrelated to Skill
+Finder, fix the local task and do not create a Skill Finder issue. Never include
+secrets, tokens, private repo details, private user paths, or account-specific
+data in the issue.
 
 Blast-radius notes: hosted/private-code indexing/local-first; global MCP config; telemetry disabled; one-line curl installer inspected; OpenAPI spec and generated-client command; existing Nx affected, Turborepo filters, workspaces, CI selection; index location; Stripe/permissions/webhooks/Prisma/production-data.
 
@@ -12,9 +22,20 @@ Use `skill-installer` for compatible Codex skills, `openai/skills` paths, GitHub
 
 Temporary source staging: safe downloads, source archives, shallow clones, read-only marketplace fetches, and Hub/API metadata/file reads are normal evidence gathering when they are clearly relevant and allowed by the active policy. Prefer staging over guessing from snippets for top contenders. Keep staged artifacts in temp/sandbox paths, avoid private/user data, record the path and cleanup status, and clean them up after the run unless the evidence packet needs preservation. Staging is not permission to run setup scripts, execute candidate code, run package scripts, accept terms, spend compute, grant scopes, or change persistent project/global state.
 
-Marketplace discovery: Agent Skills CLI or skills.sh access is required setup. If the Skills CLI is already installed, `skills find`/`skills check` are normal source routes. If only `npx skills` is available, run it when the active policy or user allows package-manager helper execution. If neither CLI nor web catalog access is available, stop with a Required Setup Block and ask whether to install or configure it.
+Marketplace discovery: Agent Skills CLI, skills.sh, and web catalogs are
+interchangeable discovery routes. If the Skills CLI is installed, `skills find`
+and `skills check` are normal source routes. If only `npx skills` is available,
+run it when the active policy allows package-manager helper execution. If none
+is available, use another credible discovery family or offer setup when catalog
+coverage could materially change the result.
 
-DeepWiki/Devin route: DeepWiki MCP public-repository reads are required for repo-intelligence source discovery; record the repo queried and do not treat generated wiki output as final source truth. Devin MCP can add deeper repository scans, private-repository docs, bounded sessions, playbook/knowledge/schedule workflows, and integration inspection. Devin is highly recommended when it would materially improve the task; ask whether to configure it if missing. Pair Devin output with DeepWiki, GitHub MCP/source URLs, Context7, and official docs.
+DeepWiki/Devin route: DeepWiki can accelerate public-repository orientation;
+record the repository queried and do not treat generated wiki output as final
+source truth. Devin can add deeper repository scans, private-repository docs,
+bounded sessions, playbook or knowledge workflows, and integration inspection.
+Select either only when available and useful, and offer setup when the missing
+route would materially improve the task. Pair generated or hosted repository
+analysis with GitHub source, a staged clone, tests, Context7, or official docs.
 
 Hugging Face setup: public Hub search/card inspection, HF docs, public API metadata reads, and safe `hf` CLI verification are normal source routes when available. Hugging Face MCP/CLI is highly recommended when models, datasets, Spaces, papers, ML benchmarks, community evals, or hosted ML workflows could affect the answer; ask whether to configure it if missing. Record gated-model or dataset terms, linked accounts, MCP/tool integrations, paid inference endpoints, HF Jobs/training/fine-tuning, Space hardware changes, and remote code from a Space/repo as separate setup or compute steps. API-backed or MCP-enabled Spaces can be recommended as agent-usable routes when they fit the task.
 

@@ -105,6 +105,10 @@ class PluginPackagingTests(unittest.TestCase):
         script = ROOT / "scripts" / "sync_plugin_package.py"
         self.assertTrue(script.is_file())
         text = script.read_text(encoding="utf-8")
+        self.assertIn("__pycache__", text)
+        self.assertIn(".plugin-eval", text)
+        self.assertIn('path.suffix == ".pyc"', text)
+        text = script.read_text(encoding="utf-8")
         self.assertIn("CODEX_PLUGIN_MANIFEST", text)
         self.assertIn("CLAUDE_PLUGIN_MANIFEST", text)
         self.assertIn("CODEX_MARKETPLACE_MANIFEST", text)
@@ -191,9 +195,15 @@ class ContributingContentTests(unittest.TestCase):
         self.assertIn("## Development Flow", self.text)
 
     def test_documents_test_command(self):
+        self.assertIn(
+            "python3 -m unittest discover -s skills/skill-finder/tests -v",
+            self.text,
+        )
         self.assertIn("python3 -m unittest discover -s validation -v", self.text)
+        self.assertIn("python3 -m unittest discover -s evaluation -v", self.text)
         self.assertIn("python3 scripts/sync_plugin_package.py --check", self.text)
-        self.assertIn("npm pkg get dependencies", self.text)
+        self.assertIn("npm ci --ignore-scripts", self.text)
+        self.assertIn("npm ls --all", self.text)
 
     def test_has_contribution_guidelines_section(self):
         self.assertIn("## Contribution Guidelines", self.text)
@@ -212,9 +222,12 @@ class ValidationCommandParityTests(unittest.TestCase):
     """Public validation command surfaces should not drift apart."""
 
     REQUIRED_COMMANDS = (
+        "python3 -m unittest discover -s skills/skill-finder/tests -v",
         "python3 -m unittest discover -s validation -v",
+        "python3 -m unittest discover -s evaluation -v",
         "python3 scripts/sync_plugin_package.py --check",
-        "npm pkg get dependencies",
+        "npm ci --ignore-scripts",
+        "npm ls --all",
     )
 
     def test_required_commands_match_docs_pr_template_and_ci(self):
@@ -233,11 +246,22 @@ class ValidationCommandParityTests(unittest.TestCase):
 
     def test_package_json_exposes_validation_scripts(self):
         package_json = (ROOT / "package.json").read_text(encoding="utf-8")
-        self.assertIn('"test": "python3 -m unittest discover -s validation -v"', package_json)
+        self.assertIn(
+            '"test": "python3 -m unittest discover -s skills/skill-finder/tests -v && '
+            'python3 -m unittest discover -s validation -v && '
+            'python3 -m unittest discover -s evaluation -v"',
+            package_json,
+        )
         self.assertIn(
             '"check:plugin-package": "python3 scripts/sync_plugin_package.py --check"',
             package_json,
         )
+
+    def test_ci_provisions_declared_local_essentials(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "validate.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("apt-get install -y ripgrep", workflow)
 
 
 class SecurityContentTests(unittest.TestCase):
@@ -472,38 +496,39 @@ class ReferenceDependencyReadinessTests(unittest.TestCase):
     def test_documents_capability_types(self):
         for cap_type in (
             "skill",
-            "MCP server",
-            "app/connector",
-            "CLI/tool",
-            "package/library",
+            "MCP",
+            "connector",
+            "CLI",
+            "package",
         ):
             self.assertIn(cap_type, self.text)
 
     def test_documents_baseline_helper_readiness(self):
-        self.assertIn("Baseline helper readiness", self.text)
+        self.assertIn("Local Essentials", self.text)
         for helper in ("python3", "git", "rg", "npm", "npx"):
             self.assertIn(f"`{helper}`", self.text)
-        self.assertIn("Node.js 18+", self.text)
+        self.assertIn("task-specific", self.text)
 
     def test_documents_dependency_readiness_ledger(self):
-        self.assertIn("Dependency readiness ledger", self.text)
-        for field in ("required", "optional", "installed", "missing", "staged/downloaded"):
+        self.assertIn("Readiness Ledger", self.text)
+        for field in ("required-for-this-task", "optional", "installed", "missing", "staged/downloaded"):
             self.assertIn(field, self.text)
 
     def test_documents_credential_readiness(self):
-        self.assertIn("Setup readiness", self.text)
-        self.assertIn("Account or hosted setup is not a disqualifier", self.text)
+        self.assertIn("Account-backed routes remain eligible", self.text)
+        self.assertIn("authorized", self.text)
 
     def test_documents_hugging_face_readiness(self):
-        self.assertIn("Hugging Face readiness", self.text)
-        self.assertIn("HF_TOKEN", self.text)
+        self.assertIn("Hugging Face MCP/CLI", self.text)
+        self.assertIn("models, datasets, Spaces", self.text)
 
     def test_documents_browserbase_readiness(self):
-        self.assertIn("Browserbase route", self.text)
-        self.assertIn("browse doctor", self.text)
+        self.assertIn("Browserbase Browse CLI", self.text)
+        self.assertIn("static docs and source are insufficient", self.text)
 
     def test_documents_sandbox_boundary(self):
-        self.assertIn("Sandbox install/test/cleanup", self.text)
+        self.assertIn("staged/downloaded", self.text)
+        self.assertIn("cleanup status", self.text)
 
     def test_install_command_fallback(self):
         self.assertIn("Install command: not verified", self.text)

@@ -1,0 +1,4 @@
+{"id":"quick-local-skill","scenario":"local_skill","public":true,"completed":true,"material_claims":1,"primary_verified_claims":1,"optional_missing":true,"setup_blocked":false}
+{"id":"quick-mcp","scenario":"mcp_server","public":true,"completed":true,"material_claims":2,"primary_verified_claims":2,"optional_missing":false,"setup_blocked":false,"install_command":"npx example","install_verified":true}
+{"id":"quick-package","scenario":"package_library","public":true,"completed":true,"material_claims":2,"primary_verified_claims":2,"optional_missing":true,"setup_blocked":false}
+{"id":"quick-no-good","scenario":"no_good_skill","public":true,"completed":true,"material_claims":1,"primary_verified_claims":1,"optional_missing":true,"setup_blocked":false,"result":"blueprint"}

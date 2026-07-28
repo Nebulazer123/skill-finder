@@ -1,0 +1,4 @@
+{"id":"private-authorized","scenario":"private_repo","public":false,"completed":true,"material_claims":3,"primary_verified_claims":3,"connected_selected":true,"connected_relevant":true,"connected_authorized":true,"setup_blocked":false}
+{"id":"private-unavailable","scenario":"private_repo","public":false,"completed":true,"material_claims":0,"primary_verified_claims":0,"connected_selected":false,"connected_relevant":true,"unresolved_reported":true,"result":"provisional","setup_blocked":true}
+{"id":"public-sourcegraph-unnecessary","scenario":"large_repo","public":true,"completed":true,"material_claims":2,"primary_verified_claims":2,"connected_selected":false,"connected_relevant":false,"setup_blocked":false}
+{"id":"connected-hosted-research","scenario":"mcp_server","public":false,"completed":true,"material_claims":2,"primary_verified_claims":2,"connected_selected":true,"connected_relevant":true,"connected_authorized":true,"setup_blocked":false}
