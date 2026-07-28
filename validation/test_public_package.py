@@ -16,6 +16,12 @@ BINARY_SUFFIXES = frozenset((
     ".pdf", ".bin", ".exe", ".dll", ".so", ".dylib",
 ))
 
+EXCLUDED_SCAN_PARTS = frozenset((
+    ".git",
+    "__pycache__",
+    "node_modules",
+))
+
 
 def _read_text_strict(path: Path) -> str:
     """Read a text file with strict UTF-8 decoding.
@@ -679,7 +685,7 @@ class PublicPackageTests(unittest.TestCase):
         for path in ROOT.rglob("*"):
             if not path.is_file():
                 continue
-            if ".git" in path.parts or "__pycache__" in path.parts:
+            if EXCLUDED_SCAN_PARTS.intersection(path.parts):
                 continue
             if path.suffix == ".pyc":
                 continue
@@ -751,7 +757,7 @@ class PublicPackageTests(unittest.TestCase):
         for path in ROOT.rglob("*"):
             if not path.is_file():
                 continue
-            if ".git" in path.parts or "__pycache__" in path.parts:
+            if EXCLUDED_SCAN_PARTS.intersection(path.parts):
                 continue
             if path.suffix.lower() in BINARY_SUFFIXES:
                 continue
