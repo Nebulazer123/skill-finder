@@ -1,0 +1,99 @@
+{
+  "schema_version": "1.0",
+  "routes": [
+    {
+      "route_id": "local-source",
+      "lane": "public",
+      "family": "source",
+      "executor": "local",
+      "evidence_types": ["discovery", "verification", "freshness"],
+      "priority": 10
+    },
+    {
+      "route_id": "mcp-registry",
+      "lane": "public",
+      "family": "registry",
+      "executor": "http",
+      "evidence_types": ["discovery", "freshness"],
+      "priority": 20
+    },
+    {
+      "route_id": "deps-dev",
+      "lane": "public",
+      "family": "package_registry",
+      "executor": "http",
+      "evidence_types": ["verification", "freshness", "supply_chain"],
+      "priority": 20
+    },
+    {
+      "route_id": "osv",
+      "lane": "public",
+      "family": "security",
+      "executor": "http",
+      "evidence_types": ["verification", "freshness", "security"],
+      "priority": 20
+    },
+    {
+      "route_id": "github-source",
+      "lane": "public",
+      "family": "source",
+      "executor": "host_tool",
+      "evidence_types": ["discovery", "verification", "freshness"],
+      "priority": 25
+    },
+    {
+      "route_id": "deepwiki",
+      "lane": "public",
+      "family": "generated_map",
+      "executor": "host_tool",
+      "evidence_types": ["discovery"],
+      "priority": 40
+    },
+    {
+      "route_id": "context7",
+      "lane": "public",
+      "family": "official_docs",
+      "executor": "host_tool",
+      "evidence_types": ["verification", "freshness"],
+      "priority": 30
+    },
+    {
+      "route_id": "ecosystems",
+      "lane": "public",
+      "family": "ecosystem_metadata",
+      "executor": "http",
+      "evidence_types": ["corroboration", "freshness"],
+      "priority": 80
+    },
+    {
+      "route_id": "sourcegraph",
+      "lane": "connected",
+      "family": "code_intelligence",
+      "executor": "host_tool",
+      "evidence_types": ["discovery", "verification"],
+      "requires_account": true,
+      "accepts_private": true,
+      "priority": 50
+    },
+    {
+      "route_id": "devin",
+      "lane": "connected",
+      "family": "generated_map",
+      "executor": "host_tool",
+      "evidence_types": ["discovery"],
+      "requires_account": true,
+      "accepts_private": true,
+      "priority": 60
+    },
+    {
+      "route_id": "hosted-research",
+      "lane": "connected",
+      "family": "browser_research",
+      "executor": "host_tool",
+      "evidence_types": ["discovery", "corroboration"],
+      "requires_account": true,
+      "accepts_private": true,
+      "priority": 70
+    }
+  ]
+}

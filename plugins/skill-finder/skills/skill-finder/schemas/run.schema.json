@@ -1,0 +1,23 @@
+{
+  "$id": "https://github.com/Nebulazer123/skill-finder/schemas/run.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "checked_at": {"format": "date-time", "type": "string"},
+    "confidence": {"maximum": 100, "minimum": 0, "type": "number"},
+    "engine_version": {"type": "string"},
+    "schema_version": {"type": "string"},
+    "selected_routes": {"items": {"type": "string"}, "type": "array"},
+    "task_digest": {"type": "string"}
+  },
+  "required": [
+    "engine_version",
+    "schema_version",
+    "task_digest",
+    "selected_routes",
+    "checked_at",
+    "confidence"
+  ],
+  "title": "Skill Finder Run Manifest",
+  "type": "object"
+}
