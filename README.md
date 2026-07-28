@@ -12,7 +12,7 @@
 <div align="center">
 
 [![License: MIT][license-shield]][license-url]
-[![Version 1.2.0][version-shield]][version-url]
+[![Version 1.3.0][version-shield]][version-url]
 [![Agent Skills compatible][skills-shield]][skills-url]
 
 </div>
@@ -50,7 +50,8 @@ Use it when you are about to ask for work that may need a specialized skill, MCP
 - **Checks real evidence** - reads source files, manifests, READMEs, docs, tests, licenses, install paths, and trust surfaces.
 - **Compares instead of guessing** - ranks candidates with evidence, risks, setup status, and winner-vs-near-miss reasoning.
 - **Goes deeper when it matters** - uses a research-quality evidence ledger, freshness checks, recovery log, and counter-review for complex or high-impact decisions.
-- **Handles missing setup clearly** - if required discovery routes are unavailable, it returns a Required Setup Block instead of pretending the search was complete.
+- **Works without account-backed tools** - plans a public/local evidence route first, then uses connected services only when they add evidence the task actually needs.
+- **Recovers instead of giving up** - a failed or cancelled material route triggers a different source family or becomes a clearly reported unresolved line.
 - **Designs the fallback** - when no good option exists, it drafts a missing-capability spec and eval cases for building one.
 
 ## Quick Start
@@ -133,9 +134,9 @@ Restart your host after manual copying so the skill list refreshes.
 
 ## Setup Requirements
 
-Skill Finder depends on several discovery routes. They are listed here because they materially affect recommendation quality.
+The only local essentials are `python3`, `git`, and `rg`. Everything else is a task-specific research route. Missing optional routes do not block a run; Skill Finder uses another source family, reports lower coverage, or offers setup when the missing route would materially improve the result.
 
-| Required route | Why it matters | Setup note |
+| Route | Use it when | Setup note |
 |---|---|---|
 | <img src="assets/logos/agent-skills.svg" alt="" width="22" height="22"> [Agent Skills CLI / skills.sh](https://github.com/vercel-labs/skills) | Finds public skills and install metadata. | `npm install -g skills` |
 | <img src="assets/logos/github-invertocat-white.svg" alt="" width="22" height="22"> [GitHub MCP](https://github.com/github/github-mcp-server) | Verifies claims against repository source files. | Remote endpoint: `https://api.githubcopilot.com/mcp/`; configure auth in your host. |
@@ -143,7 +144,7 @@ Skill Finder depends on several discovery routes. They are listed here because t
 | <img src="assets/logos/context7.png" alt="" width="22" height="22"> [Context7](https://context7.com/docs/clients/codex) | Provides current API, SDK, CLI, framework, and MCP documentation. | Use `@upstash/context7-mcp`; API key recommended. |
 | <img src="assets/logos/browserbase.svg" alt="" width="22" height="22"> [Browserbase Browse CLI](https://docs.browserbase.com/integrations/skills/browse-cli) | Adds browser-backed search, fetch, snapshots, and live-page evidence. | `npm install -g browse` and `browse skills install` |
 | <img src="assets/logos/codebase-memory.png" alt="" width="22" height="22"> [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | Adds local code graph indexing, symbol lookup, call paths, route tracing, and impact analysis. | `npm install -g codebase-memory-mcp` and `codebase-memory-mcp install` |
-| Local basics | `git`, `rg`, `python3`, Node.js 18+, `npm`, and `npx`. | Install with your system package manager. |
+| Local essentials | Run the evidence engine, inspect repositories, and search source or documentation. | Install `python3`, `git`, and `rg` with your system package manager. |
 
 Codex setup commands:
 
@@ -171,11 +172,11 @@ claude mcp add --transport http deepwiki https://mcp.deepwiki.com/mcp
 claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
 ```
 
-GitHub MCP, Context7 higher limits, and Browserbase cloud features may require account configuration in Codex or Claude Code.
+These commands prepare the broadest public route stack, but they are not prerequisites for every evaluation. Node.js, `npm`, and `npx` are needed only for JavaScript-based routes. Connected features may require account configuration in Codex or Claude Code.
 
 ## Recommended When Useful
 
-These routes are not required for every run, but they should be suggested when they would materially improve the answer.
+These routes are selected only when available, authorized for the task data, and able to add evidence the public/local lane cannot provide.
 
 | Route | Best for |
 |---|---|
@@ -203,11 +204,11 @@ For skills.sh discovery, keep using `npx skills ...`. Do not assume that whichev
 
 ## How It Works
 
-The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). The references in [skills/skill-finder/references/](skills/skill-finder/references/) define search strategy, skills.md routing, scoring, setup readiness, install handling, and approval rules.
+The skill instructions live in [skills/skill-finder/SKILL.md](skills/skill-finder/SKILL.md). A standard-library Python engine normalizes candidate identity, plans routes, validates evidence, separates fit from confidence, and writes reproducible Deep Evaluation bundles. Codex or Claude Code still performs the actual tool calls.
 
 A strong result includes:
 
-- Required setup status
+- Public/local or connected lane and capability status
 - Search strategy and Source-Route Scorecard
 - Candidate Evidence Table
 - Files and docs inspected
@@ -223,6 +224,8 @@ Straightforward lookups stay quick. Skill Finder switches to a deeper evaluation
 The deep path records an **Evidence Ledger** with source type, accessibility, date checked, evidence role, and strength. DeepWiki and Devin are used to find the right questions and source paths; important claims are then verified against source files, tests, official docs, package metadata, or releases.
 
 Before recommending a winner, it includes a **Recovery Log**, a **Counter-Review** of the strongest alternative and weak evidence, unresolved research lines, setup readiness, and a confidence rationale. This keeps research depth visible without slowing down ordinary searches.
+
+A Deep Evaluation can also write `run.json`, `capabilities.json`, `route-attempts.jsonl`, `evidence.jsonl`, `candidates.json`, and `report.md`, so a later run can be compared without relying on chat history.
 
 ## Safety Model
 
@@ -242,16 +245,18 @@ Run public package checks:
 python3 -m unittest discover -s validation -v
 ```
 
-Check npm setup metadata:
+Run the behavioral evaluation harness:
 
 ```bash
-npm pkg get dependencies
+python3 -m unittest discover -s evaluation -v
 ```
 
-Check plugin packaging:
+Check plugin packaging and npm dependency integrity:
 
 ```bash
 python3 scripts/sync_plugin_package.py --check
+npm ci --ignore-scripts
+npm ls --all
 ```
 
 ## Files To Read
@@ -263,6 +268,7 @@ plugins/skill-finder/                    - Codex and Claude Code plugin package
 examples/                                - public-safe prompt and output examples
 package.json                             - npm setup metadata
 validation/                              - public package checks
+evaluation/                              - public, recovery, private-routing, and adversarial cases
 ```
 
 ## Contributing
@@ -275,7 +281,7 @@ MIT. See [LICENSE](LICENSE).
 
 [license-shield]: https://img.shields.io/badge/License-MIT-16A34A.svg
 [license-url]: LICENSE
-[version-shield]: https://img.shields.io/badge/version-1.2.0-64748B.svg
+[version-shield]: https://img.shields.io/badge/version-1.3.0-64748B.svg
 [version-url]: CHANGELOG.md
 [skills-shield]: https://img.shields.io/badge/Agent%20Skills-compatible-DA7857.svg
 [skills-url]: https://agentskills.io

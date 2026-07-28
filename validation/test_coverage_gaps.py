@@ -192,8 +192,10 @@ class ContributingContentTests(unittest.TestCase):
 
     def test_documents_test_command(self):
         self.assertIn("python3 -m unittest discover -s validation -v", self.text)
+        self.assertIn("python3 -m unittest discover -s evaluation -v", self.text)
         self.assertIn("python3 scripts/sync_plugin_package.py --check", self.text)
-        self.assertIn("npm pkg get dependencies", self.text)
+        self.assertIn("npm ci --ignore-scripts", self.text)
+        self.assertIn("npm ls --all", self.text)
 
     def test_has_contribution_guidelines_section(self):
         self.assertIn("## Contribution Guidelines", self.text)
@@ -213,8 +215,10 @@ class ValidationCommandParityTests(unittest.TestCase):
 
     REQUIRED_COMMANDS = (
         "python3 -m unittest discover -s validation -v",
+        "python3 -m unittest discover -s evaluation -v",
         "python3 scripts/sync_plugin_package.py --check",
-        "npm pkg get dependencies",
+        "npm ci --ignore-scripts",
+        "npm ls --all",
     )
 
     def test_required_commands_match_docs_pr_template_and_ci(self):
@@ -233,7 +237,11 @@ class ValidationCommandParityTests(unittest.TestCase):
 
     def test_package_json_exposes_validation_scripts(self):
         package_json = (ROOT / "package.json").read_text(encoding="utf-8")
-        self.assertIn('"test": "python3 -m unittest discover -s validation -v"', package_json)
+        self.assertIn(
+            '"test": "python3 -m unittest discover -s validation -v && '
+            'python3 -m unittest discover -s evaluation -v"',
+            package_json,
+        )
         self.assertIn(
             '"check:plugin-package": "python3 scripts/sync_plugin_package.py --check"',
             package_json,

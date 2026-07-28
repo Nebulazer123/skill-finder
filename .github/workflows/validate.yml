@@ -10,17 +10,23 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v7
         with:
           python-version: "3.12"
 
       - name: Run public package validation
         run: python3 -m unittest discover -s validation -v
 
+      - name: Run evaluation harness
+        run: python3 -m unittest discover -s evaluation -v
+
       - name: Check plugin package sync
         run: python3 scripts/sync_plugin_package.py --check
 
-      - name: Check npm dependency metadata
-        run: npm pkg get dependencies
+      - name: Install npm setup dependencies without scripts
+        run: npm ci --ignore-scripts
+
+      - name: Check npm dependency tree
+        run: npm ls --all

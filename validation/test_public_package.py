@@ -214,7 +214,7 @@ class PublicPackageTests(unittest.TestCase):
             "codebase-memory-mcp",
         ):
             self.assertIn(package_name, dependencies)
-        self.assertEqual(dependencies["browse"], "^0.9.1")
+        self.assertEqual(dependencies["browse"], "^0.9.5")
 
         dependabot = _read_text_strict(ROOT / ".github" / "dependabot.yml")
         self.assertIn('package-ecosystem: "npm"', dependabot)
@@ -410,7 +410,7 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Evidence Ledger", readme)
         self.assertIn("Counter-Review", readme)
         self.assertIn("[skills/skill-finder/SKILL.md]", readme)
-        self.assertIn("returns a Required Setup Block", readme)
+        self.assertIn("Missing optional routes do not block a run", readme)
         self.assertIn("npx skills add Nebulazer123/skill-finder --skill skill-finder", readme)
         self.assertIn("skills use Nebulazer123/skill-finder@skill-finder", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)

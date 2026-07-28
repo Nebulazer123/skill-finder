@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.3.0 - 2026-07-28
+
+- Replaced the universal all-tools setup gate with a task-specific evidence floor.
+- Added public/local and connected research lanes; account-backed routes are now conditional.
+- Added canonical package, repository, MCP server, skill, and connector identities with alias merging.
+- Added public MCP Registry, deps.dev, OSV, and ecosyste.ms adapters with bounded parsing.
+- Added deterministic evidence records, route attempts, scoring, conflict checks, counter-review, and six-file Deep Evaluation bundles.
+- Added different-source-family recovery for failed, cancelled, timed-out, or weak material routes.
+- Added a 20-case evaluation harness for public completion, primary verification, recovery, private routing, malformed responses, duplicate identities, security advisories, and prompt injection.
+- Updated setup dependencies to `skills ^1.5.20`, `@upstash/context7-mcp ^3.2.5`, `browse ^0.9.5`, and `codebase-memory-mcp ^0.9.0`.
+- Added a lockfile and synchronized the Codex and Claude Code plugin packages at `1.3.0`.
+
 ## 1.2.0 - 2026-07-11
 
 - Added skills.md as a recommended remote catalog and MCP route for discovering and selectively loading hosted skill contracts.
