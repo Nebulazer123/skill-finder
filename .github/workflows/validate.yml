@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Run packaged engine smoke tests
+        run: python3 -m unittest discover -s skills/skill-finder/tests -v
+
       - name: Run public package validation
         run: python3 -m unittest discover -s validation -v
 

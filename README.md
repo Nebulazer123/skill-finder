@@ -242,6 +242,7 @@ Candidate setup scripts require explicit approval before execution.
 Run public package checks:
 
 ```bash
+python3 -m unittest discover -s skills/skill-finder/tests -v
 python3 -m unittest discover -s validation -v
 ```
 

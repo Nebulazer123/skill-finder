@@ -4,6 +4,7 @@ What changed and why?
 
 ## Validation
 
+- [ ] `python3 -m unittest discover -s skills/skill-finder/tests -v`
 - [ ] `python3 -m unittest discover -s validation -v`
 - [ ] `python3 -m unittest discover -s evaluation -v`
 - [ ] `python3 scripts/sync_plugin_package.py --check`

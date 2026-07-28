@@ -10,6 +10,7 @@ Thanks for improving Skill Finder. This repository is intentionally small: keep 
 4. Run validation from the repository root:
 
 ```bash
+python3 -m unittest discover -s skills/skill-finder/tests -v
 python3 -m unittest discover -s validation -v
 python3 -m unittest discover -s evaluation -v
 python3 scripts/sync_plugin_package.py --check

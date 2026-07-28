@@ -105,6 +105,9 @@ class PluginPackagingTests(unittest.TestCase):
         script = ROOT / "scripts" / "sync_plugin_package.py"
         self.assertTrue(script.is_file())
         text = script.read_text(encoding="utf-8")
+        self.assertIn("__pycache__", text)
+        self.assertIn('path.suffix == ".pyc"', text)
+        text = script.read_text(encoding="utf-8")
         self.assertIn("CODEX_PLUGIN_MANIFEST", text)
         self.assertIn("CLAUDE_PLUGIN_MANIFEST", text)
         self.assertIn("CODEX_MARKETPLACE_MANIFEST", text)
@@ -191,6 +194,10 @@ class ContributingContentTests(unittest.TestCase):
         self.assertIn("## Development Flow", self.text)
 
     def test_documents_test_command(self):
+        self.assertIn(
+            "python3 -m unittest discover -s skills/skill-finder/tests -v",
+            self.text,
+        )
         self.assertIn("python3 -m unittest discover -s validation -v", self.text)
         self.assertIn("python3 -m unittest discover -s evaluation -v", self.text)
         self.assertIn("python3 scripts/sync_plugin_package.py --check", self.text)
@@ -214,6 +221,7 @@ class ValidationCommandParityTests(unittest.TestCase):
     """Public validation command surfaces should not drift apart."""
 
     REQUIRED_COMMANDS = (
+        "python3 -m unittest discover -s skills/skill-finder/tests -v",
         "python3 -m unittest discover -s validation -v",
         "python3 -m unittest discover -s evaluation -v",
         "python3 scripts/sync_plugin_package.py --check",
@@ -238,7 +246,8 @@ class ValidationCommandParityTests(unittest.TestCase):
     def test_package_json_exposes_validation_scripts(self):
         package_json = (ROOT / "package.json").read_text(encoding="utf-8")
         self.assertIn(
-            '"test": "python3 -m unittest discover -s validation -v && '
+            '"test": "python3 -m unittest discover -s skills/skill-finder/tests -v && '
+            'python3 -m unittest discover -s validation -v && '
             'python3 -m unittest discover -s evaluation -v"',
             package_json,
         )

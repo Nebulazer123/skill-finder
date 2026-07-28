@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
-import re
+from dataclasses import dataclass
 
+from .candidates import Candidate, CandidateIndex
+from .conflicts import EvidenceConflict, find_conflicts
 from .models import EvidenceRecord
 
 
@@ -20,59 +21,10 @@ PRIMARY_SOURCE_TYPES = frozenset(
 )
 
 
-@dataclass
-class Candidate:
-    candidate_id: str
-    aliases: set[str] = field(default_factory=set)
-
-
-class CandidateIndex:
-    def __init__(self) -> None:
-        self.candidates: dict[str, Candidate] = {}
-        self._aliases: dict[str, str] = {}
-
-    def add(self, candidate_id: str, aliases: set[str] | None = None) -> Candidate:
-        all_ids = {candidate_id, *(aliases or set())}
-        canonical = next(
-            (self._aliases[value] for value in all_ids if value in self._aliases),
-            candidate_id,
-        )
-        candidate = self.candidates.get(canonical)
-        if candidate is None:
-            candidate = Candidate(canonical)
-            self.candidates[canonical] = candidate
-        candidate.aliases.update(all_ids)
-        for value in all_ids:
-            old_canonical = self._aliases.get(value)
-            if old_canonical and old_canonical != canonical:
-                old = self.candidates.pop(old_canonical)
-                candidate.aliases.update(old.aliases)
-            self._aliases[value] = canonical
-        for value in candidate.aliases:
-            self._aliases[value] = canonical
-        return candidate
-
-
 @dataclass(frozen=True)
 class MaterialValidation:
     valid: bool
     unverified_claims: tuple[str, ...]
-
-
-@dataclass(frozen=True)
-class EvidenceConflict:
-    topic: str
-    claims: tuple[str, ...]
-    record_ids: tuple[str, ...]
-
-
-def _claim_topic(claim: str) -> str:
-    lowered = claim.lower()
-    for topic in ("license", "version", "install", "security", "support"):
-        if topic in lowered:
-            return topic
-    words = re.findall(r"[a-z0-9]+", lowered)
-    return " ".join(words[:2]) or "claim"
 
 
 class EvidenceLedger:
@@ -106,26 +58,4 @@ class EvidenceLedger:
         )
 
     def conflicts(self, candidate_id: str) -> tuple[EvidenceConflict, ...]:
-        grouped: dict[str, list[EvidenceRecord]] = {}
-        for record in self.records:
-            if record.candidate_id != candidate_id or not record.material:
-                continue
-            grouped.setdefault(_claim_topic(record.claim), []).append(record)
-        conflicts: list[EvidenceConflict] = []
-        for topic, records in grouped.items():
-            if len(records) < 2:
-                continue
-            has_contradiction = any(
-                record.evidence_role == "contradiction"
-                or record.status == "contradicted"
-                for record in records
-            )
-            if has_contradiction:
-                conflicts.append(
-                    EvidenceConflict(
-                        topic=topic,
-                        claims=tuple(record.claim for record in records),
-                        record_ids=tuple(record.record_id for record in records),
-                    )
-                )
-        return tuple(conflicts)
+        return find_conflicts(self.records, candidate_id)
