@@ -28,75 +28,76 @@ public adapters, evidence validation, scoring, and reproducible report bundles.
 - [x] Create an isolated worktree from current `main`.
 - [x] Run the installed-checkout baseline and repair repository-owned scans.
 - [x] Save the approved design and execution plan.
-- [ ] Commit the design documents.
+- [x] Commit the design documents.
 
 ### Task 2: Contracts And Identity
 
-- [ ] Add failing tests for request, evidence, route, candidate, and run records.
-- [ ] Add JSON schemas and deterministic serialization.
-- [ ] Implement Package URL, repository, MCP, skill, and connector identities.
-- [ ] Test alias merging and invalid identity rejection.
-- [ ] Commit the contracts and identity slice.
+- [x] Add failing tests for request, evidence, route, candidate, and run records.
+- [x] Add JSON schemas and deterministic serialization.
+- [x] Implement Package URL, repository, MCP, skill, and connector identities.
+- [x] Test alias merging and invalid identity rejection.
+- [x] Commit the contracts and identity slice.
 
 ### Task 3: Adaptive Planner
 
-- [ ] Add failing public-only, connected, private, cancellation, and
+- [x] Add failing public-only, connected, private, cancellation, and
   insufficient-evidence scenarios.
-- [ ] Implement capability snapshots and route descriptors.
-- [ ] Implement evidence requirements, route diversity, stop conditions, and
+- [x] Implement capability snapshots and route descriptors.
+- [x] Implement evidence requirements, route diversity, stop conditions, and
   recovery-family selection.
-- [ ] Commit the planner slice.
+- [x] Commit the planner slice.
 
 ### Task 4: Public Evidence Adapters
 
-- [ ] Add fixtures and failing tests for MCP Registry `/v0.1`.
-- [ ] Implement MCP search, versions, pagination, and lifecycle status.
-- [ ] Add fixtures and failing tests for deps.dev v3.
-- [ ] Implement version, license, advisory, source, dependency, and provenance
+- [x] Add fixtures and failing tests for MCP Registry `/v0.1`.
+- [x] Implement MCP search, versions, pagination, and lifecycle status.
+- [x] Add fixtures and failing tests for deps.dev v3.
+- [x] Implement version, license, advisory, source, dependency, and provenance
   extraction.
-- [ ] Add OSV fixtures and failing package, PURL, commit, and batch tests.
-- [ ] Implement OSV API and optional read-only OSV-Scanner support.
-- [ ] Add optional ecosyste.ms and OpenSSF enrichment with missing-coverage
+- [x] Add OSV fixtures and failing package, PURL, commit, and batch tests.
+- [x] Implement OSV API and optional read-only OSV-Scanner support.
+- [x] Add optional ecosyste.ms and OpenSSF enrichment with missing-coverage
   behavior.
-- [ ] Commit each independently verified adapter group.
+- [x] Commit each independently verified adapter group.
 
 ### Task 5: Ledger, Ranking, And Reports
 
-- [ ] Add failing tests for material-claim verification, source conflicts,
+- [x] Add failing tests for material-claim verification, source conflicts,
   confidence bands, near-miss selection, and unverified install commands.
-- [ ] Implement evidence coverage and the weighted fit score.
-- [ ] Implement conflict handling and counter-review.
-- [ ] Implement JSONL run bundles and Markdown reports.
-- [ ] Commit the evaluation slice.
+- [x] Implement evidence coverage and the weighted fit score.
+- [x] Implement conflict handling and counter-review.
+- [x] Implement JSONL run bundles and Markdown reports.
+- [x] Commit the evaluation slice.
 
 ### Task 6: Skill Integration
 
-- [ ] Add failing validation and pressure cases for optional missing tools,
+- [x] Add failing validation and pressure cases for optional missing tools,
   generated-only claims, cancellation recovery, and prompt injection.
-- [ ] Rewrite `SKILL.md` around the two lanes and evidence floors.
-- [ ] Add `hybrid-evidence-engine.md` and update focused references.
-- [ ] Update `openai.yaml` so local essentials are required and research routes
+- [x] Rewrite `SKILL.md` around the two lanes and evidence floors.
+- [x] Add `hybrid-evidence-engine.md` and update focused references.
+- [x] Update `openai.yaml` so local essentials are required and research routes
   are conditional.
-- [ ] Commit the skill behavior slice.
+- [x] Commit the skill behavior slice.
 
 ### Task 7: Public Package And Dependencies
 
-- [ ] Update README, examples, contribution, security, and changelog content.
-- [ ] Upgrade setup-tool dependency floors and add `package-lock.json`.
-- [ ] Validate installation with scripts disabled and inspect the dependency
+- [x] Update README, examples, contribution, security, and changelog content.
+- [x] Upgrade setup-tool dependency floors and add `package-lock.json`.
+- [x] Validate installation with scripts disabled and inspect the dependency
   graph.
-- [ ] Bump package and generated plugin manifests to `1.3.0`.
-- [ ] Synchronize plugin packages and commit the release metadata.
+- [x] Bump package and generated plugin manifests to `1.3.0`.
+- [x] Synchronize plugin packages and commit the release metadata.
 
 ### Task 8: Evaluation Harness
 
-- [ ] Add quick, deep, recovery, private-routing, and adversarial cases.
-- [ ] Score public completion, verification, recovery, false blocks, install
+- [x] Add quick, deep, recovery, private-routing, and adversarial cases.
+- [x] Score public completion, verification, recovery, false blocks, install
   commands, prompt injection, and recommendation outcomes.
-- [ ] Run public-only and connected clean-room evaluations against unfamiliar
+- [x] Run public-only and connected clean-room evaluations against unfamiliar
   repositories.
-- [ ] Run static and observed-usage Plugin Eval.
-- [ ] Commit the benchmark evidence.
+- [x] Run static Plugin Eval and validate observed route behavior with the live
+  clean-room bundles.
+- [x] Commit the benchmark evidence.
 
 ### Task 9: Release
 
