@@ -130,8 +130,8 @@ class PluginPackagingTests(unittest.TestCase):
 
     def test_marketplaces_are_documented_in_readme(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("### Install In Codex", readme)
-        self.assertIn("### Install In Claude Code", readme)
+        self.assertIn("Install In Codex", readme)
+        self.assertIn("Install In Claude Code", readme)
         self.assertIn("community plugin for Codex and Claude Code", readme)
 
     def test_install_approval_script_references_exist(self):

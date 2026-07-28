@@ -100,6 +100,10 @@ class PublicPackageTests(unittest.TestCase):
             ROOT / "assets" / "logos" / "codebase-memory.png",
             ROOT / "assets" / "logos" / "composio-symbol.svg",
             ROOT / "assets" / "logos" / "plugin-eval.svg",
+            ROOT / "assets" / "logos" / "mcp-registry.svg",
+            ROOT / "assets" / "logos" / "deps-dev.svg",
+            ROOT / "assets" / "logos" / "osv.png",
+            ROOT / "assets" / "logos" / "ecosystems.ico",
         ]
         for path in required_files:
             self.assertTrue(
@@ -410,6 +414,10 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/codebase-memory.png",
             "assets/logos/composio-symbol.svg",
             "assets/logos/plugin-eval.svg",
+            "assets/logos/mcp-registry.svg",
+            "assets/logos/deps-dev.svg",
+            "assets/logos/osv.png",
+            "assets/logos/ecosystems.ico",
             "## The Problem",
             "## What It Does",
             "## Quick Start",
@@ -445,6 +453,13 @@ class PublicPackageTests(unittest.TestCase):
         self.assertNotIn("coding assistant improvises", readme)
         self.assertIn("Agent Skills CLI / skills.sh", readme)
         self.assertIn("GitHub MCP", readme)
+        self.assertIn("## Setup Requirements", readme)
+        self.assertIn("### Built-In Public Evidence Sources", readme)
+        self.assertIn("[MCP Registry](https://registry.modelcontextprotocol.io/docs)", readme)
+        self.assertIn("[deps.dev](https://docs.deps.dev/api/v3/)", readme)
+        self.assertIn("[OSV](https://google.github.io/osv.dev/api/)", readme)
+        self.assertIn("[ecosyste.ms](https://ecosyste.ms/api)", readme)
+        self.assertIn("They add public research coverage without another install", readme)
         self.assertIn("DeepWiki MCP", readme)
         self.assertIn("Devin MCP", readme)
         self.assertIn("Context7", readme)
@@ -456,8 +471,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("codebase-memory-mcp install", readme)
         self.assertIn("Composio CLI / MCP", readme)
         self.assertIn("Codex Plugin Eval", readme)
-        self.assertIn("### Install In Codex", readme)
-        self.assertIn("### Install In Claude Code", readme)
+        self.assertIn("Install In Codex", readme)
+        self.assertIn("Install In Claude Code", readme)
         self.assertIn("codex plugin marketplace add Nebulazer123/skill-finder", readme)
         self.assertIn("codex plugin add skill-finder@skill-finder", readme)
         self.assertIn("codex plugin list | grep skill-finder", readme)
@@ -487,6 +502,8 @@ class PublicPackageTests(unittest.TestCase):
         self.assertIn("Start here", readme)
         self.assertIn('<img src="assets/logos/codex-cloud-color.png"', readme)
         self.assertIn('<img src="assets/logos/claude-code-color.svg"', readme)
+        self.assertIn('align="absmiddle"> Install In Codex', readme)
+        self.assertIn('align="absmiddle"> Install In Claude Code', readme)
         self.assertIn('<img src="assets/logos/agent-skills.svg"', readme)
         self.assertIn('<img src="assets/logos/huggingface-color.svg"', readme)
         self.assertIn('<img src="assets/logos/install-codex-cloud.svg"', readme)
@@ -510,6 +527,10 @@ class PublicPackageTests(unittest.TestCase):
             "huggingface-color.svg",
             "composio-symbol.svg",
             "plugin-eval.svg",
+            "mcp-registry.svg",
+            "deps-dev.svg",
+            "osv.png",
+            "ecosystems.ico",
         ):
             self.assertIn(
                 f'assets/logos/{logo}" alt="" width="22" height="22"',
@@ -533,6 +554,10 @@ class PublicPackageTests(unittest.TestCase):
             "assets/logos/context7.png",
             "assets/logos/browserbase.svg",
             "assets/logos/codebase-memory.png",
+            "assets/logos/mcp-registry.svg",
+            "assets/logos/deps-dev.svg",
+            "assets/logos/osv.png",
+            "assets/logos/ecosystems.ico",
         ):
             self.assertGreater(readme.index(logo), readme.index("## Setup Requirements"))
             self.assertLess(readme.index(logo), readme.index("## Recommended When Useful"))

@@ -75,9 +75,7 @@ Find the best skill for this task: inspect a large repo, trace routes, find call
 
 **Start here:** Skill Finder ships as a community plugin for Codex and Claude Code. Add this repository as a marketplace source, then install the `skill-finder` plugin from it.
 
-### Install In Codex
-
-<img src="assets/logos/codex-cloud-color.png" alt="Codex" width="28">
+### <img src="assets/logos/codex-cloud-color.png" alt="" width="24" height="24" align="absmiddle"> Install In Codex
 
 Copy and paste this into your terminal:
 
@@ -93,9 +91,7 @@ Use `@skill-finder` in Codex:
 @skill-finder
 ```
 
-### Install In Claude Code
-
-<img src="assets/logos/claude-code-color.svg" alt="Claude Code" width="28">
+### <img src="assets/logos/claude-code-color.svg" alt="" width="24" height="24" align="absmiddle"> Install In Claude Code
 
 Copy and paste this into your terminal:
 
@@ -125,6 +121,17 @@ Start with `python3`, `git`, and `rg`. Everything else is a task-specific resear
 | <img src="assets/logos/codebase-memory.png" alt="" width="22" height="22"> [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) | Adds local code graph indexing, symbol lookup, call paths, route tracing, and impact analysis. | `npm install -g codebase-memory-mcp` and `codebase-memory-mcp install` |
 | Local essentials | Run the evidence engine, inspect repositories, and search source or documentation. | Install `python3`, `git`, and `rg` with your system package manager. |
 
+### Built-In Public Evidence Sources
+
+These routes ship with the evidence engine. They add public research coverage without another install, account, or API key.
+
+| Source | What it adds | Setup note |
+|---|---|---|
+| <img src="assets/logos/mcp-registry.svg" alt="" width="22" height="22"> [MCP Registry](https://registry.modelcontextprotocol.io/docs) | Searches public MCP servers and checks current versions, lifecycle status, and repository or package identity. | Built in; public API. |
+| <img src="assets/logos/deps-dev.svg" alt="" width="22" height="22"> [deps.dev](https://docs.deps.dev/api/v3/) | Cross-checks package identity, release information, licenses, dependencies, advisories, and provenance. | Built in; public API. |
+| <img src="assets/logos/osv.png" alt="" width="22" height="22"> [OSV](https://google.github.io/osv.dev/api/) | Checks known vulnerabilities by package, version, PURL, or commit. | Built in; public API. |
+| <img src="assets/logos/ecosystems.ico" alt="" width="22" height="22"> [ecosyste.ms](https://ecosyste.ms/api) | Adds optional public package and repository corroboration. | Built in; public API; preserve source attribution. |
+
 Codex setup commands:
 
 ```bash
@@ -152,6 +159,8 @@ claude mcp add context7 -- npx -y @upstash/context7-mcp --api-key YOUR_API_KEY
 ```
 
 These commands prepare the broadest public route stack, but they are not prerequisites for every evaluation. Node.js, `npm`, and `npx` are needed only for JavaScript-based routes. Connected features may require account configuration in Codex or Claude Code.
+
+The package-backed setup routes are kept in [`package.json`](package.json). It is the source of truth for the supported `skills`, Context7, Browse, and codebase-memory versions.
 
 ## Recommended When Useful
 
