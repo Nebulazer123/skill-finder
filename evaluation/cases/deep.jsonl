@@ -1,0 +1,5 @@
+{"id":"deep-large-repo","scenario":"large_repo","public":true,"completed":true,"material_claims":4,"primary_verified_claims":4,"source_families":3,"optional_missing":true,"setup_blocked":false}
+{"id":"deep-stale-popular","scenario":"stale_popular","public":true,"completed":true,"material_claims":3,"primary_verified_claims":3,"source_families":3,"winner":"maintained-smaller","setup_blocked":false}
+{"id":"deep-license","scenario":"contradictory_license","public":true,"completed":true,"material_claims":3,"primary_verified_claims":3,"source_families":2,"conflict_reported":true,"setup_blocked":false}
+{"id":"deep-security","scenario":"security_advisory","public":true,"completed":true,"material_claims":3,"primary_verified_claims":3,"source_families":3,"winner_changed":true,"setup_blocked":false}
+{"id":"deep-alias","scenario":"duplicate_alias","public":true,"completed":true,"material_claims":2,"primary_verified_claims":2,"source_families":2,"candidate_count":1,"setup_blocked":false}
