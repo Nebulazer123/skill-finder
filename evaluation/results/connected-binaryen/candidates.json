@@ -1,0 +1,14 @@
+[
+  {
+    "aliases": [
+      "binaryen",
+      "WebAssembly/binaryen",
+      "wasm-opt"
+    ],
+    "candidate_id": "github.com/WebAssembly/binaryen@55dff6b2430aee4fee7e5cf748af07222b079742",
+    "evidence_coverage": 100,
+    "fit_score": 97,
+    "name": "Binaryen wasm-opt source trace",
+    "rank": 1
+  }
+]

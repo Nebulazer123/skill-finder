@@ -13,6 +13,15 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 RUNNER = ROOT / "evaluation" / "run_evaluations.py"
 SCORER = ROOT / "evaluation" / "score_evaluations.py"
+RESULTS = ROOT / "evaluation" / "results"
+RUN_BUNDLE_FILES = {
+    "run.json",
+    "capabilities.json",
+    "route-attempts.jsonl",
+    "evidence.jsonl",
+    "candidates.json",
+    "report.md",
+}
 
 
 class HarnessTests(unittest.TestCase):
@@ -76,6 +85,37 @@ class HarnessTests(unittest.TestCase):
             "duplicate_alias",
         ):
             self.assertIn(scenario, scenarios)
+
+    def test_live_clean_room_bundles_are_complete_and_public_safe(self):
+        for name in ("public-bpftime", "connected-binaryen"):
+            bundle = RESULTS / name
+            self.assertEqual(
+                {path.name for path in bundle.iterdir() if path.is_file()},
+                RUN_BUNDLE_FILES,
+            )
+            combined = "\n".join(
+                path.read_text(encoding="utf-8")
+                for path in bundle.iterdir()
+                if path.is_file()
+            )
+            self.assertNotIn("/Users/", combined)
+            self.assertNotIn("/tmp/", combined)
+            self.assertNotIn("api_key", combined.lower())
+            self.assertNotIn("corbin", combined.lower())
+
+    def test_live_material_claims_use_primary_verification(self):
+        for name in ("public-bpftime", "connected-binaryen"):
+            evidence = [
+                json.loads(line)
+                for line in (RESULTS / name / "evidence.jsonl").read_text().splitlines()
+                if line.strip()
+            ]
+            material = [record for record in evidence if record["material"]]
+            self.assertTrue(material)
+            for record in material:
+                self.assertEqual(record["evidence_role"], "verification")
+                self.assertEqual(record["source_type"], "repository_source")
+                self.assertEqual(record["status"], "verified")
 
 
 if __name__ == "__main__":
