@@ -19,7 +19,7 @@
     "@upstash/context7-mcp": "^3.2.5",
     "browse": "^0.9.5",
     "codebase-memory-mcp": "^0.9.0",
-    "skills": "^1.5.20"
+    "skills": "^1.5.21"
   },
   "overrides": {
     "zod": "3.25.76"
